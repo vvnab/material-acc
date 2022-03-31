@@ -33,6 +33,7 @@ build:
 deploy:
     stage: deploy
     script:
-        - rsync -avz 
+        - ls -al
+        - scp .  
     only:
         - master
