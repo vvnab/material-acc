@@ -33,7 +33,8 @@ build:
 deploy:
     stage: deploy
     script:
+        - cd
         - ls -al
-        - scp .  
+        - scp ./build   
     only:
         - master
