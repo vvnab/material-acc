@@ -15,10 +15,24 @@ image: node:latest
 # This folder is cached between builds
 # https://docs.gitlab.com/ee/ci/yaml/index.html#cache
 cache:
-  paths:
-    - node_modules/
+    paths:
+        - node_modules/
+
+stages:
+    - build
+    - deploy
 
 build:
-  script:
-    - yarn
-    - yarn build
+    stage: build
+    script:
+        - yarn
+        - yarn build
+    only:
+        - master
+
+deploy:
+    stage: deploy
+    script:
+        - rsync -avz 
+    only:
+        - master
