@@ -33,7 +33,6 @@ build:
 deploy:
     stage: deploy
     script:
-        - cd ..
         - ls -al
         - scp ./build   
     only:
