@@ -26,8 +26,6 @@ deploy:
         - mkdir -p ~/.ssh
         - echo "$SSH_PRIVATE_KEY" | tr -d '\r' > ~/.ssh/gitlab
         - chmod 700 ~/.ssh/gitlab
-        - eval `ssh-agent -s`
-        - ssh-add ~/.ssh/gitlab
         - ssh-keyscan -H 'gitlab.com' >> ~/.ssh/known_hosts
         - scp -i ~/.ssh/gitlab -o StrictHostKeyChecking=no -rC ./build/* frontend@85.193.90.205:/home/frontend/material-acc-prod/
     only:
