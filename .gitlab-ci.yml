@@ -1,6 +1,5 @@
 image: node:latest
 
-
 cache:
     paths:
         - node_modules/
@@ -16,9 +15,9 @@ build:
         - yarn build
     only:
         - master
-  artifacts:
-    paths:
-      - build 
+    artifacts:
+        paths:
+            - build
 
 deploy:
     stage: deploy
