@@ -24,7 +24,7 @@ deploy:
     script:
         - ls -al
         - mkdir -p ~/.ssh
-        - echo $SSH_PRIVATE_KEY > ~/.ssh/gitlab
+        - echo $SSH_PRIVATE_KEY | tr -d '\r' > ~/.ssh/gitlab
         - chmod 700 ~/.ssh/gitlab
         - ssh-keyscan -H 'gitlab.com' >> ~/.ssh/known_hosts
         - cat ~/.ssh/gitlab
