@@ -1,5 +1,7 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto%20Mono&display=swap');
 @import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
 @import url('https://fonts.googleapis.com/css?family=Play&display=swap');
+
 @import './theme.scss';
 
 * {
@@ -12,7 +14,7 @@ body {
     padding: 0;
     margin: 0;
     font-family: 'Roboto', sans-serif;
-    color: var(--color-darkgray);
+    color: var(--color-black);
 }
 
 body {

@@ -1,0 +1,31 @@
+@import 'assets/styles/common.scss';
+
+.wrap {
+    @include frame;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px;
+    border-color: var(--color-white);
+    transition: color, background-color 100ms;
+
+    &:hover {
+        background-color: var(--color-link);
+    }
+
+    .icon {
+        font-size: 32px;
+        margin-bottom: 16px;
+    }
+}
+
+
+.iconCheck {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    color: lime;
+    font-size: 18px;
+}

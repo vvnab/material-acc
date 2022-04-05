@@ -1,0 +1,16 @@
+.wrap {
+    list-style: none;
+    padding-left: 0;
+    font: var(--font-monospace);
+    overflow-y: auto;
+    height: auto;
+
+    li {
+        padding: 5px 8px;
+        cursor: pointer;
+
+        &:hover {
+            background-color: var(--color-highlight);
+        }
+    }
+}

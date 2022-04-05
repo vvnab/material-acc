@@ -1,28 +1,21 @@
 :root {
     --color-white: #ffffff;
-    --color-gray: #333333;
-    --color-black: #1f1f1f;
-    --color-active-link: #3eb9d6;
-    --color-red: #dc3500;
     --color-gray: #939292;
     --color-lightgray: #c4c4c4;
+    --color-darkgray: #333333;
+    --color-black: #1f1f1f;
+    --color-red: #dc3500;
 
-    --color-darkgray-halfopacity: rgba(51, 51, 51, 0.5);
-
-    --color-bg-header: rgba(255, 255, 255, 0.4);
+    --color-link: #558996;
+    --color-bg: #163846;
+    --color-highlight: #dee8ec;
 
     --font-small: normal 400 12px/15px 'Roboto';
-    --font-label: normal 500 14px/17px 'Roboto';
+    --font-label: normal 500 18px/17px 'Roboto';
     --font-normal: normal 500 14px/17px 'Roboto';
-    --font-button: normal 600 14px/17px 'Roboto';
+    --font-button: normal 600 15px/17px 'Roboto';
     --font-menu: normal 700 14px/17px 'Roboto';
-    --font-header: normal 600 36px/44px 'Roboto';
-    --font-phone: normal 700 18px/22px 'Roboto';
-    --font-part-title: normal 700 140px/100px 'Roboto';
-    --font-hero-description: normal 500 26px/39px 'Roboto';
-
-    --font-hero-smu: normal 700 120px/139px 'Play';
-    --font-hero-tagline: normal 700 36px/54px 'Play';
+    --font-monospace: normal 400 16px/17px monospace;
 
     --font-h1: normal 700 64px/74px 'Play';
     --font-h2: normal 700 36px/54px 'Play';
