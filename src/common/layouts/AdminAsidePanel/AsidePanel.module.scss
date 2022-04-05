@@ -1,0 +1,18 @@
+.wrap {
+    top: 0;
+    background-color: var(--color-bg);
+    color: var(--color-white);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 200px;
+    height: 100vh;
+    position: fixed;
+    padding: 16px 16px 32px;
+
+    .buttonGroup {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+    }
+}
