@@ -14,7 +14,7 @@ function* loginWorker(action: any): any {
         const data = yield call([result, result.json]);
         yield put(actions.loginSuccess({ ...data, bearer }));
     } catch (ex) {
-        yield put(actions.loginFailed(ex));
+        yield put(actions.loginFailed({ message: 'Неизвестная ошибка' }));
     }
 }
 

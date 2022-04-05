@@ -2,9 +2,8 @@ import React from 'react';
 import { useFormik } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
 import { loginRequest } from './actions';
-import { isLoading } from './selectors';
-import Input from 'common/components/Input';
-import Button from 'common/components/Button';
+import { isLoading, selectErrorMessage } from './selectors';
+import { Input, Button, Error } from 'common/components';
 
 import styles from './Auth.module.scss';
 
@@ -13,6 +12,8 @@ interface Props extends React.HTMLProps<HTMLDivElement> {}
 const Auth: React.FC<Props> = ({ ...rest }) => {
     const dispatch = useDispatch();
     const loading: boolean = useSelector(isLoading);
+    const errorMessage: string = useSelector(selectErrorMessage);
+    console.log(errorMessage);
 
     const formik = useFormik({
         initialValues: {
@@ -50,6 +51,8 @@ const Auth: React.FC<Props> = ({ ...rest }) => {
                     </Button>
                 </fieldset>
             </form>
+
+            {errorMessage && <Error> {errorMessage}</Error>}
 
             <footer>
                 ДК &laquo;НОРД&raquo; {new Date().getFullYear()} &copy;

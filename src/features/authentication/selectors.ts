@@ -8,3 +8,4 @@ export const selectProfile = createSelector(
     (state) => state.profile
 );
 export const selectBearer = createSelector(selectAuth, (state) => state.bearer);
+export const selectErrorMessage = createSelector(selectAuth, (state) => state.error);
