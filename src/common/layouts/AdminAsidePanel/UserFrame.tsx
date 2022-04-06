@@ -19,6 +19,7 @@ const UserFrame: React.FC<Props> = ({
     action,
     ...rest
 }) => {
+
     return (
         <div {...rest} className={styles.wrap}>
             <FontAwesomeIcon icon={userIcon} className={styles.userIcon} />
