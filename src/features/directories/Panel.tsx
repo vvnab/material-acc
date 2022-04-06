@@ -1,24 +1,29 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import {
-    selectList,
-    isLoading,
-    selectErrorMessage,
-} from './selectors';
 import { Loader } from 'common/components';
-import Controls from '../Controls';
-import List from '../List';
+import Controls from './Controls';
+import List from './List';
 
 import styles from './Panel.module.scss';
 
 interface Props extends React.HTMLProps<HTMLFieldSetElement> {
     legend?: string;
     getTitle: any;
+    selectList: any;
+    selectErrorMessage: any;
+    isLoading: any;
 }
 
-const Panel: React.FC<Props> = ({ legend, getTitle, ...rest }) => {
-    const list = useSelector(selectList);
-    const error = useSelector(selectErrorMessage);
+const Panel: React.FC<Props> = ({
+    legend,
+    selectList,
+    selectErrorMessage,
+    isLoading,
+    getTitle,
+    ...rest
+}) => {
+    const list: any = useSelector(selectList);
+    const error: string = useSelector(selectErrorMessage);
     const loading = useSelector(isLoading);
 
     return (
