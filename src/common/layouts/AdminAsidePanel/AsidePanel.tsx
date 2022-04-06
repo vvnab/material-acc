@@ -11,7 +11,7 @@ import {
 import styles from './AsidePanel.module.scss';
 
 interface Props extends React.HTMLProps<HTMLDivElement> {
-    logout?: () => never;
+    logout?: () => void;
 }
 
 const AsidePanel: React.FC<Props> = ({ logout, ...rest }) => {

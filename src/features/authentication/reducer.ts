@@ -22,10 +22,13 @@ export default handleActions(
         [actions.loginSuccess.toString()]: (state, action) => ({
             ...state,
             profile: {
-                ...action.payload,
+                fullName: action.payload.fullName,
+                username: action.payload.username,
+                role: action.payload.role,
             },
-            bearer: action.payload.bearer,
             loading: false,
+            isAuth: true,
+            bearer: action.payload.bearer,
         }),
         [actions.loginFailed.toString()]: (state, action) => ({
             ...initialState,

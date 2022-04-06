@@ -10,7 +10,7 @@ import styles from './UserFrame.module.scss';
 interface Props extends React.HTMLAttributes<HTMLDivElement> {
     username: string;
     fullName: string;
-    action?: () => never;
+    action?: () => void;
 }
 
 const UserFrame: React.FC<Props> = ({
