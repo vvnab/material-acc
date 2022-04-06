@@ -26,6 +26,6 @@ deploy:
         - mkdir -p ~/.ssh
         - cat $SSH_PRIVATE_KEY > ~/.ssh/gitlab
         - chmod 700 ~/.ssh/gitlab
-        - scp -i ~/.ssh/gitlab -o StrictHostKeyChecking=no -rC ./build/* front@85.193.90.205:/home/front/material-acc-prod/
+        - scp -i ~/.ssh/gitlab -o StrictHostKeyChecking=no -rC ./build/* front@85.193.90.205:/home/front/www/lk.dknord.ru/
     only:
         - master
