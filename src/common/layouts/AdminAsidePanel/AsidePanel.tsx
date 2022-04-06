@@ -1,4 +1,7 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
+import { selectProfile } from 'features/authentication/selectors';
+
 import Button from './Button';
 import UserFrame from './UserFrame';
 import {
@@ -15,6 +18,7 @@ interface Props extends React.HTMLProps<HTMLDivElement> {
 }
 
 const AsidePanel: React.FC<Props> = ({ logout, ...rest }) => {
+    const {username, fullName} = useSelector(selectProfile);
     return (
         <div {...rest} className={styles.wrap}>
             <div className={styles.buttonGroup}>
@@ -28,8 +32,8 @@ const AsidePanel: React.FC<Props> = ({ logout, ...rest }) => {
                 <Button icon={settingsIcon} text='Настройки' url='/settings' />
             </div>
             <UserFrame
-                username='vvnab'
-                fullName='Виталий Набережный'
+                username={username}
+                fullName={fullName}
                 action={logout}
             />
         </div>

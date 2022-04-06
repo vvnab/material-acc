@@ -1,10 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { loadRequest as employeesLoad } from 'features/directories/employees/actions';
-import { loadRequest as materialsLoad} from 'features/directories/materials/actions';
-import { loadRequest as warehousesLoad} from 'features/directories/warehouses/actions';
-import { loadRequest as workObjectsLoad} from 'features/directories/workObjects/actions';
-import { loadRequest as workTypesLoad} from 'features/directories/workTypes/actions';
+import { loadRequest } from 'features/directories/actions';
 import { Outlet } from 'react-router-dom';
 import AsidePanel from './AdminAsidePanel/AsidePanel';
 
@@ -18,11 +14,7 @@ const AdminLayout: React.FC<Props> = ({ logout, ...rest }) => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(employeesLoad());
-        dispatch(materialsLoad());
-        dispatch(warehousesLoad());
-        dispatch(workObjectsLoad());
-        dispatch(workTypesLoad());
+        dispatch(loadRequest());
     }, [dispatch]);
 
     return (
