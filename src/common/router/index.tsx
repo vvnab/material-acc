@@ -6,6 +6,9 @@ import { Dashboard } from 'features/dashboard';
 import { Directories } from 'features/directories';
 import { Reports } from 'features/reports';
 import { Settings } from 'features/settings';
+import { isAuth } from 'features/authentication/selectors';
+import { useSelector, useDispatch } from 'react-redux';
+import { logOut } from 'features/authentication/actions';
 
 /*
     проверяем авторизацию
@@ -13,13 +16,24 @@ import { Settings } from 'features/settings';
 */
 
 export const Router = () => {
+    const dispatch = useDispatch();
+    const logout = () => {
+        dispatch(logOut());
+    };
     return (
         <Routes>
-            <Route path='/login' element={<Auth />} />
+            <Route
+                path='/login'
+                element={
+                    <RequireUnAuth>
+                        <Auth />
+                    </RequireUnAuth>
+                }
+            />
             <Route
                 element={
                     <RequireAuth>
-                        <AdminLayout />
+                        <AdminLayout logout={logout} />
                     </RequireAuth>
                 }
             >
@@ -41,8 +55,19 @@ export const Router = () => {
 
 const RequireAuth = ({ children }: { children: JSX.Element }) => {
     let location = useLocation();
-    if (true) {
+    const auth = useSelector(isAuth);
+    if (!auth) {
         return <Navigate to='/login' state={{ from: location }} replace />;
+    } else {
+        return children;
+    }
+};
+
+const RequireUnAuth = ({ children }: { children: JSX.Element }) => {
+    let location = useLocation();
+    const auth = useSelector(isAuth);
+    if (auth) {
+        return <Navigate to='/' state={{ from: location }} replace />;
     } else {
         return children;
     }

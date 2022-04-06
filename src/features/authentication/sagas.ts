@@ -8,13 +8,20 @@ function* loginWorker(action: any): any {
             body: JSON.stringify(action.payload),
             headers: {
                 'Content-Type': 'application/json',
+                Accept: 'application/json',
             },
         });
+        if (!result.ok) {
+            const { message, error } = yield call([result, result.json]);
+            throw new Error(message || error);
+        }
         const bearer = result.headers.get('authorization');
         const data = yield call([result, result.json]);
         yield put(actions.loginSuccess({ ...data, bearer }));
-    } catch (ex) {
-        yield put(actions.loginFailed({ message: 'Неизвестная ошибка' }));
+    } catch (ex: any) {
+        yield put(
+            actions.loginFailed({ message: ex.message || 'Неизвестная ошибка' })
+        );
     }
 }
 

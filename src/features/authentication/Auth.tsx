@@ -13,7 +13,6 @@ const Auth: React.FC<Props> = ({ ...rest }) => {
     const dispatch = useDispatch();
     const loading: boolean = useSelector(isLoading);
     const errorMessage: string = useSelector(selectErrorMessage);
-    console.log(errorMessage);
 
     const formik = useFormik({
         initialValues: {
