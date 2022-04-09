@@ -12,13 +12,16 @@ import styles from './Form.module.scss';
 interface Props extends IBrigade {}
 
 const Form: React.FC<Props> = ({ ...item }) => {
-    const { id } = item;
+    const { id, brigadierId } = item;
     const dispatch = useDispatch();
     const isLoading = useSelector(selectItemLoading);
     const brigadiers = useSelector(selectBrigadiers);
 
     const formik = useFormik({
-        initialValues: { ...item, brigadierId: brigadiers[0]?.id },
+        initialValues: {
+            ...item,
+            brigadierId: brigadierId || brigadiers[0]?.id,
+        },
         validate: ({ title }) => {
             let errors: any = {};
 
