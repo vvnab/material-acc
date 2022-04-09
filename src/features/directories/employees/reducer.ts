@@ -1,5 +1,6 @@
 import { handleActions } from 'redux-actions';
 import * as actions from './actions';
+import { updateOrUnion } from 'common/utils/updateOrUnion';
 import { IState } from './types';
 
 export const initialState: IState = {
@@ -38,11 +39,7 @@ export default handleActions<IState>(
         }),
         [actions.updateItemSuccess.toString()]: (state, action: any) => ({
             ...state,
-            content: [
-                ...state.content.map((i) =>
-                    i.id === action.payload.id ? action.payload : i
-                ),
-            ],
+            content: [...updateOrUnion(state.content, action.payload)],
             itemLoading: false,
             itemError: '',
         }),

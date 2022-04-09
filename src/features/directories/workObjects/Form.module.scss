@@ -1,0 +1,16 @@
+.wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    min-width: 480px;
+
+    .buttonGroup {
+        display: flex;
+        justify-content: space-around;
+        gap: 12px;
+
+        .button {
+            flex: 1 1 auto;
+        }
+    }
+}

@@ -20,7 +20,13 @@ const Modal: React.FC<IProps> = ({
     closeOnClickOutside = false,
 }) => {
     const dispatch = useDispatch();
-    const close = () => dispatch(closeModal());
+    const close = () => {
+        document.body.style.overflowY = 'auto';
+        document.body.style.marginRight = '0';
+        document.removeEventListener('mousedown', handleClickOutside, false);
+
+        dispatch(closeModal());
+    };
     const show = useSelector(selectShow);
     const component = useSelector(selectComponent);
     const el = useRef(null);
@@ -35,25 +41,17 @@ const Modal: React.FC<IProps> = ({
     };
 
     useEffect(() => {
-        const isDesktop = window.innerWidth > 1280;
-        document.addEventListener('mousedown', handleClickOutside, false);
-        document.body.style.overflowY = 'hidden';
-        if (isDesktop)
-            document.body.style.marginRight = `${
-                window.innerWidth - document.documentElement.clientWidth
-            }`;
+        if (show) {
+            const sclollWidth =
+                window.innerWidth - document.documentElement.clientWidth;
+            const isDesktop = window.innerWidth > 1280;
+            document.addEventListener('mousedown', handleClickOutside, false);
+            document.body.style.overflowY = 'hidden';
 
-        return () => {
-            document.body.style.overflowY = 'auto';
-            if (isDesktop) document.body.style.marginRight = '0';
-            document.removeEventListener(
-                'mousedown',
-                handleClickOutside,
-                false
-            );
-        };
+            if (isDesktop) document.body.style.marginRight = `${sclollWidth}px`;
+        }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    }, [show]);
 
     const render = () =>
         show && (

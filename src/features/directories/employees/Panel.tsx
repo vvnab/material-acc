@@ -1,7 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { selectLoading, selectError } from './selectors';
-import { Modal } from 'features/modal';
 import { Loader } from 'common/components';
 import Controls from './Controls';
 import List from './List';
@@ -29,7 +28,6 @@ const Panel: React.FC<Props> = ({ legend, ...rest }) => {
                     <div className={styles.error}>{error}</div>
                 )}
             </fieldset>
-            <Modal closeOnClickOutside />
         </>
     );
 };
