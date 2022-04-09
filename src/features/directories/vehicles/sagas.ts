@@ -4,8 +4,9 @@ import { selectBearer } from 'features/authentication/selectors';
 import * as actions from './actions';
 import { showMessage } from 'features/message';
 import { closeModal } from 'features/modal';
+import { createNoSubstitutionTemplateLiteral } from 'typescript';
 
-const URL = '/api/vehicles'
+const URL = '/api/vehicles';
 
 function* getWorker(action: any): any {
     const bearer = yield select(selectBearer);
@@ -37,7 +38,7 @@ function* getWatcher() {
 
 function* updateWorker(action: any): any {
     const bearer = yield select(selectBearer);
-    const { id, title } = action.payload;
+    const { id, title, workTypes } = action.payload;
 
     try {
         let result;
@@ -57,7 +58,7 @@ function* updateWorker(action: any): any {
             result = yield call(fetch, `${URL}/`, {
                 method: 'post',
                 body: JSON.stringify({
-                    title
+                    title,
                 }),
                 headers: {
                     'Content-Type': 'application/json',
@@ -74,7 +75,49 @@ function* updateWorker(action: any): any {
             ]);
             throw new Error(details || message || error);
         }
-        const data = yield call([result, result.json]);
+        let data = yield call([result, result.json]);
+
+        const exsistWorkTypes = data.workTypes.map((i: any) => i.id.toString());
+
+        const workTypesForDel = exsistWorkTypes.filter(
+            (i: string) => !workTypes.includes(i)
+        );
+        const workTypesForAdd = workTypes.filter(
+            (i: string) => !exsistWorkTypes.includes(i)
+        );
+
+        for (const workType of workTypesForDel) {
+            yield call(fetch, `${URL}/${id}/delWorkType/${workType}`, {
+                method: 'put',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Accept: 'application/json',
+                    Authorization: `Bearer ${bearer}`,
+                },
+            });
+        }
+
+        for (const workType of workTypesForAdd) {
+            yield call(fetch, `${URL}/${id}/addWorkType/${workType}`, {
+                method: 'put',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Accept: 'application/json',
+                    Authorization: `Bearer ${bearer}`,
+                },
+            });
+        }
+
+        result = yield call(fetch, `${URL}/${id}`, {
+            method: 'get',
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: 'application/json',
+                Authorization: `Bearer ${bearer}`,
+            },
+        });
+        data = yield call([result, result.json]);
+
         yield put(actions.updateItemSuccess({ ...data }));
         yield put(closeModal());
     } catch (ex: any) {
