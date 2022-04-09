@@ -5,6 +5,7 @@ export const initialState: any = {
     content: [],
     loading: false,
     error: '',
+    filter: '',
 };
 
 export default handleActions(
@@ -21,6 +22,10 @@ export default handleActions(
         [actions.loadFailed.toString()]: (state, action) => ({
             ...initialState,
             error: action.payload.message,
+        }),
+        [actions.updateFilter.toString()]: (state, action) => ({
+            ...state,
+            filter: action.payload,
         }),
     },
     initialState

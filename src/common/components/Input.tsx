@@ -2,14 +2,18 @@ import React from 'react';
 
 import styles from './Input.module.scss';
 
-interface Props extends React.HTMLProps<HTMLInputElement> {}
+interface Props extends React.HTMLProps<HTMLInputElement> {
+    error?: string;
+}
 
-const Input: React.FC<Props> = ({ placeholder, className, ...rest }) => {
+const Input: React.FC<Props> = ({ placeholder, error, className, ...rest }) => {
     return (
         <input
             placeholder={placeholder}
             {...rest}
-            className={[styles.wrap, className].join(' ')}
+            className={[styles.wrap, className, error ? styles.error : ''].join(
+                ' '
+            )}
         />
     );
 };

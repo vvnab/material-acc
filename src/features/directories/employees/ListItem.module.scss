@@ -1,0 +1,27 @@
+.wrap {
+    cursor: pointer;
+    font: var(--font-listItem);
+    
+    &.hilight {
+        color: var(--color-red);
+    }
+
+    &:hover {
+        background-color: var(--color-highlight);
+    }
+
+    td {
+        padding: 6px 12px;
+
+        &.role, &.enabled {
+            width: 0px;
+            text-align: center;
+            font-size: 18px;
+            padding: 0 6px;
+
+            &.role {
+                padding-left: 12px;
+            }
+        }
+    }
+}
