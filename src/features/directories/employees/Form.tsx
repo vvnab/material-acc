@@ -46,7 +46,7 @@ const Form: React.FC<Props> = ({ ...employee }) => {
                     onChange={formik.handleChange}
                     value={formik.values.role}
                 >
-                    {ROLES.map(({ title, value }) => (
+                    {ROLES.map(({ title, value }: any) => (
                         <option key={value} value={value}>
                             {title}
                         </option>

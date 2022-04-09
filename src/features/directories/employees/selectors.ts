@@ -1,5 +1,5 @@
 import { createSelector } from 'reselect';
-import { IState } from './types';
+import { IState, ROLES } from './types';
 
 const selectDir = (state: any): IState => state.dirs.employees;
 
@@ -12,9 +12,12 @@ export const selectFilter = createSelector(selectDir, (state) => state.filter);
 export const selectList = createSelector(selectDir, (state) =>
     state.filter
         ? state.content.filter(
-              ({ fullName }) =>
+              ({ fullName, role }) =>
                   fullName.toUpperCase().indexOf(state.filter.toUpperCase()) >=
-                  0
+                      0 ||
+                  ROLES.find((i: any) => i.value === role)
+                      .title.toUpperCase()
+                      .indexOf(state.filter.toUpperCase()) >= 0
           )
         : state.content
 );

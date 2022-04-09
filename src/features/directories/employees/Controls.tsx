@@ -39,7 +39,10 @@ const Controls: React.FC<Props> = ({ ...rest }) => {
                 />
                 <FontAwesomeIcon
                     icon={eraseIcon}
-                    className={styles.eraseIcon}
+                    className={[
+                        styles.eraseIcon,
+                        filter ? styles.active : '',
+                    ].join(' ')}
                     onClick={() => setFilter('')}
                 />
             </div>

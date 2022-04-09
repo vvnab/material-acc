@@ -16,7 +16,7 @@ export interface IState {
     itemError: string;
 }
 
-export const ROLES = [
+export const ROLES: any = [
     { value: 'ROLE_EMPLOYEE', title: 'Рядовой сотрудник' },
     { value: 'ROLE_BRIGADIER', title: 'Бригадир' },
     { value: 'ROLE_ADMIN', title: 'Администратор' },
