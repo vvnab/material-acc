@@ -1,10 +1,12 @@
 import React from 'react';
-import Panel from './Panel';
-import * as employeesSelectors from './employees/selectors';
-import * as materialsSelectors from './materials/selectors';
-import * as warehousesSelectors from './warehouses/selectors';
-import * as workObjectsSelectors from './workObjects/selectors';
-import * as workTypesSelectors from './workTypes/selectors';
+import { Modal } from 'features/modal';
+import EmployeesPanel from './employees/Panel';
+import MaterialsPanel from './materials/Panel';
+import WarehousesPanel from './warehouses/Panel';
+import WorkObjectsPanel from './workObjects/Panel';
+import WorkTypesPanel from './workTypes/Panel';
+import VehiclesPanel from './vehicles/Panel';
+import BrigadesPanel from './brigades/Panel';
 
 import styles from './Directories.module.scss';
 
@@ -13,61 +15,16 @@ interface Props extends React.HTMLProps<HTMLDivElement> {}
 const Directories: React.FC<Props> = ({ children, ...rest }) => {
     return (
         <div {...rest} className={styles.wrap}>
-            {dirs.map(
-                ({
-                    name,
-                    getTitle,
-                    selectErrorMessage,
-                    selectList,
-                    isLoading,
-                }) => (
-                    <Panel
-                        selectErrorMessage={selectErrorMessage}
-                        selectList={selectList}
-                        isLoading={isLoading}
-                        legend={name}
-                        getTitle={getTitle}
-                        key={name}
-                    />
-                )
-            )}
+            <EmployeesPanel legend='Сотрудники' />
+            <BrigadesPanel legend='Бригады' />
+            <MaterialsPanel legend='Материалы' />
+            <VehiclesPanel legend='Транспортные средства' />
+            <WarehousesPanel legend='Склады' />
+            <WorkTypesPanel legend='Типы работ' />
+            <WorkObjectsPanel legend='Рабочие объекты' />
+            <Modal />
         </div>
     );
 };
 
 export default Directories;
-
-const roles: any = {
-    ROLE_ADMIN: '[a]',
-    ROLE_BRIGADIER: '[b]',
-    ROLE_EMPLOYEE: '[e]',
-};
-
-const dirs = [
-    {
-        name: 'Сотрудники',
-        getTitle: ({ fullName, role, enabled }: any) =>
-            `${enabled ? '[v]' : '[x]'} ${roles[role]} ${fullName}`,
-        ...employeesSelectors,
-    },
-    {
-        name: 'Материалы',
-        getTitle: ({ title }: any) => `${title}`,
-        ...materialsSelectors,
-    },
-    {
-        name: 'Склады',
-        getTitle: ({ title }: any) => `${title}`,
-        ...warehousesSelectors,
-    },
-    {
-        name: 'Рабочие объекты',
-        getTitle: ({ title }: any) => `${title}`,
-        ...workObjectsSelectors,
-    },
-    {
-        name: 'Типы работ',
-        getTitle: ({ title }: any) => `${title}`,
-        ...workTypesSelectors,
-    },
-];

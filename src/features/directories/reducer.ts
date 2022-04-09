@@ -4,6 +4,8 @@ import { default as materialsReducer } from './materials/reducer';
 import { default as warehousesReducer } from './warehouses/reducer';
 import { default as workObjectsReducer } from './workObjects/reducer';
 import { default as workTypesReducer } from './workTypes/reducer';
+import { default as vehiclesReducer } from './vehicles/reducer';
+import { default as brigadesReducer } from './brigades/reducer';
 
 export default combineReducers({
     employees: employeesReducer,
@@ -11,4 +13,6 @@ export default combineReducers({
     warehouses: warehousesReducer,
     workObjects: workObjectsReducer,
     workTypes: workTypesReducer,
+    vehicles: vehiclesReducer,
+    brigades: brigadesReducer,
 });

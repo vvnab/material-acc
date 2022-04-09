@@ -2,6 +2,7 @@ import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import { BrowserRouter } from 'react-router-dom';
 import { Router } from 'common/router';
+import { Message } from 'features/message';
 
 import { store, persistor } from './store';
 
@@ -14,6 +15,7 @@ function App() {
                 <BrowserRouter>
                     <Router />
                 </BrowserRouter>
+                <Message />
             </PersistGate>
         </Provider>
     );
