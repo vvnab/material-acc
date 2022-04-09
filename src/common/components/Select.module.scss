@@ -13,6 +13,10 @@
         option {
             padding: 8px 16px;
         }
+
+        &.multiple {
+            padding: 0;
+        }
     }
 
     .caretIcon {
