@@ -3,8 +3,12 @@ export interface IBrigade {
     title: string;
     brigadierId?: number;
     brigadier?: {
-        fullName: string;
         id: number;
+        fullName: string;
+    };
+    employees?: {
+        id: number;
+        fullName: string;
     };
 }
 
