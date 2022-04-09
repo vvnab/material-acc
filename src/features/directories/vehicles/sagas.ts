@@ -4,7 +4,6 @@ import { selectBearer } from 'features/authentication/selectors';
 import * as actions from './actions';
 import { showMessage } from 'features/message';
 import { closeModal } from 'features/modal';
-import { createNoSubstitutionTemplateLiteral } from 'typescript';
 
 const URL = '/api/vehicles';
 
