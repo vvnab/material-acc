@@ -1,7 +1,6 @@
 import React from 'react';
 import { useFormik } from 'formik';
 import { Input, Select, Button } from 'common/components';
-import { Message } from 'features/message';
 import { IEmployee, ROLES } from './types';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateItemRequest, deleteItemRequest } from './actions';

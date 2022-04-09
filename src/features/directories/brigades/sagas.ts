@@ -5,7 +5,7 @@ import * as actions from './actions';
 import { showMessage } from 'features/message';
 import { closeModal } from 'features/modal';
 
-const URL = '/api/brigades'
+const URL = '/api/brigades';
 
 function* getWorker(action: any): any {
     const bearer = yield select(selectBearer);
@@ -37,7 +37,7 @@ function* getWatcher() {
 
 function* updateWorker(action: any): any {
     const bearer = yield select(selectBearer);
-    const { id, title } = action.payload;
+    const { id, title, brigadierId } = action.payload;
 
     try {
         let result;
@@ -46,6 +46,7 @@ function* updateWorker(action: any): any {
                 method: 'put',
                 body: JSON.stringify({
                     title,
+                    brigadierId,
                 }),
                 headers: {
                     'Content-Type': 'application/json',
@@ -57,7 +58,8 @@ function* updateWorker(action: any): any {
             result = yield call(fetch, `${URL}/`, {
                 method: 'post',
                 body: JSON.stringify({
-                    title
+                    title,
+                    brigadierId,
                 }),
                 headers: {
                     'Content-Type': 'application/json',

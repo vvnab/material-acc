@@ -10,13 +10,13 @@ export const selectLoading = createSelector(
 export const selectError = createSelector(selectDir, (state) => state.error);
 export const selectFilter = createSelector(selectDir, (state) => state.filter);
 export const selectList = createSelector(selectDir, (state) =>
-    state.filter
+    (state.filter
         ? state.content.filter(
               ({ title }) =>
-                  title.toUpperCase().indexOf(state.filter.toUpperCase()) >=
-                  0
+                  title.toUpperCase().indexOf(state.filter.toUpperCase()) >= 0
           )
         : state.content
+    ).map((i) => ({ ...i, brigadierId: i.brigadier?.id }))
 );
 export const selectItemLoading = createSelector(
     selectDir,
