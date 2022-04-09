@@ -37,7 +37,7 @@ function* getWatcher() {
 
 function* updateWorker(action: any): any {
     const bearer = yield select(selectBearer);
-    const { id, title, brigadierId } = action.payload;
+    const { id, title, brigadierId, employees } = action.payload;
 
     try {
         let result;
@@ -76,7 +76,48 @@ function* updateWorker(action: any): any {
             ]);
             throw new Error(details || message || error);
         }
-        const data = yield call([result, result.json]);
+        let data = yield call([result, result.json]);
+
+        const exsistEmployees = data.employees.map((i: any) => i.id.toString());
+
+        const employeesForDel = exsistEmployees.filter(
+            (i: string) => !employees.includes(i)
+        );
+        const employeesForAdd = employees.filter(
+            (i: string) => !exsistEmployees.includes(i)
+        );
+
+        for (const employee of employeesForDel) {
+            yield call(fetch, `${URL}/${id}/delEmployee/${employee}`, {
+                method: 'put',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Accept: 'application/json',
+                    Authorization: `Bearer ${bearer}`,
+                },
+            });
+        }
+
+        for (const employee of employeesForAdd) {
+            yield call(fetch, `${URL}/${id}/addEmployee/${employee}`, {
+                method: 'put',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Accept: 'application/json',
+                    Authorization: `Bearer ${bearer}`,
+                },
+            });
+        }
+        result = yield call(fetch, `${URL}/${id}`, {
+            method: 'get',
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: 'application/json',
+                Authorization: `Bearer ${bearer}`,
+            },
+        });
+
+        data = yield call([result, result.json]);
         yield put(actions.updateItemSuccess({ ...data }));
         yield put(closeModal());
     } catch (ex: any) {
