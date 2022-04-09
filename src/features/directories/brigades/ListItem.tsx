@@ -10,7 +10,7 @@ interface Props extends IBrigade {}
 
 const ListItem: React.FC<Props> = (props) => {
     const dispatch = useDispatch();
-    const { title } = props;
+    const { title, brigadier } = props;
 
     return (
         <tr
@@ -18,6 +18,7 @@ const ListItem: React.FC<Props> = (props) => {
             onClick={() => dispatch(showModal(<Form {...props} />))}
         >
             <td>{title}</td>
+            <td>{brigadier?.fullName}</td>
         </tr>
     );
 };

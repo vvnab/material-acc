@@ -1,6 +1,11 @@
 export interface IBrigade {
     id?: number;
     title: string;
+    brigadierId?: number;
+    brigadier?: {
+        fullName: string;
+        id: number;
+    };
 }
 
 export interface IState {

@@ -8,12 +8,12 @@ interface Props extends React.HTMLProps<HTMLSelectElement> {}
 
 const Select: React.FC<Props> = ({ children, ...rest }) => {
     return (
-        <>
+        <div className={styles.container}>
             <select {...rest} className={styles.wrap}>
                 {children}
             </select>
             <FontAwesomeIcon icon={caretIcon} className={styles.caretIcon}/>
-        </>
+        </div>
     );
 };
 

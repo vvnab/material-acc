@@ -1,10 +1,11 @@
 import React from 'react';
 import { useFormik } from 'formik';
-import { Input, Button } from 'common/components';
+import { Input, Select, Button } from 'common/components';
 import { IBrigade } from './types';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateItemRequest, deleteItemRequest } from './actions';
 import { selectItemLoading } from './selectors';
+import { selectBrigadiers } from 'features/directories/employees/selectors';
 
 import styles from './Form.module.scss';
 
@@ -12,11 +13,12 @@ interface Props extends IBrigade {}
 
 const Form: React.FC<Props> = ({ ...item }) => {
     const { id } = item;
-    const isLoading = useSelector(selectItemLoading);
     const dispatch = useDispatch();
+    const isLoading = useSelector(selectItemLoading);
+    const brigadiers = useSelector(selectBrigadiers);
 
     const formik = useFormik({
-        initialValues: { ...item },
+        initialValues: { ...item, brigadierId: brigadiers[0]?.id },
         validate: ({ title }) => {
             let errors: any = {};
 
@@ -40,6 +42,18 @@ const Form: React.FC<Props> = ({ ...item }) => {
                     value={formik.values.title}
                     error={formik.errors.title}
                 />
+                <Select
+                    name='brigadierId'
+                    placeholder='Бригадир'
+                    onChange={formik.handleChange}
+                    value={formik.values.brigadierId}
+                >
+                    {brigadiers.map(({ id, fullName }) => (
+                        <option key={id} value={id}>
+                            {fullName}
+                        </option>
+                    ))}
+                </Select>
                 <div className={styles.buttonGroup}>
                     {id && (
                         <Button
@@ -47,9 +61,7 @@ const Form: React.FC<Props> = ({ ...item }) => {
                             option='dangerous'
                             className={styles.button}
                             disabled={isLoading}
-                            onClick={(e) =>
-                                dispatch(deleteItemRequest(item))
-                            }
+                            onClick={(e) => dispatch(deleteItemRequest(item))}
                         >
                             Удалить
                         </Button>
