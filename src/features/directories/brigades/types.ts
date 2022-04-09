@@ -6,10 +6,12 @@ export interface IBrigade {
         id: number;
         fullName: string;
     };
-    employees?: {
-        id: number;
-        fullName: string;
-    };
+    employees?: [
+        {
+            id: number;
+            fullName: string;
+        }
+    ];
 }
 
 export interface IState {

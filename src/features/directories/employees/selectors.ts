@@ -30,3 +30,7 @@ export const selectItemError = createSelector(
 export const selectBrigadiers = createSelector(selectDir, (state) =>
     state.content.filter((i) => i.enabled && i.role === 'ROLE_BRIGADIER')
 );
+
+export const selectEmployees = createSelector(selectDir, (state) =>
+    state.content.filter((i) => i.enabled && i.role === 'ROLE_EMPLOYEE')
+);

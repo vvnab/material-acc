@@ -1,22 +1,27 @@
 import React from 'react';
 import { useFormik } from 'formik';
-import { Input, Button } from 'common/components';
+import { Input, Select, Button } from 'common/components';
 import { IVehicle } from './types';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateItemRequest, deleteItemRequest } from './actions';
 import { selectItemLoading } from './selectors';
+import { selectList as selectWorkTypes } from 'features/directories/workTypes/selectors';
 
 import styles from './Form.module.scss';
 
 interface Props extends IVehicle {}
 
 const Form: React.FC<Props> = ({ ...item }) => {
-    const { id } = item;
-    const isLoading = useSelector(selectItemLoading);
+    const { id, workTypes } = item;
     const dispatch = useDispatch();
+    const isLoading = useSelector(selectItemLoading);
+    const allWorktypes = useSelector(selectWorkTypes);
 
     const formik = useFormik({
-        initialValues: { ...item },
+        initialValues: {
+            ...item,
+            workTypes: workTypes ? workTypes.map(({ id }) => id.toString()) : [],
+        },
         validate: ({ title }) => {
             let errors: any = {};
 
@@ -40,6 +45,19 @@ const Form: React.FC<Props> = ({ ...item }) => {
                     value={formik.values.title}
                     error={formik.errors.title}
                 />
+                <Select
+                    name='workTypes'
+                    placeholder='Типы работ'
+                    onChange={formik.handleChange}
+                    value={formik.values.workTypes}
+                    multiple
+                >
+                    {allWorktypes.map(({ id, title }: any) => (
+                        <option key={id} value={id}>
+                            {title}
+                        </option>
+                    ))}
+                </Select>
                 <div className={styles.buttonGroup}>
                     {id && (
                         <Button
@@ -47,9 +65,7 @@ const Form: React.FC<Props> = ({ ...item }) => {
                             option='dangerous'
                             className={styles.button}
                             disabled={isLoading}
-                            onClick={(e) =>
-                                dispatch(deleteItemRequest(item))
-                            }
+                            onClick={(e) => dispatch(deleteItemRequest(item))}
                         >
                             Удалить
                         </Button>
