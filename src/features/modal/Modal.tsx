@@ -21,10 +21,6 @@ const Modal: React.FC<IProps> = ({
 }) => {
     const dispatch = useDispatch();
     const close = () => {
-        document.body.style.overflowY = 'auto';
-        document.body.style.marginRight = '0';
-        document.removeEventListener('mousedown', handleClickOutside, false);
-
         dispatch(closeModal());
     };
     const show = useSelector(selectShow);
@@ -50,6 +46,15 @@ const Modal: React.FC<IProps> = ({
 
             if (isDesktop) document.body.style.marginRight = `${sclollWidth}px`;
         }
+        return () => {
+            document.body.style.overflowY = 'auto';
+            document.body.style.marginRight = '0';
+            document.removeEventListener(
+                'mousedown',
+                handleClickOutside,
+                false
+            );
+        };
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [show]);
 
