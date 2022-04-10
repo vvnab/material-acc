@@ -1,5 +1,6 @@
 import { createSelector } from 'reselect';
-import { IState } from './types';
+import { sortBy } from 'lodash';
+import { IState, ROLES } from './types';
 
 const selectDir = (state: any): IState => state.dirs.employees;
 
@@ -10,13 +11,20 @@ export const selectLoading = createSelector(
 export const selectError = createSelector(selectDir, (state) => state.error);
 export const selectFilter = createSelector(selectDir, (state) => state.filter);
 export const selectList = createSelector(selectDir, (state) =>
-    state.filter
-        ? state.content.filter(
-              ({ fullName }) =>
-                  fullName.toUpperCase().indexOf(state.filter.toUpperCase()) >=
-                  0
-          )
-        : state.content
+    sortBy(
+        state.filter
+            ? state.content.filter(
+                  ({ fullName, role }) =>
+                      fullName
+                          .toUpperCase()
+                          .indexOf(state.filter.toUpperCase()) >= 0 ||
+                      ROLES.find((i: any) => i.value === role)
+                          .title.toUpperCase()
+                          .indexOf(state.filter.toUpperCase()) >= 0
+              )
+            : state.content,
+        ['role', 'fullName']
+    )
 );
 export const selectItemLoading = createSelector(
     selectDir,
@@ -28,9 +36,15 @@ export const selectItemError = createSelector(
 );
 
 export const selectBrigadiers = createSelector(selectDir, (state) =>
-    state.content.filter((i) => i.enabled && i.role === 'ROLE_BRIGADIER')
+    sortBy(
+        state.content.filter((i) => i.enabled && i.role === 'ROLE_BRIGADIER'),
+        ['fullName']
+    )
 );
 
 export const selectEmployees = createSelector(selectDir, (state) =>
-    state.content.filter((i) => i.enabled && i.role === 'ROLE_EMPLOYEE')
+    sortBy(
+        state.content.filter((i) => i.enabled && i.role === 'ROLE_EMPLOYEE'),
+        ['fullName']
+    )
 );

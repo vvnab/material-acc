@@ -14,12 +14,20 @@
             padding-right: 40px;
         }
 
-        .eraseIcon {
+                .eraseIcon {
             position: absolute;
             top: 8px;
             right: 8px;
             font-size: 20px;
             cursor: pointer;
+
+            &.active {
+                color: var(--color-red);
+            }
+
+            &.active {
+                color: var(--color-red);
+            }
 
             &:hover {
                 color: var(--color-link);
