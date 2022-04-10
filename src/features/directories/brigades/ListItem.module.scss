@@ -1,7 +1,7 @@
 .wrap {
     cursor: pointer;
     font: var(--font-listItem);
-    
+
     &.hilight {
         color: var(--color-red);
     }
@@ -12,6 +12,13 @@
 
     td {
         padding: 6px 12px;
+
+        &.role {
+            width: 0px;
+            text-align: center;
+            font-size: 18px;
+            padding: 0 6px;
+        }
 
         &.employees {
             text-align: right;

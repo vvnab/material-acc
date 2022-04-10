@@ -5,8 +5,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
     faUserNinja as brigadierIcon,
     faUserTie as adminIcon,
-    faXmark as disabledIcon,
-    faCheck as enabledIcon,
+    // faXmark as disabledIcon,
+    // faCheck as enabledIcon,
 } from '@fortawesome/free-solid-svg-icons';
 import { faUser as employeeIcon } from '@fortawesome/free-regular-svg-icons';
 import Form from './Form';
@@ -34,13 +34,13 @@ const ListItem: React.FC<Props> = (props) => {
             <td className={styles.role}>
                 <FontAwesomeIcon icon={roleIcons[role]} />
             </td>
-            <td className={styles.enabled}>
+            {/* <td className={styles.enabled}>
                 {enabled ? (
                     <FontAwesomeIcon icon={enabledIcon} />
                 ) : (
                     <FontAwesomeIcon icon={disabledIcon} />
                 )}
-            </td>
+            </td> */}
             <td>{fullName}</td>
             <td>{ROLES.find((i: any) => i.value === role).title}</td>
         </tr>

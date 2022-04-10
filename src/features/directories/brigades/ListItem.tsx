@@ -21,10 +21,10 @@ const ListItem: React.FC<Props> = (props) => {
         >
             <td>{title}</td>
             <td className={styles.employees}>{employees?.length || 0} чел.</td>
-            <td>
-                <FontAwesomeIcon icon={brigadierIcon} />{' '}
-                {brigadier?.fullName}
+            <td className={styles.role}>
+                <FontAwesomeIcon icon={brigadierIcon} />
             </td>
+            <td>{brigadier?.fullName}</td>
         </tr>
     );
 };
