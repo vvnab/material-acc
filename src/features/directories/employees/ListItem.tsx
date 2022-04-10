@@ -3,12 +3,12 @@ import { useDispatch } from 'react-redux';
 import { showModal } from 'features/modal';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
-    faUser as employeeIcon,
-    faUsers as brigadierIcon,
-    faUserGraduate as adminIcon,
+    faUserNinja as brigadierIcon,
+    faUserTie as adminIcon,
     faXmark as disabledIcon,
     faCheck as enabledIcon,
 } from '@fortawesome/free-solid-svg-icons';
+import { faUser as employeeIcon } from '@fortawesome/free-regular-svg-icons';
 import Form from './Form';
 import { IEmployee, ROLES } from './types';
 

@@ -8,7 +8,7 @@ import { closeModal } from 'features/modal';
 function* getWorker(action: any): any {
     const bearer = yield select(selectBearer);
     try {
-        const result = yield call(fetch, '/api/employees/', {
+        const result = yield call(fetch, '/api/employees/?enabled=true', {
             method: 'get',
             headers: {
                 'Content-Type': 'application/json',

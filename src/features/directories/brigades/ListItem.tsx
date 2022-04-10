@@ -1,6 +1,6 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUsers as brigadierIcon } from '@fortawesome/free-solid-svg-icons';
+import { faUserNinja as brigadierIcon } from '@fortawesome/free-solid-svg-icons';
 import { useDispatch } from 'react-redux';
 import { showModal } from 'features/modal';
 import Form from './Form';
