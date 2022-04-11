@@ -8,7 +8,7 @@ import { selectItemLoading } from './selectors';
 import { selectBrigadiers } from 'features/directories/employees/selectors';
 import { selectEmployees } from 'features/directories/employees/selectors';
 
-import styles from './Form.module.scss';
+import styles from '../Form.module.scss';
 
 interface Props extends IBrigade {}
 
@@ -23,7 +23,9 @@ const Form: React.FC<Props> = ({ ...item }) => {
         initialValues: {
             ...item,
             brigadierId: brigadierId || brigadiers[0]?.id,
-            employees: employees ? employees.map(({ id }) => id.toString()) : [],
+            employees: employees
+                ? employees.map(({ id }) => id.toString())
+                : [],
         },
         validate: ({ title }) => {
             let errors: any = {};
@@ -41,38 +43,42 @@ const Form: React.FC<Props> = ({ ...item }) => {
     return (
         <>
             <form onSubmit={formik.handleSubmit} className={styles.wrap}>
-                <Input
-                    name='title'
-                    placeholder='Наименование'
-                    onChange={formik.handleChange}
-                    value={formik.values.title}
-                    error={formik.errors.title}
-                />
-                <Select
-                    name='brigadierId'
-                    placeholder='Бригадир'
-                    onChange={formik.handleChange}
-                    value={formik.values.brigadierId}
-                >
-                    {brigadiers.map(({ id, fullName }) => (
-                        <option key={id} value={id}>
-                            {fullName}
-                        </option>
-                    ))}
-                </Select>
-                <Select
-                    name='employees'
-                    placeholder='Бригадир'
-                    onChange={formik.handleChange}
-                    value={formik.values.employees}
-                    multiple
-                >
-                    {allEmployees.map(({ id, fullName }: any) => (
-                        <option key={id} value={id}>
-                            {fullName}
-                        </option>
-                    ))}
-                </Select>
+                <fieldset>
+                    <Input
+                        name='title'
+                        placeholder='Наименование'
+                        onChange={formik.handleChange}
+                        value={formik.values.title}
+                        error={formik.errors.title}
+                    />
+                    <Select
+                        name='brigadierId'
+                        placeholder='Бригадир'
+                        legend='Бригадир'
+                        onChange={formik.handleChange}
+                        value={formik.values.brigadierId}
+                    >
+                        {brigadiers.map(({ id, fullName }) => (
+                            <option key={id} value={id}>
+                                {fullName}
+                            </option>
+                        ))}
+                    </Select>
+                    <Select
+                        name='employees'
+                        legend='Члены бригады'
+                        onChange={formik.handleChange}
+                        value={formik.values.employees}
+                        multiple
+                    >
+                        {allEmployees.map(({ id, fullName }: any) => (
+                            <option key={id} value={id}>
+                                {fullName}
+                            </option>
+                        ))}
+                    </Select>
+                </fieldset>
+
                 <div className={styles.buttonGroup}>
                     {id && (
                         <Button

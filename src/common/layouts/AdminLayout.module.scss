@@ -1,4 +1,10 @@
 .wrap {
     margin-left: 200px;
     padding: 32px;
+
+    @media (max-width: 767px) {
+        margin-left: 0;
+        margin-top: 48px;
+        padding: 16px;
+    }
 }

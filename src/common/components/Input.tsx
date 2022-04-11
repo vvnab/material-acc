@@ -4,17 +4,30 @@ import styles from './Input.module.scss';
 
 interface Props extends React.HTMLProps<HTMLInputElement> {
     error?: string;
+    legend?: string;
 }
 
-const Input: React.FC<Props> = ({ placeholder, error, className, ...rest }) => {
+const Input: React.FC<Props> = ({
+    placeholder,
+    legend,
+    error,
+    className,
+    ...rest
+}) => {
     return (
-        <input
-            placeholder={placeholder}
-            {...rest}
+        <div
             className={[styles.wrap, className, error ? styles.error : ''].join(
                 ' '
             )}
-        />
+        >
+            {legend && (
+                <legend className={styles.legend}>
+                    {legend}
+                    {error && `: ${error?.toLowerCase()}`}
+                </legend>
+            )}
+            <input placeholder={placeholder} {...rest} />
+        </div>
     );
 };
 

@@ -3,12 +3,17 @@
 .wrap {
     @include frame;
     height: 40vh;
-    min-width: 450px;
+    min-width: 400px;
     flex: 1 1 33%;
     display: flex;
 
     legend {
         font: var(--font-label);
         color: var(--color-bg);
+    }
+
+    @media (max-width: 767px) {
+        min-width: unset;
+        flex: 1 1 auto;
     }
 }

@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { updateItemRequest, deleteItemRequest } from './actions';
 import { selectItemLoading } from './selectors';
 
-import styles from './Form.module.scss';
+import styles from '../Form.module.scss';
 
 interface Props extends IWorkTypes {}
 
@@ -33,13 +33,16 @@ const Form: React.FC<Props> = ({ ...item }) => {
     return (
         <>
             <form onSubmit={formik.handleSubmit} className={styles.wrap}>
-                <Input
-                    name='title'
-                    placeholder='Наименование'
-                    onChange={formik.handleChange}
-                    value={formik.values.title}
-                    error={formik.errors.title}
-                />
+                <fieldset>
+                    <Input
+                        name='title'
+                        placeholder='Наименование'
+                        onChange={formik.handleChange}
+                        value={formik.values.title}
+                        error={formik.errors.title}
+                    />
+                </fieldset>
+
                 <div className={styles.buttonGroup}>
                     {id && (
                         <Button
@@ -47,9 +50,7 @@ const Form: React.FC<Props> = ({ ...item }) => {
                             option='dangerous'
                             className={styles.button}
                             disabled={isLoading}
-                            onClick={(e) =>
-                                dispatch(deleteItemRequest(item))
-                            }
+                            onClick={(e) => dispatch(deleteItemRequest(item))}
                         >
                             Удалить
                         </Button>

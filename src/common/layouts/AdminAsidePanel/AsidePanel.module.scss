@@ -1,3 +1,7 @@
+.menu {
+    display: none;
+}
+
 .wrap {
     top: 0;
     background-color: var(--color-bg);
@@ -9,10 +13,48 @@
     height: 100vh;
     position: fixed;
     padding: 16px 16px 32px;
+    z-index: 1;
+    overflow: hidden;
 
     .buttonGroup {
         display: flex;
         flex-direction: column;
         gap: 16px;
+    }
+}
+
+@media (max-width: 767px) {
+    .menu {
+        display: flex;
+        position: fixed;
+        padding: 16px;
+        z-index: 2;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 48px;
+        background-color: var(--color-bg);
+        color: var(--color-white);
+        justify-content: space-between;
+        align-items: center;
+
+        h1 {
+            font-size: 24px;
+        }
+
+        .menuIcon {
+            font-size: 32px;
+        }
+    }
+
+    .wrap {
+        display: none;
+        top: 48px;
+        width: 100vw;
+        height: calc(100vh - 48px);
+
+        &.menuActive {
+            display: flex;
+        }
     }
 }
