@@ -18,6 +18,8 @@ const nullEmployee: IEmployee = {
     username: '',
     fullName: '',
     password: '',
+    phone: '',
+    email: '',
     role: 'ROLE_EMPLOYEE',
 };
 
