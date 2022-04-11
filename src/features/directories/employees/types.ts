@@ -3,6 +3,10 @@ export interface IEmployee {
     username: string;
     fullName: string;
     role: 'ROLE_ADMIN' | 'ROLE_BRIGADIER' | 'ROLE_EMPLOYEE';
+    brigade?: {
+        id: number;
+        title: string;
+    };
     enabled?: boolean;
     password?: string;
 }

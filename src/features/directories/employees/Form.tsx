@@ -60,7 +60,9 @@ const Form: React.FC<Props> = ({ ...employee }) => {
                         legend='Полное имя'
                         onChange={formik.handleChange}
                         value={formik.values.fullName}
-                        error={formik.errors.fullName}
+                        error={
+                            formik.touched.fullName && formik.errors.fullName
+                        }
                     />
                     {formik.values.role !== 'ROLE_EMPLOYEE' && (
                         <Input
@@ -69,7 +71,10 @@ const Form: React.FC<Props> = ({ ...employee }) => {
                             legend='Имя в системе'
                             onChange={formik.handleChange}
                             value={formik.values.username}
-                            error={formik.errors.username}
+                            error={
+                                formik.touched.username &&
+                                formik.errors.username
+                            }
                         />
                     )}
                     {formik.values.role !== 'ROLE_EMPLOYEE' && (
@@ -79,7 +84,10 @@ const Form: React.FC<Props> = ({ ...employee }) => {
                             legend='Пароль'
                             onChange={formik.handleChange}
                             value={formik.values.password}
-                            error={formik.errors.password}
+                            error={
+                                formik.touched.password &&
+                                formik.errors.password
+                            }
                         />
                     )}
                 </fieldset>

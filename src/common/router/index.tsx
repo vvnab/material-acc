@@ -2,12 +2,12 @@ import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
 
 import { AdminLayout, BrigadierLayout } from 'common/layouts';
 import { Auth } from 'features/authentication';
-import { Dashboard } from 'features/dashboard';
+import { Dashboard } from 'features/admin/dashboard';
 import { Directories } from 'features/directories';
-import { Reports } from 'features/reports';
-import { Settings } from 'features/settings';
-import { Warehouses } from 'features/warehouses';
-import { isAuth } from 'features/authentication/selectors';
+import { Reports } from 'features/admin/reports';
+import { Settings } from 'features/admin/settings';
+import { Warehouses } from 'features/admin/warehouses';
+import { isAuth, selectProfile } from 'features/authentication/selectors';
 import { useSelector, useDispatch } from 'react-redux';
 import { logOut } from 'features/authentication/actions';
 
@@ -17,6 +17,7 @@ import { logOut } from 'features/authentication/actions';
 */
 
 export const Router = () => {
+    const { role } = useSelector(selectProfile);
     const dispatch = useDispatch();
     const logout = () => {
         dispatch(logOut());
@@ -31,26 +32,31 @@ export const Router = () => {
                     </RequireUnAuth>
                 }
             />
-            <Route
-                element={
-                    <RequireAuth>
-                        <AdminLayout logout={logout} />
-                    </RequireAuth>
-                }
-            >
-                <Route index element={<Dashboard />} />
-                <Route path='/directories' element={<Directories />} />
-                <Route path='/warehouses' element={<Warehouses />} />
-                <Route path='/reports' element={<Reports />} />
-                <Route path='/settings' element={<Settings />} />
-            </Route>
-            <Route
-                element={
-                    <RequireAuth>
-                        <BrigadierLayout />
-                    </RequireAuth>
-                }
-            ></Route>
+            {role === 'ROLE_ADMIN' ? (
+                <Route
+                    element={
+                        <RequireAuth>
+                            <AdminLayout logout={logout} />
+                        </RequireAuth>
+                    }
+                >
+                    <Route index element={<Dashboard />} />
+                    <Route path='/directories' element={<Directories />} />
+                    <Route path='/warehouses' element={<Warehouses />} />
+                    <Route path='/reports' element={<Reports />} />
+                    <Route path='/settings' element={<Settings />} />
+                </Route>
+            ) : (
+                <Route
+                    element={
+                        <RequireAuth>
+                            <BrigadierLayout logout={logout} />
+                        </RequireAuth>
+                    }
+                >
+                    <Route index element={<></>} />
+                </Route>
+            )}
         </Routes>
     );
 };

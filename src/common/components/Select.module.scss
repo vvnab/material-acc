@@ -1,33 +1,47 @@
-legend {
-    font: var(--font-smallLabel);
-}
-
 .container {
-    position: relative;
+    legend {
+        font: var(--font-smallLabel);
+    }
 
-    .wrap {
-        width: 100%;
-        padding: 8px 16px;
-        border: 1px solid var(--color-gray);
-        border-radius: 4px;
-        font: var(--font-normal);
-        cursor: pointer;
-        appearance: none;
+    .selectContainer {
+        position: relative;
 
-        option {
+        .wrap {
+            width: 100%;
             padding: 8px 16px;
+            border: 1px solid var(--color-gray);
+            border-radius: 4px;
+            font: var(--font-normal);
+            cursor: pointer;
+            appearance: none;
+
+            option {
+                padding: 8px 16px;
+            }
+            &.multiple {
+                padding: 0;
+            }
         }
-        &.multiple {
-            padding: 0;
+
+        .caretIcon {
+            position: absolute;
+            right: 10px;
+            top: 8px;
+            font-size: 18px;
+            cursor: pointer;
+            pointer-events: none;
         }
     }
 
-    .caretIcon {
-        position: absolute;
-        right: 10px;
-        top: 8px;
-        font-size: 18px;
-        cursor: pointer;
-        pointer-events: none;
+    &.error {
+        legend {
+            color: var(--color-red);
+        }
+        
+        .selectContainer {
+            .wrap {
+                border-color: var(--color-red);
+            }
+        }
     }
 }

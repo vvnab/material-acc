@@ -35,16 +35,28 @@ export const selectItemError = createSelector(
     (state) => state.itemError
 );
 
-export const selectBrigadiers = createSelector(selectDir, (state) =>
-    sortBy(
-        state.content.filter((i) => i.enabled && i.role === 'ROLE_BRIGADIER'),
-        ['fullName']
-    )
-);
+export const selectBrigadiers = (brigadeId?: number) =>
+    createSelector(selectDir, (state) =>
+        sortBy(
+            state.content.filter(
+                (i) =>
+                    i.enabled &&
+                    i.role === 'ROLE_BRIGADIER' &&
+                    (!i.brigade?.id || i.brigade?.id === brigadeId)
+            ),
+            ['fullName']
+        )
+    );
 
-export const selectEmployees = createSelector(selectDir, (state) =>
-    sortBy(
-        state.content.filter((i) => i.enabled && i.role === 'ROLE_EMPLOYEE'),
-        ['fullName']
-    )
-);
+export const selectEmployees = (brigadeId?: number) =>
+    createSelector(selectDir, (state) =>
+        sortBy(
+            state.content.filter(
+                (i) =>
+                    i.enabled &&
+                    i.role === 'ROLE_EMPLOYEE' &&
+                    (!i.brigade?.id || i.brigade?.id === brigadeId)
+            ),
+            ['fullName']
+        )
+    );
