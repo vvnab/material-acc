@@ -7,6 +7,8 @@ export interface IEmployee {
         id: number;
         title: string;
     };
+    phone?: string;
+    email?: string;
     enabled?: boolean;
     password?: string;
 }

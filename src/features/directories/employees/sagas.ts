@@ -35,7 +35,8 @@ function* getWatcher() {
 
 function* updateWorker(action: any): any {
     const bearer = yield select(selectBearer);
-    const { id, fullName, username, password, role } = action.payload;
+    const { id, fullName, username, password, role, email, phone } =
+        action.payload;
 
     try {
         let result;
@@ -46,6 +47,8 @@ function* updateWorker(action: any): any {
                     username,
                     password,
                     fullName,
+                    email,
+                    phone,
                     role,
                 }),
                 headers: {
@@ -61,6 +64,8 @@ function* updateWorker(action: any): any {
                     username,
                     password,
                     fullName,
+                    email,
+                    phone,
                     role,
                 }),
                 headers: {

@@ -64,6 +64,26 @@ const Form: React.FC<Props> = ({ ...employee }) => {
                             formik.touched.fullName && formik.errors.fullName
                         }
                     />
+                    <Input
+                        name='phone'
+                        placeholder='Телефон'
+                        legend='Телефон'
+                        onChange={formik.handleChange}
+                        value={formik.values.phone}
+                        error={
+                            formik.touched.phone && formik.errors.phone
+                        }
+                    />
+                    <Input
+                        name='email'
+                        placeholder='E-Mail'
+                        legend='E-Mail'
+                        onChange={formik.handleChange}
+                        value={formik.values.email}
+                        error={
+                            formik.touched.email && formik.errors.email
+                        }
+                    />
                     {formik.values.role !== 'ROLE_EMPLOYEE' && (
                         <Input
                             name='username'
