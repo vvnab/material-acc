@@ -1,12 +1,12 @@
 import React from 'react';
 import { useFormik } from 'formik';
-import { Input, Button } from 'common/components';
+import { TextArea, Button } from 'common/components';
 import { IWorkObjects } from './types';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateItemRequest, deleteItemRequest } from './actions';
 import { selectItemLoading } from './selectors';
 
-import styles from './Form.module.scss';
+import styles from '../Form.module.scss';
 
 interface Props extends IWorkObjects {}
 
@@ -33,13 +33,17 @@ const Form: React.FC<Props> = ({ ...item }) => {
     return (
         <>
             <form onSubmit={formik.handleSubmit} className={styles.wrap}>
-                <Input
-                    name='title'
-                    placeholder='Наименование'
-                    onChange={formik.handleChange}
-                    value={formik.values.title}
-                    error={formik.errors.title}
-                />
+                <fieldset>
+                    <TextArea
+                        name='title'
+                        rows={6}
+                        placeholder='Наименование'
+                        onChange={formik.handleChange}
+                        value={formik.values.title}
+                        error={formik.errors.title}
+                    />
+                </fieldset>
+
                 <div className={styles.buttonGroup}>
                     {id && (
                         <Button
@@ -47,9 +51,7 @@ const Form: React.FC<Props> = ({ ...item }) => {
                             option='dangerous'
                             className={styles.button}
                             disabled={isLoading}
-                            onClick={(e) =>
-                                dispatch(deleteItemRequest(item))
-                            }
+                            onClick={(e) => dispatch(deleteItemRequest(item))}
                         >
                             Удалить
                         </Button>

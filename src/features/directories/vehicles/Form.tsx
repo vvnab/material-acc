@@ -7,7 +7,7 @@ import { updateItemRequest, deleteItemRequest } from './actions';
 import { selectItemLoading } from './selectors';
 import { selectList as selectWorkTypes } from 'features/directories/workTypes/selectors';
 
-import styles from './Form.module.scss';
+import styles from '../Form.module.scss';
 
 interface Props extends IVehicle {}
 
@@ -20,7 +20,9 @@ const Form: React.FC<Props> = ({ ...item }) => {
     const formik = useFormik({
         initialValues: {
             ...item,
-            workTypes: workTypes ? workTypes.map(({ id }) => id.toString()) : [],
+            workTypes: workTypes
+                ? workTypes.map(({ id }) => id.toString())
+                : [],
         },
         validate: ({ title }) => {
             let errors: any = {};
@@ -38,26 +40,29 @@ const Form: React.FC<Props> = ({ ...item }) => {
     return (
         <>
             <form onSubmit={formik.handleSubmit} className={styles.wrap}>
-                <Input
-                    name='title'
-                    placeholder='Наименование'
-                    onChange={formik.handleChange}
-                    value={formik.values.title}
-                    error={formik.errors.title}
-                />
-                <Select
-                    name='workTypes'
-                    placeholder='Типы работ'
-                    onChange={formik.handleChange}
-                    value={formik.values.workTypes}
-                    multiple
-                >
-                    {allWorktypes.map(({ id, title }: any) => (
-                        <option key={id} value={id}>
-                            {title}
-                        </option>
-                    ))}
-                </Select>
+                <fieldset>
+                    <Input
+                        name='title'
+                        placeholder='Наименование'
+                        onChange={formik.handleChange}
+                        value={formik.values.title}
+                        error={formik.errors.title}
+                    />
+                    <Select
+                        name='workTypes'
+                        legend='Типы работ'
+                        onChange={formik.handleChange}
+                        value={formik.values.workTypes}
+                        multiple
+                    >
+                        {allWorktypes.map(({ id, title }: any) => (
+                            <option key={id} value={id}>
+                                {title}
+                            </option>
+                        ))}
+                    </Select>
+                </fieldset>
+                
                 <div className={styles.buttonGroup}>
                     {id && (
                         <Button

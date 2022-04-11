@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { updateItemRequest, deleteItemRequest } from './actions';
 import { selectItemLoading } from './selectors';
 
-import styles from './Form.module.scss';
+import styles from '../Form.module.scss';
 
 interface Props extends IEmployee {}
 
@@ -41,42 +41,48 @@ const Form: React.FC<Props> = ({ ...employee }) => {
     return (
         <>
             <form onSubmit={formik.handleSubmit} className={styles.wrap}>
-                <Select
-                    name='role'
-                    onChange={formik.handleChange}
-                    value={formik.values.role}
-                >
-                    {ROLES.map(({ title, value }: any) => (
-                        <option key={value} value={value}>
-                            {title}
-                        </option>
-                    ))}
-                </Select>
-                <Input
-                    name='fullName'
-                    placeholder='Полное имя'
-                    onChange={formik.handleChange}
-                    value={formik.values.fullName}
-                    error={formik.errors.fullName}
-                />
-                {formik.values.role !== 'ROLE_EMPLOYEE' && (
-                    <Input
-                        name='username'
-                        placeholder='Имя в системе'
+                <fieldset>
+                    <Select
+                        name='role'
+                        legend='Роль в системе'
                         onChange={formik.handleChange}
-                        value={formik.values.username}
-                        error={formik.errors.username}
-                    />
-                )}
-                {formik.values.role !== 'ROLE_EMPLOYEE' && (
+                        value={formik.values.role}
+                    >
+                        {ROLES.map(({ title, value }: any) => (
+                            <option key={value} value={value}>
+                                {title}
+                            </option>
+                        ))}
+                    </Select>
                     <Input
-                        name='password'
-                        placeholder='Задать новый пароль'
+                        name='fullName'
+                        placeholder='Полное имя'
+                        legend='Полное имя'
                         onChange={formik.handleChange}
-                        value={formik.values.password}
-                        error={formik.errors.password}
+                        value={formik.values.fullName}
+                        error={formik.errors.fullName}
                     />
-                )}
+                    {formik.values.role !== 'ROLE_EMPLOYEE' && (
+                        <Input
+                            name='username'
+                            placeholder='Имя в системе'
+                            legend='Имя в системе'
+                            onChange={formik.handleChange}
+                            value={formik.values.username}
+                            error={formik.errors.username}
+                        />
+                    )}
+                    {formik.values.role !== 'ROLE_EMPLOYEE' && (
+                        <Input
+                            name='password'
+                            placeholder='Задать новый пароль'
+                            legend='Пароль'
+                            onChange={formik.handleChange}
+                            value={formik.values.password}
+                            error={formik.errors.password}
+                        />
+                    )}
+                </fieldset>
 
                 <div className={styles.buttonGroup}>
                     {id && (

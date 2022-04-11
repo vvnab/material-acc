@@ -48,6 +48,18 @@
                     background-color: var(--color-gray);
                 }
             }
+
+            @media (max-width: 767px) {
+                padding: 56px 16px 16px;
+                width: 100vw;
+                height: 100vh;
+                border-radius: unset;
+
+                .close {
+                    top: 0;
+                    right: 0;
+                }
+            }
         }
     }
 }

@@ -1,16 +1,26 @@
 .wrap {
-    width: 100%;
-    padding: 8px 16px;
-    border: 1px solid var(--color-gray);
-    border-radius: 4px;
-    font: var(--font-normal);
+    legend {
+        font: var(--font-smallLabel);
+    }
+
+    input {
+        width: 100%;
+        padding: 8px 16px;
+        border: 1px solid var(--color-gray);
+        border-radius: 4px;
+        font: var(--font-normal);
+    }
 
     &.error {
-        border-color: var(--color-red);
         color: var(--color-red);
-        
-        &::placeholder {
+
+        input {
+            border-color: var(--color-red);
             color: var(--color-red);
+
+            &::placeholder {
+                color: var(--color-red);
+            }
         }
     }
 }

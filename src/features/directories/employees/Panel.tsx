@@ -5,7 +5,7 @@ import { Loader } from 'common/components';
 import Controls from './Controls';
 import List from './List';
 
-import styles from './Panel.module.scss';
+import styles from '../Panel.module.scss';
 
 interface Props extends React.HTMLProps<HTMLFieldSetElement> {
     legend?: string;
