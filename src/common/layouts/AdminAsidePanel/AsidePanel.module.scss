@@ -51,7 +51,10 @@
         display: none;
         top: 48px;
         width: 100vw;
-        height: calc(100vh - 48px);
+        min-height: calc(100vh - 48px);
+        height: auto;
+        overflow: unset;
+        position: absolute;
 
         &.menuActive {
             display: flex;
