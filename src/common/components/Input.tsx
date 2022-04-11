@@ -3,7 +3,7 @@ import React from 'react';
 import styles from './Input.module.scss';
 
 interface Props extends React.HTMLProps<HTMLInputElement> {
-    error?: string;
+    error?: string | false;
     legend?: string;
 }
 

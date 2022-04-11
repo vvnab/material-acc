@@ -46,7 +46,7 @@ const Form: React.FC<Props> = ({ ...item }) => {
                         placeholder='Наименование'
                         onChange={formik.handleChange}
                         value={formik.values.title}
-                        error={formik.errors.title}
+                        error={formik.touched.title && formik.errors.title}
                     />
                     <Select
                         name='workTypes'
@@ -62,7 +62,7 @@ const Form: React.FC<Props> = ({ ...item }) => {
                         ))}
                     </Select>
                 </fieldset>
-                
+
                 <div className={styles.buttonGroup}>
                     {id && (
                         <Button

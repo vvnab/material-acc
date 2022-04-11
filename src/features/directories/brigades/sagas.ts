@@ -2,6 +2,7 @@ import { call, put, takeLatest } from 'redux-saga/effects';
 import { select } from 'redux-saga/effects';
 import { selectBearer } from 'features/authentication/selectors';
 import * as actions from './actions';
+import * as employeesActions from 'features/directories/employees/actions';
 import { showMessage } from 'features/message';
 import { closeModal } from 'features/modal';
 
@@ -37,7 +38,8 @@ function* getWatcher() {
 
 function* updateWorker(action: any): any {
     const bearer = yield select(selectBearer);
-    const { id, title, brigadierId, employees } = action.payload;
+    let { id, title, brigadierId, employees } = action.payload;
+    employees = [...employees, brigadierId?.toString()];
 
     try {
         let result;
@@ -46,7 +48,6 @@ function* updateWorker(action: any): any {
                 method: 'put',
                 body: JSON.stringify({
                     title,
-                    brigadierId,
                 }),
                 headers: {
                     'Content-Type': 'application/json',
@@ -59,7 +60,6 @@ function* updateWorker(action: any): any {
                 method: 'post',
                 body: JSON.stringify({
                     title,
-                    brigadierId,
                 }),
                 headers: {
                     'Content-Type': 'application/json',
@@ -77,6 +77,7 @@ function* updateWorker(action: any): any {
             throw new Error(details || message || error);
         }
         let data = yield call([result, result.json]);
+        id = data.id;
 
         const exsistEmployees = data.employees.map((i: any) => i.id.toString());
 
@@ -118,6 +119,7 @@ function* updateWorker(action: any): any {
         });
 
         data = yield call([result, result.json]);
+        yield put(employeesActions.loadRequest());
         yield put(actions.updateItemSuccess({ ...data }));
         yield put(closeModal());
     } catch (ex: any) {
@@ -160,6 +162,7 @@ function* deleteWorker(action: any): any {
         }
         yield call([result, result.json]);
         yield put(actions.deleteItemSuccess(id));
+        yield put(employeesActions.loadRequest());
         yield put(closeModal());
     } catch (ex: any) {
         yield put(

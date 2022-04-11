@@ -13,25 +13,28 @@ import styles from '../Form.module.scss';
 interface Props extends IBrigade {}
 
 const Form: React.FC<Props> = ({ ...item }) => {
-    const { id, brigadierId, employees } = item;
+    const { id, brigadier, employees } = item;
     const dispatch = useDispatch();
     const isLoading = useSelector(selectItemLoading);
-    const brigadiers = useSelector(selectBrigadiers);
-    const allEmployees = useSelector(selectEmployees);
+    const brigadiers = useSelector(selectBrigadiers(id));
+    const allEmployees = useSelector(selectEmployees(id));
 
     const formik = useFormik({
         initialValues: {
             ...item,
-            brigadierId: brigadierId || brigadiers[0]?.id,
+            brigadierId: brigadier?.id || brigadiers[0]?.id,
             employees: employees
                 ? employees.map(({ id }) => id.toString())
                 : [],
         },
-        validate: ({ title }) => {
+        validate: ({ title, brigadierId }) => {
             let errors: any = {};
 
             if (!title) {
                 errors.title = 'Поле не должно быть пустым';
+            }
+            if (!brigadierId) {
+                errors.brigadierId = 'Поле не должно быть пустым';
             }
             return errors;
         },
@@ -57,6 +60,7 @@ const Form: React.FC<Props> = ({ ...item }) => {
                         legend='Бригадир'
                         onChange={formik.handleChange}
                         value={formik.values.brigadierId}
+                        error={formik.errors.brigadierId}
                     >
                         {brigadiers.map(({ id, fullName }) => (
                             <option key={id} value={id}>

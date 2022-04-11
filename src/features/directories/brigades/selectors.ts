@@ -16,7 +16,7 @@ export const selectList = createSelector(selectDir, (state) =>
                   title.toUpperCase().indexOf(state.filter.toUpperCase()) >= 0
           )
         : state.content
-    ).map((i) => ({ ...i, brigadierId: i.brigadier?.id }))
+    ).map((i) => ({ ...i}))
 );
 export const selectItemLoading = createSelector(
     selectDir,

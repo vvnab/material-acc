@@ -7,13 +7,27 @@ import styles from './Select.module.scss';
 
 interface Props extends React.HTMLProps<HTMLSelectElement> {
     legend?: string;
+    error?: string;
 }
 
-const Select: React.FC<Props> = ({ children, multiple, legend, ...rest }) => {
+const Select: React.FC<Props> = ({
+    children,
+    multiple,
+    legend,
+    error,
+    ...rest
+}) => {
     return (
-        <div>
-            {legend && <legend>{legend}</legend>}
-            <div className={styles.container}>
+        <div
+            className={[styles.container, error ? styles.error : ''].join(' ')}
+        >
+            {legend && (
+                <legend>
+                    {legend}
+                    {error && `: ${error?.toLowerCase()}`}
+                </legend>
+            )}
+            <div className={styles.selectContainer}>
                 <select
                     {...rest}
                     multiple={multiple}
