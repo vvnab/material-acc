@@ -5,7 +5,7 @@ import * as actions from './actions';
 import { showMessage } from 'features/message';
 import { closeModal } from 'features/modal';
 
-const URL = '/api/workObjects'
+const URL = '/api/workObjects';
 
 function* getWorker(action: any): any {
     const bearer = yield select(selectBearer);
@@ -37,7 +37,7 @@ function* getWatcher() {
 
 function* updateWorker(action: any): any {
     const bearer = yield select(selectBearer);
-    const { id, title } = action.payload;
+    const { id, title, region, road, contract, remarks } = action.payload;
 
     try {
         let result;
@@ -46,6 +46,10 @@ function* updateWorker(action: any): any {
                 method: 'put',
                 body: JSON.stringify({
                     title,
+                    region,
+                    road,
+                    contract,
+                    remarks,
                 }),
                 headers: {
                     'Content-Type': 'application/json',
@@ -57,7 +61,11 @@ function* updateWorker(action: any): any {
             result = yield call(fetch, `${URL}/`, {
                 method: 'post',
                 body: JSON.stringify({
-                    title
+                    title,
+                    region,
+                    road,
+                    contract,
+                    remarks,
                 }),
                 headers: {
                     'Content-Type': 'application/json',
