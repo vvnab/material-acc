@@ -1,6 +1,10 @@
 export interface IWorkObjects {
     id?: number;
     title: string;
+    region?: string;
+    road?: string;
+    contract?: string;
+    remarks?: string;
 }
 
 export interface IState {

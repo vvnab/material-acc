@@ -1,6 +1,6 @@
 import React from 'react';
 import { useFormik } from 'formik';
-import { TextArea, Button } from 'common/components';
+import { Input, TextArea, Button } from 'common/components';
 import { IWorkObjects } from './types';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateItemRequest, deleteItemRequest } from './actions';
@@ -34,13 +34,41 @@ const Form: React.FC<Props> = ({ ...item }) => {
         <>
             <form onSubmit={formik.handleSubmit} className={styles.wrap}>
                 <fieldset>
-                    <TextArea
+                    <Input
                         name='title'
-                        rows={6}
                         placeholder='Наименование'
                         onChange={formik.handleChange}
                         value={formik.values.title}
                         error={formik.errors.title}
+                    />
+                    <Input
+                        name='region'
+                        placeholder='Регион'
+                        onChange={formik.handleChange}
+                        value={formik.values.region}
+                        error={formik.errors.region}
+                    />
+                    <Input
+                        name='road'
+                        placeholder='Дорога'
+                        onChange={formik.handleChange}
+                        value={formik.values.road}
+                        error={formik.errors.road}
+                    />
+                    <Input
+                        name='contract'
+                        placeholder='№ контракта'
+                        onChange={formik.handleChange}
+                        value={formik.values.contract}
+                        error={formik.errors.contract}
+                    />
+                    <TextArea
+                        name='remarks'
+                        rows={6}
+                        placeholder='Присечания'
+                        onChange={formik.handleChange}
+                        value={formik.values.remarks}
+                        error={formik.errors.remarks}
                     />
                 </fieldset>
 

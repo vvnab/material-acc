@@ -16,6 +16,10 @@ import { IWorkObjects } from './types';
 
 const nullItem: IWorkObjects = {
     title: '',
+    region: '',
+    road: '',
+    contract: '',
+    remarks: '',
 };
 
 interface Props extends React.HTMLProps<HTMLDivElement> {}
