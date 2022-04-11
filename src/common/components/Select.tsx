@@ -1,4 +1,5 @@
 import React from 'react';
+import { isMobile } from 'react-device-detect';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronDown as caretIcon } from '@fortawesome/free-solid-svg-icons';
 
@@ -18,7 +19,7 @@ const Select: React.FC<Props> = ({ children, multiple, legend, ...rest }) => {
                     multiple={multiple}
                     className={[
                         styles.wrap,
-                        multiple ? styles.multiple : '',
+                        multiple && !isMobile ? styles.multiple : '',
                     ].join(' ')}
                 >
                     {children}
