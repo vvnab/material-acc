@@ -1,6 +1,6 @@
 import React from 'react';
 import { useFormik } from 'formik';
-import { Input, Select, Button } from 'common/components';
+import { Select, Button } from 'common/components';
 import { IBrigade } from './types';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateItemRequest, deleteItemRequest } from './actions';
@@ -39,7 +39,12 @@ const Form: React.FC<Props> = ({ ...item }) => {
             return errors;
         },
         onSubmit: (values: any) => {
-            dispatch(updateItemRequest(values));
+            const brigadier = brigadiers.find(
+                ({ id }) => id === values.brigadierId
+            );
+            dispatch(
+                updateItemRequest({ ...values, title: brigadier?.fullName })
+            );
         },
     });
 
@@ -47,13 +52,13 @@ const Form: React.FC<Props> = ({ ...item }) => {
         <>
             <form onSubmit={formik.handleSubmit} className={styles.wrap}>
                 <fieldset>
-                    <Input
+                    {/* <Input
                         name='title'
                         placeholder='Наименование'
                         onChange={formik.handleChange}
                         value={formik.values.title}
                         error={formik.errors.title}
-                    />
+                    /> */}
                     <Select
                         name='brigadierId'
                         placeholder='Бригадир'

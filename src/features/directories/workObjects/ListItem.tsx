@@ -10,7 +10,7 @@ interface Props extends IWorkObjects {}
 
 const ListItem: React.FC<Props> = (props) => {
     const dispatch = useDispatch();
-    const { title } = props;
+    const { title, region, road, contract } = props;
 
     return (
         <tr
@@ -18,6 +18,9 @@ const ListItem: React.FC<Props> = (props) => {
             onClick={() => dispatch(showModal(<Form {...props} />))}
         >
             <td>{title}</td>
+            <td>{region}</td>
+            <td>{road}</td>
+            <td>{contract}</td>
         </tr>
     );
 };
