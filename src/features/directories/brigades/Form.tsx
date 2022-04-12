@@ -37,7 +37,7 @@ const Form: React.FC<Props> = ({ ...item }) => {
         },
         onSubmit: (values: any) => {
             const brigadier = brigadiers.find(
-                ({ id }) => id === values.brigadierId
+                ({ id }) => id?.toString() === values.brigadierId
             );
             dispatch(
                 updateItemRequest({ ...values, title: brigadier?.fullName })
