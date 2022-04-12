@@ -36,11 +36,14 @@ const Form: React.FC<Props> = ({ ...item }) => {
             return errors;
         },
         onSubmit: (values: any) => {
-            const brigadier = brigadiers.find(
-                ({ id }) => id?.toString() === values.brigadierId
+            const currentBrigadier = brigadiers.find(
+                ({ id }) => id?.toString() === values.brigadierId.toString()
             );
             dispatch(
-                updateItemRequest({ ...values, title: brigadier?.fullName })
+                updateItemRequest({
+                    ...values,
+                    title: currentBrigadier?.fullName,
+                })
             );
         },
     });
