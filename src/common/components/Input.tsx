@@ -5,12 +5,15 @@ import styles from './Input.module.scss';
 interface Props extends React.HTMLProps<HTMLInputElement> {
     error?: string | false;
     legend?: string;
+    dataList?: any;
 }
 
 const Input: React.FC<Props> = ({
     placeholder,
+    dataList,
     legend,
     error,
+    name,
     className,
     ...rest
 }) => {
@@ -26,7 +29,14 @@ const Input: React.FC<Props> = ({
                     {error && `: ${error?.toLowerCase()}`}
                 </legend>
             )}
-            <input placeholder={placeholder} {...rest} />
+            <input placeholder={placeholder} name={name} id={name} {...rest} />
+            {dataList && (
+                <datalist id={name}>
+                    {dataList.map((i: string) => (
+                        <option value={i} />
+                    ))}
+                </datalist>
+            )}
         </div>
     );
 };

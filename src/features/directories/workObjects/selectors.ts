@@ -12,9 +12,20 @@ export const selectFilter = createSelector(selectDir, (state) => state.filter);
 export const selectList = createSelector(selectDir, (state) =>
     state.filter
         ? state.content.filter(
-              ({ title }) =>
+              ({ title, region, road, contract }) =>
                   title.toUpperCase().indexOf(state.filter.toUpperCase()) >=
-                  0
+                      0 ||
+                  (region &&
+                      region
+                          .toUpperCase()
+                          .indexOf(state.filter.toUpperCase()) >= 0) ||
+                  (road &&
+                      road.toUpperCase().indexOf(state.filter.toUpperCase()) >=
+                          0) ||
+                  (contract &&
+                      contract
+                          .toUpperCase()
+                          .indexOf(state.filter.toUpperCase()) >= 0)
           )
         : state.content
 );
@@ -25,4 +36,12 @@ export const selectItemLoading = createSelector(
 export const selectItemError = createSelector(
     selectDir,
     (state) => state.itemError
+);
+
+export const selectRegions = createSelector(selectDir, (state) =>
+    state.content.map(({ region }) => region)
+);
+
+export const selectRoads = createSelector(selectDir, (state) =>
+    state.content.map(({ road }) => road)
 );

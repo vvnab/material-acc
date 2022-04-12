@@ -1,16 +1,22 @@
-.wrap {
-    width: 100%;
-    padding: 8px 16px;
-    border: 1px solid var(--color-gray);
-    border-radius: 4px;
-    font: var(--font-normal);
+.container {
+    legend {
+        font: var(--font-smallLabel);
+    }
+    
+    .wrap {
+        width: 100%;
+        padding: 8px 16px;
+        border: 1px solid var(--color-gray);
+        border-radius: 4px;
+        font: var(--font-normal);
 
-    &.error {
-        border-color: var(--color-red);
-        color: var(--color-red);
-        
-        &::placeholder {
+        &.error {
+            border-color: var(--color-red);
             color: var(--color-red);
+
+            &::placeholder {
+                color: var(--color-red);
+            }
         }
     }
 }
