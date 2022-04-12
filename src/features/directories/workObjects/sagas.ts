@@ -37,7 +37,8 @@ function* getWatcher() {
 
 function* updateWorker(action: any): any {
     const bearer = yield select(selectBearer);
-    const { id, title, region, road, contract, remarks } = action.payload;
+    const { id, region, road, contract, remarks } = action.payload;
+    let title = `${region} ${road} ${contract}`;
 
     try {
         let result;
