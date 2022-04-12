@@ -4,22 +4,34 @@ import styles from './TextArea.module.scss';
 
 interface Props extends React.HTMLProps<HTMLTextAreaElement> {
     error?: string | false;
+    legend?: string;
 }
 
 const TextArea: React.FC<Props> = ({
     placeholder,
     error,
+    legend,
     className,
     ...rest
 }) => {
     return (
-        <textarea
-            placeholder={placeholder}
-            {...rest}
-            className={[styles.wrap, className, error ? styles.error : ''].join(
-                ' '
+        <div className={styles.container}>
+            {legend && (
+                <legend className={styles.legend}>
+                    {legend}
+                    {error && `: ${error?.toLowerCase()}`}
+                </legend>
             )}
-        />
+            <textarea
+                placeholder={placeholder}
+                {...rest}
+                className={[
+                    styles.wrap,
+                    className,
+                    error ? styles.error : '',
+                ].join(' ')}
+            />
+        </div>
     );
 };
 

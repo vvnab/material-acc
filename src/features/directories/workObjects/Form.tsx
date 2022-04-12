@@ -4,7 +4,7 @@ import { Input, TextArea, Button } from 'common/components';
 import { IWorkObjects } from './types';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateItemRequest, deleteItemRequest } from './actions';
-import { selectItemLoading } from './selectors';
+import { selectItemLoading, selectRegions, selectRoads } from './selectors';
 
 import styles from '../Form.module.scss';
 
@@ -13,6 +13,8 @@ interface Props extends IWorkObjects {}
 const Form: React.FC<Props> = ({ ...item }) => {
     const { id } = item;
     const isLoading = useSelector(selectItemLoading);
+    const regions= useSelector(selectRegions);
+    const roads= useSelector(selectRoads);
     const dispatch = useDispatch();
 
     const formik = useFormik({
@@ -44,20 +46,25 @@ const Form: React.FC<Props> = ({ ...item }) => {
                     <Input
                         name='region'
                         placeholder='Регион'
+                        legend='Регион'
                         onChange={formik.handleChange}
+                        dataList={regions}
                         value={formik.values.region}
                         error={formik.errors.region}
                     />
                     <Input
                         name='road'
                         placeholder='Дорога'
+                        legend='Дорога'
                         onChange={formik.handleChange}
+                        dataList={roads}
                         value={formik.values.road}
                         error={formik.errors.road}
                     />
                     <Input
                         name='contract'
                         placeholder='№ контракта'
+                        legend='№ контракта'
                         onChange={formik.handleChange}
                         value={formik.values.contract}
                         error={formik.errors.contract}
@@ -65,7 +72,8 @@ const Form: React.FC<Props> = ({ ...item }) => {
                     <TextArea
                         name='remarks'
                         rows={6}
-                        placeholder='Присечания'
+                        placeholder='Примечания'
+                        legend='Примечания'
                         onChange={formik.handleChange}
                         value={formik.values.remarks}
                         error={formik.errors.remarks}
