@@ -19,11 +19,17 @@ const Form: React.FC<Props> = ({ ...item }) => {
 
     const formik = useFormik({
         initialValues: { ...item },
-        validate: ({ title }) => {
+        validate: ({ region, road, contract }) => {
             let errors: any = {};
 
-            if (!title) {
-                errors.title = 'Поле не должно быть пустым';
+            if (!region) {
+                errors.region = 'Поле не должно быть пустым';
+            }
+            if (!road) {
+                errors.road = 'Поле не должно быть пустым';
+            }
+            if (!contract) {
+                errors.contract = 'Поле не должно быть пустым';
             }
             return errors;
         },
@@ -36,13 +42,13 @@ const Form: React.FC<Props> = ({ ...item }) => {
         <>
             <form onSubmit={formik.handleSubmit} className={styles.wrap}>
                 <fieldset>
-                    <Input
+                    {/* <Input
                         name='title'
                         placeholder='Наименование'
                         onChange={formik.handleChange}
                         value={formik.values.title}
                         error={formik.errors.title}
-                    />
+                    /> */}
                     <Input
                         name='region'
                         placeholder='Регион'
