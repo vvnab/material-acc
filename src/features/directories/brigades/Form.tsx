@@ -27,12 +27,9 @@ const Form: React.FC<Props> = ({ ...item }) => {
                 ? employees.map(({ id }) => id.toString())
                 : [],
         },
-        validate: ({ title, brigadierId }) => {
+        validate: ({ brigadierId }) => {
             let errors: any = {};
 
-            if (!title) {
-                errors.title = 'Поле не должно быть пустым';
-            }
             if (!brigadierId) {
                 errors.brigadierId = 'Поле не должно быть пустым';
             }
