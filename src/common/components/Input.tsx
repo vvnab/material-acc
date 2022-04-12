@@ -33,7 +33,7 @@ const Input: React.FC<Props> = ({
             {dataList && (
                 <datalist id={name}>
                     {dataList.map((i: string) => (
-                        <option value={i} />
+                        <option>{i}</option>
                     ))}
                 </datalist>
             )}
