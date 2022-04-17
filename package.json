@@ -19,6 +19,7 @@
         "connected-react-router": "^6.9.2",
         "formik": "^2.2.9",
         "lodash": "^4.17.21",
+        "moment": "^2.29.3",
         "react": "^17.0.2",
         "react-cookie": "^4.1.1",
         "react-device-detect": "^2.2.2",
@@ -37,7 +38,7 @@
     "scripts": {
         "start": "react-scripts start",
         "build": "react-scripts build",
-        "deploy": "git checkout master; git merge develop; git push; git checkout develop",
+        "deploy": "git checkout master && git merge develop &&  git push && git checkout develop",
         "test": "react-scripts test",
         "eject": "react-scripts eject"
     },

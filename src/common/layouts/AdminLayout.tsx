@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { loadRequest } from 'features/directories/actions';
+// import { loadRequest } from 'features/directories/actions';
 import { Outlet } from 'react-router-dom';
 import AsidePanel from './AdminAsidePanel/AsidePanel';
 
@@ -14,7 +14,7 @@ const AdminLayout: React.FC<Props> = ({ logout, ...rest }) => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(loadRequest());
+        // dispatch(loadRequest());
     }, [dispatch]);
 
     return (

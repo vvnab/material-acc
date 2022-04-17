@@ -1,0 +1,10 @@
+.wrap {
+    display: flex;
+    flex-wrap: wrap;
+    margin: -32px;
+
+    .inside {
+        padding: 32px;
+        width: 100%;
+    }
+}

@@ -41,7 +41,7 @@ const Form: React.FC<Props> = ({ ...employee }) => {
     return (
         <>
             <form onSubmit={formik.handleSubmit} className={styles.wrap}>
-                <fieldset>
+                <fieldset className={styles.inputGroup}>
                     <Select
                         name='role'
                         legend='Роль в системе'

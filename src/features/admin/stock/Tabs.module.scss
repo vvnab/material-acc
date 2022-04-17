@@ -1,0 +1,21 @@
+.wrap {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    // gap: 32px;
+
+    .tab {
+        font: var(--font-label);
+        color: var(--color-white);
+        background-color: var(--color-bg);
+        padding: 16px 32px;
+        flex: 1 1 auto;
+        text-align: center;
+        cursor: pointer;
+
+        &.active {
+            background-color: var(--color-link);
+            cursor: unset;
+        }
+    }
+}

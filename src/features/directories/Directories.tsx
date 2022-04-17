@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { loadRequest } from 'features/directories/actions';
 import { Modal } from 'features/modal';
 import EmployeesPanel from './employees/Panel';
 import MaterialsPanel from './materials/Panel';
@@ -13,6 +15,11 @@ import styles from './Directories.module.scss';
 interface Props extends React.HTMLProps<HTMLDivElement> {}
 
 const Directories: React.FC<Props> = ({ children, ...rest }) => {
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(loadRequest());
+    }, [dispatch]);
     return (
         <div {...rest} className={styles.wrap}>
             <EmployeesPanel legend='Сотрудники' />
