@@ -1,7 +1,9 @@
 .wrap {
     display: flex;
     justify-content: space-between;
-    width: 100%;
+    width: calc(100% - 200px);
+    position: fixed;
+    z-index: 1;
     // gap: 32px;
 
     .tab {
