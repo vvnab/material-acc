@@ -10,7 +10,7 @@ const URL = '/api/materialFlows';
 function* getWorker(action: any): any {
     const bearer = yield select(selectBearer);
     try {
-        const result = yield call(fetch, `${URL}/?sort=createdAt,desc`, {
+        const result = yield call(fetch, `${URL}/?sort=createdAt,desc&opsStatuses=CREATED&opsStatuses=ACCEPTED`, {
             method: 'get',
             headers: {
                 'Content-Type': 'application/json',
