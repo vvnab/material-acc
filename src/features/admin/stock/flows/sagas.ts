@@ -5,12 +5,12 @@ import * as actions from './actions';
 import { showMessage } from 'features/message';
 import { closeModal } from 'features/modal';
 
-const URL = '/api/warehouses';
+const URL = '/api/materialFlows';
 
 function* getWorker(action: any): any {
     const bearer = yield select(selectBearer);
     try {
-        const result = yield call(fetch, `${URL}/`, {
+        const result = yield call(fetch, `${URL}/?sort=createdAt,desc`, {
             method: 'get',
             headers: {
                 'Content-Type': 'application/json',
@@ -37,7 +37,8 @@ function* getWatcher() {
 
 function* updateWorker(action: any): any {
     const bearer = yield select(selectBearer);
-    const { id, title } = action.payload;
+    const { id, region, road, contract, remarks } = action.payload;
+    let title = `${region} ${road} ${contract}`;
 
     try {
         let result;
@@ -46,6 +47,10 @@ function* updateWorker(action: any): any {
                 method: 'put',
                 body: JSON.stringify({
                     title,
+                    region,
+                    road,
+                    contract,
+                    remarks,
                 }),
                 headers: {
                     'Content-Type': 'application/json',
@@ -58,6 +63,10 @@ function* updateWorker(action: any): any {
                 method: 'post',
                 body: JSON.stringify({
                     title,
+                    region,
+                    road,
+                    contract,
+                    remarks,
                 }),
                 headers: {
                     'Content-Type': 'application/json',
@@ -97,15 +106,6 @@ function* updateWatcher() {
 }
 
 function* deleteWorker(action: any): any {
-    if (!window.confirm('Вы уверены?')) {
-        yield put(closeModal());
-        yield put(
-            actions.updateItemError({
-                message: 'Отказ от намерений',
-            })
-        );
-        return;
-    }
     const bearer = yield select(selectBearer);
     const { id } = action.payload;
     try {

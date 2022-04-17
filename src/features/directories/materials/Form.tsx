@@ -33,7 +33,7 @@ const Form: React.FC<Props> = ({ ...item }) => {
     return (
         <>
             <form onSubmit={formik.handleSubmit} className={styles.wrap}>
-                <fieldset>
+                <fieldset className={styles.inputGroup}>
                     <Input
                         name='title'
                         placeholder='Наименование'

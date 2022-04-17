@@ -15,7 +15,7 @@ const Button: React.FC<Props> = ({ icon, text, url }) => {
     const { pathname } = useLocation();
     return (
         <Link to={url} className={styles.wrap}>
-            {pathname === url && <Check />}
+            {pathname.split('/')[1] === url.replace(/\//, '') && <Check />}
             <FontAwesomeIcon icon={icon} className={styles.icon} />
             {text}
         </Link>

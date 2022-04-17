@@ -45,8 +45,8 @@ const AsidePanel: React.FC<Props> = ({ logout, ...rest }) => {
                     <Button icon={reportsIcon} text='Отчёты' url='/reports' />
                     <Button
                         icon={warehousesIcon}
-                        text='Склады'
-                        url='/warehouses'
+                        text='Материалы'
+                        url='/stock'
                     />
                     <Button
                         icon={directoriesIcon}

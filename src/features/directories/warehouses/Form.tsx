@@ -11,7 +11,7 @@ import styles from '../Form.module.scss';
 interface Props extends IWarehouse {}
 
 const Form: React.FC<Props> = ({ ...item }) => {
-    const { id } = item;
+    const { id, materials } = item;
     const isLoading = useSelector(selectItemLoading);
     const dispatch = useDispatch();
 
@@ -33,7 +33,7 @@ const Form: React.FC<Props> = ({ ...item }) => {
     return (
         <>
             <form onSubmit={formik.handleSubmit} className={styles.wrap}>
-                <fieldset>
+                <fieldset className={styles.inputGroup}>
                     <Input
                         name='title'
                         placeholder='Наименование'
@@ -42,6 +42,24 @@ const Form: React.FC<Props> = ({ ...item }) => {
                         error={formik.errors.title}
                     />
                 </fieldset>
+
+                {materials && (
+                    <fieldset className={styles.info}>
+                        <legend>Содержимое</legend>
+                        <table>
+                            <tbody>
+                                {materials.map(
+                                    ({ material: { id, title }, quantity }) => (
+                                        <tr key={id}>
+                                            <td>{title}</td>
+                                            <td>{quantity}</td>
+                                        </tr>
+                                    )
+                                )}
+                            </tbody>
+                        </table>
+                    </fieldset>
+                )}
 
                 <div className={styles.buttonGroup}>
                     {id && (

@@ -1,0 +1,29 @@
+@import 'assets/styles/common';
+
+.wrap {
+    @include frame;
+    height: 44vh;
+    min-width: 480px;
+    flex: 1 1 33%;
+    display: flex;
+    flex-direction: column;
+
+    legend {
+        font: var(--font-label);
+        color: var(--color-bg);
+    }
+
+    .error {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: var(--color-red);
+    }
+
+    @media (max-width: 767px) {
+        min-width: unset;
+        flex: 1 1 auto;
+    }
+}
