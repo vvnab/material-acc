@@ -37,55 +37,30 @@ function* getWatcher() {
 
 function* updateWorker(action: any): any {
     const bearer = yield select(selectBearer);
-    const { id, region, road, contract, remarks } = action.payload;
-    let title = `${region} ${road} ${contract}`;
+    const {id, type} = action.payload;
 
     try {
         let result;
-        if (id) {
-            result = yield call(fetch, `${URL}/${id}`, {
-                method: 'put',
-                body: JSON.stringify({
-                    title,
-                    region,
-                    road,
-                    contract,
-                    remarks,
-                }),
-                headers: {
-                    'Content-Type': 'application/json',
-                    Accept: 'application/json',
-                    Authorization: `Bearer ${bearer}`,
-                },
-            });
-        } else {
-            result = yield call(fetch, `${URL}/`, {
-                method: 'post',
-                body: JSON.stringify({
-                    title,
-                    region,
-                    road,
-                    contract,
-                    remarks,
-                }),
-                headers: {
-                    'Content-Type': 'application/json',
-                    Accept: 'application/json',
-                    Authorization: `Bearer ${bearer}`,
-                },
-            });
-        }
+        result = yield call(fetch, `${URL}/${id}/${type}`, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: 'application/json',
+                Authorization: `Bearer ${bearer}`,
+            },
+        });
 
         if (!result.ok) {
+            console.log(result);
             const { message, error, details } = yield call([
                 result,
                 result.json,
             ]);
+            console.log(message, error, details)
             throw new Error(details || message || error);
         }
         const data = yield call([result, result.json]);
         yield put(actions.updateItemSuccess({ ...data }));
-        yield put(closeModal());
     } catch (ex: any) {
         yield put(
             actions.updateItemError({

@@ -9,7 +9,8 @@ import {
     faCircleChevronDown as iconDown,
     faCircleChevronUp as iconUp,
 } from '@fortawesome/free-solid-svg-icons';
-// import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { updateItemRequest } from './actions';
 
 import moment from 'moment';
 import 'moment/locale/ru';
@@ -35,7 +36,7 @@ const FlowItem: React.FC<IFlow> = ({
     employeeUpdated,
 }) => {
     const [hidden, setHidden] = useState(true);
-    // const dispatch = useDispatch();
+    const dispatch = useDispatch();
     const outcome = fromBrigade?.title
         ? { icon: brigadeIcon, title: fromBrigade.title }
         : fromWarehouse?.title
@@ -102,11 +103,29 @@ const FlowItem: React.FC<IFlow> = ({
                     <div className={styles.buttonGroup}>
                         <Button
                             option='dangerous'
-                            onClick={(e) => e.stopPropagation()}
+                            onClick={(e) => {
+                                dispatch(
+                                    updateItemRequest({
+                                        id: id,
+                                        type: 'reject',
+                                    })
+                                );
+                                e.stopPropagation();
+                            }}
                         >
                             Отменить
                         </Button>
-                        <Button onClick={(e) => e.stopPropagation()}>
+                        <Button
+                            onClick={(e) => {
+                                dispatch(
+                                    updateItemRequest({
+                                        id: id,
+                                        type: 'accept',
+                                    })
+                                );
+                                e.stopPropagation();
+                            }}
+                        >
                             Подтвердить
                         </Button>
                     </div>
