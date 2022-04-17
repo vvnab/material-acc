@@ -9,7 +9,7 @@ import {
     faCircleChevronDown as iconDown,
     faCircleChevronUp as iconUp,
 } from '@fortawesome/free-solid-svg-icons';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { updateItemRequest } from './actions';
 
 import moment from 'moment';
