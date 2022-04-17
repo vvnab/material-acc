@@ -1,7 +1,7 @@
 import { handleActions } from 'redux-actions';
 import * as actions from './actions';
 import { IState } from './types';
-// import { updateOrUnion } from 'common/utils/updateOrUnion';
+import { updateOrUnion } from 'common/utils/updateOrUnion';
 
 export const initialState: IState = {
     filter: undefined,
@@ -28,6 +28,31 @@ export default handleActions<IState>(
             ...initialState,
             loading: false,
             error: action.payload.message,
+        }),
+        [actions.updateItemRequest.toString()]: (state) => ({
+            ...state,
+            itemLoading: true,
+        }),
+        [actions.updateItemSuccess.toString()]: (state, action: any) => ({
+            ...state,
+            content: [...updateOrUnion(state.content, action.payload)],
+            itemLoading: false,
+            itemError: '',
+        }),
+        [actions.updateItemError.toString()]: (state, action: any) => ({
+            ...state,
+            itemLoading: false,
+            itemError: action.payload.message,
+        }),
+        [actions.deleteItemRequest.toString()]: (state) => ({
+            ...state,
+            itemLoading: true,
+        }),
+        [actions.deleteItemSuccess.toString()]: (state, action: any) => ({
+            ...state,
+            content: [...state.content.filter((i) => i.id !== action.payload)],
+            itemLoading: false,
+            itemError: '',
         }),
     },
     initialState
