@@ -1,29 +1,15 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
-import { select } from 'redux-saga/effects';
-import { selectBearer } from 'features/authentication/selectors';
 import * as actions from './actions';
 import * as employeesActions from 'features/directories/employees/actions';
 import { showMessage } from 'features/message';
 import { closeModal } from 'features/modal';
+import fetch from "common/utils/fetch";
 
 const URL = '/api/brigades';
 
 function* getWorker(action: any): any {
-    const bearer = yield select(selectBearer);
     try {
-        const result = yield call(fetch, `${URL}/`, {
-            method: 'get',
-            headers: {
-                'Content-Type': 'application/json',
-                Accept: 'application/json',
-                Authorization: `Bearer ${bearer}`,
-            },
-        });
-        if (!result.ok) {
-            const { message, error } = yield call([result, result.json]);
-            throw new Error(message || error);
-        }
-        const data = yield call([result, result.json]);
+        const data = yield call(fetch, `${URL}/`, 'GET');
         yield put(actions.loadSuccess({ ...data }));
     } catch (ex: any) {
         yield put(
@@ -37,50 +23,18 @@ function* getWatcher() {
 }
 
 function* updateWorker(action: any): any {
-    const bearer = yield select(selectBearer);
     let { id, title, brigadierId, employees } = action.payload;
     employees = [...employees, brigadierId?.toString()];
 
     try {
-        let result;
+        let data;
         if (id) {
-            result = yield call(fetch, `${URL}/${id}`, {
-                method: 'put',
-                body: JSON.stringify({
-                    title,
-                }),
-                headers: {
-                    'Content-Type': 'application/json',
-                    Accept: 'application/json',
-                    Authorization: `Bearer ${bearer}`,
-                },
-            });
+            data = yield call(fetch, `${URL}/${id}`, 'PUT', {title});
         } else {
-            result = yield call(fetch, `${URL}/`, {
-                method: 'post',
-                body: JSON.stringify({
-                    title,
-                }),
-                headers: {
-                    'Content-Type': 'application/json',
-                    Accept: 'application/json',
-                    Authorization: `Bearer ${bearer}`,
-                },
-            });
+            data = yield call(fetch, `${URL}/`, 'POST', {title});
         }
-
-        if (!result.ok) {
-            const { message, error, details } = yield call([
-                result,
-                result.json,
-            ]);
-            throw new Error(details || message || error);
-        }
-        let data = yield call([result, result.json]);
         id = data.id;
-
         const exsistEmployees = data.employees.map((i: any) => i.id.toString());
-
         const employeesForDel = exsistEmployees.filter(
             (i: string) => !employees.includes(i)
         );
@@ -89,36 +43,15 @@ function* updateWorker(action: any): any {
         );
 
         for (const employee of employeesForDel) {
-            yield call(fetch, `${URL}/${id}/delEmployee/${employee}`, {
-                method: 'put',
-                headers: {
-                    'Content-Type': 'application/json',
-                    Accept: 'application/json',
-                    Authorization: `Bearer ${bearer}`,
-                },
-            });
+            yield call(fetch, `${URL}/${id}/delEmployee/${employee}`, 'PUT');
         }
 
         for (const employee of employeesForAdd) {
-            yield call(fetch, `${URL}/${id}/addEmployee/${employee}`, {
-                method: 'put',
-                headers: {
-                    'Content-Type': 'application/json',
-                    Accept: 'application/json',
-                    Authorization: `Bearer ${bearer}`,
-                },
-            });
+            yield call(fetch, `${URL}/${id}/addEmployee/${employee}`, 'PUT');
         }
-        result = yield call(fetch, `${URL}/${id}`, {
-            method: 'get',
-            headers: {
-                'Content-Type': 'application/json',
-                Accept: 'application/json',
-                Authorization: `Bearer ${bearer}`,
-            },
-        });
+        
+        data = yield call(fetch, `${URL}/${id}`, 'GET');
 
-        data = yield call([result, result.json]);
         yield put(employeesActions.loadRequest());
         yield put(actions.updateItemSuccess({ ...data }));
         yield put(closeModal());
@@ -142,25 +75,9 @@ function* updateWatcher() {
 }
 
 function* deleteWorker(action: any): any {
-    const bearer = yield select(selectBearer);
     const { id } = action.payload;
     try {
-        const result = yield call(fetch, `${URL}/${id}`, {
-            method: 'delete',
-            headers: {
-                'Content-Type': 'application/json',
-                Accept: 'application/json',
-                Authorization: `Bearer ${bearer}`,
-            },
-        });
-        if (!result.ok) {
-            const { message, error, details } = yield call([
-                result,
-                result.json,
-            ]);
-            throw new Error(details || message || error);
-        }
-        yield call([result, result.json]);
+        yield call(fetch, `${URL}/${id}`, 'DELETE');
         yield put(actions.deleteItemSuccess(id));
         yield put(employeesActions.loadRequest());
         yield put(closeModal());
