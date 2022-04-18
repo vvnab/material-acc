@@ -2,6 +2,7 @@
 
 import flowsWatchers from './flows/sagas';
 import warehousesWatchers from './warehouses/sagas';
+import brigadesWatchers from './brigades/sagas';
 // import materialsWatchers from './materials/sagas';
 // import warehousesWatchers from './warehouses/sagas';
 
@@ -23,9 +24,6 @@ import warehousesWatchers from './warehouses/sagas';
 //     yield takeLatest(actions.loadRequest.toString(), worker);
 // }
 
-const watchers = [
-    ...flowsWatchers,
-    ...warehousesWatchers,
-];
+const watchers = [...flowsWatchers, ...warehousesWatchers, ...brigadesWatchers];
 
 export default watchers;

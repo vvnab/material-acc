@@ -6,7 +6,12 @@ import { Dashboard } from 'features/admin/dashboard';
 import { Directories } from 'features/directories';
 import { Reports } from 'features/admin/reports';
 import { Settings } from 'features/admin/settings';
-import { WarehousesMenu, Flows, Warehouses } from 'features/admin/stock';
+import {
+    WarehousesMenu,
+    Flows,
+    Warehouses,
+    Brigades,
+} from 'features/admin/stock';
 import { isAuth, selectProfile } from 'features/authentication/selectors';
 import { useSelector, useDispatch } from 'react-redux';
 import { logOut } from 'features/authentication/actions';
@@ -45,14 +50,7 @@ export const Router = () => {
                     <Route path='/stock' element={<WarehousesMenu />}>
                         <Route path='' element={<Flows />} />
                         <Route path='warehouses' element={<Warehouses />} />
-                        <Route
-                            path='brigades'
-                            element={
-                                <>
-                                    <h1>B</h1>
-                                </>
-                            }
-                        />
+                        <Route path='brigades' element={<Brigades />} />
                     </Route>
                     <Route path='/reports' element={<Reports />} />
                     <Route path='/settings' element={<Settings />} />

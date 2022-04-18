@@ -1,0 +1,64 @@
+.wrap {
+    padding: 16px;
+    margin: 16px 0;
+    border: 1px solid var(--color-lightgray);
+    cursor: pointer;
+    border-radius: 8px;
+    position: relative;
+
+
+    &:hover {
+        border-color: var(--color-link);
+    }
+
+    .arrowIcon {
+        margin: 0 8px;
+    }
+
+    .down {
+        font-size: 24px;
+        position: absolute;
+        right: 16px;
+    }
+
+    .title {
+        font: var(--font-h3);
+    }
+
+    .addonPart {
+        &.hidden {
+            display: none;
+        }
+
+        .table {
+            border-collapse: collapse;
+            margin: 16px 0;
+            width: 100%;
+
+            tr {
+                &:nth-child(odd) {
+                    backdrop-filter: invert(10%);
+                }
+
+                td {
+                    padding: 4px 12px;
+                    border: 1px solid var(--color-gray);
+
+                    &:first-child {
+                        width: 100%;
+                    }
+
+                    &:last-child {
+                        text-align: right;
+                    }
+                }
+            }
+        }
+
+        .buttonGroup {
+            display: flex;
+            gap: 16px;
+            justify-content: flex-end;
+        }
+    }
+}
