@@ -1,6 +1,7 @@
 // import { put, all, takeLatest } from 'redux-saga/effects';
 
 import flowsWatchers from './flows/sagas';
+import warehousesWatchers from './warehouses/sagas';
 // import materialsWatchers from './materials/sagas';
 // import warehousesWatchers from './warehouses/sagas';
 
@@ -24,8 +25,7 @@ import flowsWatchers from './flows/sagas';
 
 const watchers = [
     ...flowsWatchers,
-    // ...materialsWatchers,
-    // ...warehousesWatchers,
+    ...warehousesWatchers,
 ];
 
 export default watchers;

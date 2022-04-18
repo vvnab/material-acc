@@ -11,12 +11,14 @@ import styles from './Modal.module.scss';
 
 interface IProps extends React.HTMLAttributes<HTMLDivElement> {
     noTimes?: boolean;
+    name?: string;
     closeOnClickOutside?: boolean;
 }
 
 const Modal: React.FC<IProps> = ({
     className,
     noTimes = false,
+    name = 'modal',
     closeOnClickOutside = false,
 }) => {
     const dispatch = useDispatch();
@@ -60,7 +62,7 @@ const Modal: React.FC<IProps> = ({
 
     const render = () =>
         show && (
-            <div className={styles.overlay}>
+            <div className={styles.overlay} data-name={name}>
                 {noTimes ? (
                     <div
                         className={[styles.wrap, className].join(' ')}

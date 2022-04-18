@@ -6,6 +6,7 @@ interface Props extends React.HTMLProps<HTMLInputElement> {
     error?: string | false;
     legend?: string;
     dataList?: any;
+    inputClassName?: string;
 }
 
 const Input: React.FC<Props> = ({
@@ -15,6 +16,7 @@ const Input: React.FC<Props> = ({
     error,
     name,
     className,
+    inputClassName,
     ...rest
 }) => {
     return (
@@ -29,7 +31,13 @@ const Input: React.FC<Props> = ({
                     {error && `: ${error?.toLowerCase()}`}
                 </legend>
             )}
-            <input placeholder={placeholder} name={name} id={name} {...rest} />
+            <input
+                placeholder={placeholder}
+                name={name}
+                id={name}
+                className={inputClassName}
+                {...rest}
+            />
             {dataList && (
                 <datalist id={name}>
                     {dataList.map((i: string) => (

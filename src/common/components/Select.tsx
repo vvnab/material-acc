@@ -15,11 +15,12 @@ const Select: React.FC<Props> = ({
     multiple,
     legend,
     error,
+    className,
     ...rest
 }) => {
     return (
         <div
-            className={[styles.container, error ? styles.error : ''].join(' ')}
+            className={[styles.container, className, error ? styles.error : ''].join(' ')}
         >
             {legend && (
                 <legend>
