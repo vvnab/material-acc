@@ -13,7 +13,7 @@ function* getWorker(action: any): any {
     yield put(actions.loadSuccess({ ...data }));
   } catch (ex: any) {
     yield put(
-      actions.loadFailed({ message: ex.message || "Неизвестная ошибка" })
+      actions.loadFailed({ message: ex.message  })
     );
   }
 }
@@ -47,13 +47,13 @@ function* updateWorker(action: any): any {
   } catch (ex: any) {
     yield put(
       actions.updateItemError({
-        message: ex.message || "Неизвестная ошибка",
+        message: ex.message ,
       })
     );
     yield put(
       showMessage({
         type: "error",
-        text: ex.message || "Неизвестная ошибка",
+        text: ex.message ,
       })
     );
   }
@@ -72,7 +72,7 @@ function* deleteWorker(action: any): any {
   } catch (ex: any) {
     yield put(
       actions.updateItemError({
-        message: ex.message || "Неизвестная ошибка",
+        message: ex.message ,
       })
     );
   }

@@ -11,10 +11,8 @@ function* getWorker(action: any): any {
   try {
     const data = yield call(fetch, `${URL}/`, "GET");
     yield put(actions.loadSuccess({ ...data }));
-  } catch (ex: any) {
-    yield put(
-      actions.loadFailed({ message: ex.message || "Неизвестная ошибка" })
-    );
+  } catch ({ message }) {
+    yield put(actions.loadFailed({ message }));
   }
 }
 
@@ -44,16 +42,12 @@ function* updateWorker(action: any): any {
       yield put(actions.loadRequest());
     }
     yield put(closeModal());
-  } catch (ex: any) {
-    yield put(
-      actions.updateItemError({
-        message: ex.message || "Неизвестная ошибка",
-      })
-    );
+  } catch ({ message }) {
+    yield put(actions.updateItemError({ message }));
     yield put(
       showMessage({
         type: "error",
-        text: ex.message || "Неизвестная ошибка",
+        text: message,
       })
     );
   }
@@ -66,15 +60,11 @@ function* updateWatcher() {
 function* deleteWorker(action: any): any {
   const { id } = action.payload;
   try {
-    yield call(fetch, `${URL}/${id}`, 'DELETE');
+    yield call(fetch, `${URL}/${id}`, "DELETE");
     yield put(actions.deleteItemSuccess(id));
     yield put(closeModal());
-  } catch (ex: any) {
-    yield put(
-      actions.updateItemError({
-        message: ex.message || "Неизвестная ошибка",
-      })
-    );
+  } catch ({ message }) {
+    yield put(actions.updateItemError({ message }));
   }
 }
 
