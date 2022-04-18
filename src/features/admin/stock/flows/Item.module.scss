@@ -60,6 +60,10 @@
                     &:first-child {
                         width: 100%;
                     }
+                    
+                    &:last-child {
+                        text-align: right;
+                    }
                 }
             }
         }

@@ -2,15 +2,16 @@ import { call, put, takeLatest } from 'redux-saga/effects';
 import { select } from 'redux-saga/effects';
 import { selectBearer } from 'features/authentication/selectors';
 import * as actions from './actions';
+import moment from 'moment';
 import { showMessage } from 'features/message';
 import { closeModal } from 'features/modal';
 
-const URL = '/api/materialFlows';
+const URL = '/api/warehouses';
 
 function* getWorker(action: any): any {
     const bearer = yield select(selectBearer);
     try {
-        const result = yield call(fetch, `${URL}/?sort=createdAt,desc&opsStatuses=CREATED&opsStatuses=ACCEPTED`, {
+        const result = yield call(fetch, `${URL}/`, {
             method: 'get',
             headers: {
                 'Content-Type': 'application/json',
@@ -37,30 +38,44 @@ function* getWatcher() {
 
 function* updateWorker(action: any): any {
     const bearer = yield select(selectBearer);
-    const {id, type} = action.payload;
+    const { id, type, toWarehouseId, materials, acceptFlow, remarks } =
+        action.payload;
 
     try {
         let result;
-        result = yield call(fetch, `${URL}/${id}/${type}`, {
-            method: 'PATCH',
-            headers: {
-                'Content-Type': 'application/json',
-                Accept: 'application/json',
-                Authorization: `Bearer ${bearer}`,
-            },
-        });
+        result = yield call(
+            fetch,
+            `${URL}/${id}/${type}${toWarehouseId ? '/' + toWarehouseId : ''}`,
+            {
+                method: 'POST',
+                body: JSON.stringify({
+                    opsDt: moment().format('YYYY-MM-DD'),
+                    materials,
+                    acceptFlow,
+                    remarks,
+                }),
+                headers: {
+                    'Content-Type': 'application/json',
+                    Accept: 'application/json',
+                    Authorization: `Bearer ${bearer}`,
+                },
+            }
+        );
 
         if (!result.ok) {
-            console.log(result);
             const { message, error, details } = yield call([
                 result,
                 result.json,
             ]);
-            console.log(message, error, details)
+            console.log(message, error, details);
             throw new Error(details || message || error);
         }
         const data = yield call([result, result.json]);
         yield put(actions.updateItemSuccess({ ...data }));
+        if (toWarehouseId) {
+            yield put(actions.loadRequest());
+        }
+        yield put(closeModal());
     } catch (ex: any) {
         yield put(
             actions.updateItemError({

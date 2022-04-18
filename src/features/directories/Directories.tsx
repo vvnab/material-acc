@@ -29,7 +29,7 @@ const Directories: React.FC<Props> = ({ children, ...rest }) => {
             <WarehousesPanel legend='Склады' />
             <WorkTypesPanel legend='Типы работ' />
             <WorkObjectsPanel legend='Рабочие объекты' />
-            <Modal />
+            <Modal name="dirs"/>
         </div>
     );
 };

@@ -17,7 +17,7 @@ import 'moment/locale/ru';
 import { IFlow } from './types';
 import { Button } from 'common/components';
 
-import styles from './FlowItem.module.scss';
+import styles from './Item.module.scss';
 
 moment.locale('ru');
 
