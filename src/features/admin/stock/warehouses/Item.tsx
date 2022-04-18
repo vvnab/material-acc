@@ -52,6 +52,7 @@ const FlowItem: React.FC<IWarehouse> = ({ id, title, materials }) => {
                 <div className={styles.buttonGroup}>
                     <Button
                         option='dangerous'
+                        disabled={true}
                         onClick={(e) => {
                             dispatch(deleteItemRequest({ id }));
                             e.stopPropagation();
