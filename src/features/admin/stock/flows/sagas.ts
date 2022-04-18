@@ -1,6 +1,4 @@
 import { call, put, takeLatest } from "redux-saga/effects";
-import { select } from "redux-saga/effects";
-import { selectBearer } from "features/authentication/selectors";
 import * as actions from "./actions";
 import { showMessage } from "features/message";
 import { closeModal } from "features/modal";
@@ -9,19 +7,12 @@ import fetch from "common/utils/fetch";
 const URL = "/api/materialFlows";
 
 function* getWorker(action: any): any {
-  const bearer = yield select(selectBearer);
   try {
     const data = yield call(
       fetch,
       `${URL}/?sort=createdAt,desc&opsStatuses=CREATED&opsStatuses=ACCEPTED`,
-      bearer,
       "GET"
     );
-    // if (!result.ok) {
-    //   const { message, error } = yield call([result, result.json]);
-    //   throw new Error(message || error);
-    // }
-    // const data = yield call([result, result.json]);
     yield put(actions.loadSuccess({ ...data }));
   } catch (ex: any) {
     yield put(
@@ -35,20 +26,10 @@ function* getWatcher() {
 }
 
 function* updateWorker(action: any): any {
-  const bearer = yield select(selectBearer);
   const { id, type } = action.payload;
 
   try {
-    let result;
-    result = yield call(fetch, `${URL}/${id}/${type}`, bearer, "PATCH");
-
-    if (!result.ok) {
-      console.log(result);
-      const { message, error, details } = yield call([result, result.json]);
-      console.log(message, error, details);
-      throw new Error(details || message || error);
-    }
-    const data = yield call([result, result.json]);
+    const data = yield call(fetch, `${URL}/${id}/${type}`, "PATCH");
     yield put(actions.updateItemSuccess({ ...data }));
   } catch (ex: any) {
     yield put(
@@ -70,15 +51,9 @@ function* updateWatcher() {
 }
 
 function* deleteWorker(action: any): any {
-  const bearer = yield select(selectBearer);
   const { id } = action.payload;
   try {
-    const result = yield call(fetch, `${URL}/${id}`, bearer, "DELETE");
-    if (!result.ok) {
-      const { message, error, details } = yield call([result, result.json]);
-      throw new Error(details || message || error);
-    }
-    yield call([result, result.json]);
+    yield call(fetch, `${URL}/${id}`, "DELETE");
     yield put(actions.deleteItemSuccess(id));
     yield put(closeModal());
   } catch (ex: any) {
