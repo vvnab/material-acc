@@ -19,7 +19,7 @@ const Flows: React.FC<Props> = ({ children, ...rest }) => {
     }, [dispatch]);
     return (
         <div {...rest} className={styles.wrap}>
-            <FilterPanel />
+            {/* <FilterPanel /> */}
             { loading && <Loader className={styles.loader}/>}
             <div className={styles.list}>
                 {list.map((item) => (

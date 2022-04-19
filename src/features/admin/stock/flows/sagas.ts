@@ -10,7 +10,7 @@ function* getWorker(action: any): any {
     try {
         const data = yield call(
             fetch,
-            `${URL}/?sort=createdAt,desc&opsStatuses=CREATED&opsStatuses=ACCEPTED`,
+            `${URL}/?size=100&sort=createdAt,desc&opsStatuses=CREATED&opsStatuses=ACCEPTED`,
             'GET'
         );
         yield put(actions.loadSuccess({ ...data }));
