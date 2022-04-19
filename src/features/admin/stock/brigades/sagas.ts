@@ -25,7 +25,7 @@ function* updateWorker(action: any): any {
     const { id, type, toId, materials, acceptFlow, remarks } = action.payload;
 
     try {
-        const data = yield call(
+        yield call(
             fetch,
             `${URL2}/${id}/${type}/${toId}`,
             'POST',
