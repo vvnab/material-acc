@@ -3,16 +3,16 @@ import { Select, Input, Button, Checkbox, TextArea } from 'common/components';
 import { IMaterial } from 'features/directories/materials/types';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateItemRequest } from './actions';
-import { selectItemLoading } from './selectors';
+import { selectItemLoading, selectList } from './selectors';
 import { closeModal } from 'features/modal';
-import { selectList } from './selectors';
+import { selectAll as selectWarehouses } from 'features/directories/warehouses/selectors';
 
 import styles from './Form.module.scss';
 
 interface Props {
     materials: IMaterial[];
-    warehouseId: number;
-    type: 'addMaterials' | 'moveMaterials';
+    brigadeId: number;
+    type: 'requestMaterials' | 'sendToBrigade' | 'sendToWarehouse';
 }
 
 interface IItem {
@@ -20,12 +20,13 @@ interface IItem {
     quantity: number;
 }
 
-const Form: React.FC<Props> = ({ materials, warehouseId, type }) => {
+const Form: React.FC<Props> = ({ materials, brigadeId, type }) => {
     const dispatch = useDispatch();
     const isLoading = useSelector(selectItemLoading);
-    const warehouses = useSelector(selectList).filter(
-        ({ id }) => id !== warehouseId
+    const brigades = useSelector(selectList).filter(
+        ({ id }) => id !== brigadeId
     );
+    const warehouses = useSelector(selectWarehouses);
 
     let [items, setItems] = useState<IItem[]>([
         {
@@ -36,7 +37,7 @@ const Form: React.FC<Props> = ({ materials, warehouseId, type }) => {
 
     const [checked, setChecked] = useState(true);
     const [remarks, setRemarks] = useState('');
-    const [toWarehouseId, setToWarehouseId] = useState<any>(null);
+    const [toId, setToId] = useState<any>(null);
 
     const getAvailableMaterials = (items: IItem[], materialId: number) => {
         const selectedItems = items.map(({ materialId }) => materialId);
@@ -81,12 +82,12 @@ const Form: React.FC<Props> = ({ materials, warehouseId, type }) => {
         e.preventDefault();
         const data = {
             type,
-            id: warehouseId,
+            id: brigadeId,
             materials: items.filter(
                 ({ quantity, materialId }) => materialId !== 0 && quantity !== 0
             ),
             acceptFlow: checked,
-            toWarehouseId,
+            toId,
             remarks,
         };
         dispatch(updateItemRequest(data));
@@ -123,26 +124,30 @@ const Form: React.FC<Props> = ({ materials, warehouseId, type }) => {
                         />
                     </fieldset>
                 ))}
-                {type === 'moveMaterials' && (
-                    <Select
-                        name='toWarehouse'
-                        className={styles.select}
-                        legend='Склад назначения'
-                        onChange={(e) =>
-                            setToWarehouseId(e.currentTarget.value)
-                        }
-                        value={toWarehouseId}
-                    >
-                        <option key={0} value={0}>
-                            ------
-                        </option>
-                        {warehouses.map(({ title, id }) => (
+                <Select
+                    name='to'
+                    className={styles.select}
+                    legend={
+                        type === 'sendToBrigade'
+                            ? 'Бригада назначения'
+                            : type === 'sendToWarehouse'
+                            ? 'Склад назначения'
+                            : 'Запрос со склада'
+                    }
+                    onChange={(e) => setToId(e.currentTarget.value)}
+                    value={toId}
+                >
+                    <option key={0} value={0}>
+                        ------
+                    </option>
+                    {(type === 'sendToBrigade' ? brigades : warehouses).map(
+                        ({ title, id }) => (
                             <option key={id} value={id}>
                                 {title}
                             </option>
-                        ))}
-                    </Select>
-                )}
+                        )
+                    )}
+                </Select>
                 <TextArea
                     rows={5}
                     legend='Примечание'
@@ -169,10 +174,7 @@ const Form: React.FC<Props> = ({ materials, warehouseId, type }) => {
                     }
                     <Button
                         className={styles.button}
-                        disabled={
-                            isLoading ||
-                            (type === 'moveMaterials' && !toWarehouseId)
-                        }
+                        disabled={isLoading || !parseInt(toId)}
                     >
                         Сохранить
                     </Button>

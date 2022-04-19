@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { loadRequest } from './actions';
 import { loadRequest as loadMaterialsRequest } from 'features/directories/materials/actions';
+import { loadRequest as loadWarehousesRequest } from 'features/directories/warehouses/actions';
 import { selectList, selectLoading } from './selectors';
 import FlowItem from './Item';
 import { Loader } from 'common/components';
@@ -17,6 +18,7 @@ const Flows: React.FC<Props> = ({ children, ...rest }) => {
     useEffect(() => {
         dispatch(loadRequest());
         dispatch(loadMaterialsRequest());
+        dispatch(loadWarehousesRequest());
     }, [dispatch]);
     return (
         <div {...rest} className={styles.wrap}>

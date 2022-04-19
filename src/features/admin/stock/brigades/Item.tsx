@@ -67,8 +67,8 @@ const FlowItem: React.FC<IWarehouse> = ({ id, title, materials }) => {
                                 showModal(
                                     <Form
                                         materials={allMaterials}
-                                        warehouseId={id || 0}
-                                        type='addMaterials'
+                                        brigadeId={id || 0}
+                                        type='requestMaterials'
                                     />
                                 )
                             );
@@ -85,8 +85,8 @@ const FlowItem: React.FC<IWarehouse> = ({ id, title, materials }) => {
                                         materials={materials.map(
                                             ({ material }) => material
                                         )}
-                                        warehouseId={id || 0}
-                                        type='moveMaterials'
+                                        brigadeId={id || 0}
+                                        type='sendToBrigade'
                                     />
                                 )
                             );
@@ -103,8 +103,8 @@ const FlowItem: React.FC<IWarehouse> = ({ id, title, materials }) => {
                                         materials={materials.map(
                                             ({ material }) => material
                                         )}
-                                        warehouseId={id || 0}
-                                        type='moveMaterials'
+                                        brigadeId={id || 0}
+                                        type='sendToWarehouse'
                                     />
                                 )
                             );
