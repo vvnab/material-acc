@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { loadRequest } from './actions';
 import { selectList, selectLoading } from './selectors';
-import FilterPanel from './FilterPanel';
+// import FilterPanel from './FilterPanel';
 import FlowItem from './Item';
 import { Loader } from 'common/components';
 
