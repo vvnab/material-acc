@@ -144,8 +144,8 @@ const FilterPanel: React.FC<Props> = ({ children, ...rest }) => {
                     const [type, id] = e.currentTarget.value.split('_');
                     dispatch(
                         updateFilter({
-                            opsTypes: filter.opsTypes,
-                            dateRange: filter.dateRange,
+                            opsTypes: filter?.opsTypes || [],
+                            dateRange: filter?.dateRange || {},
                             [type]: id,
                         })
                     );
