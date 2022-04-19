@@ -2,7 +2,9 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { loadRequest } from './actions';
 import { selectList, selectLoading } from './selectors';
-// import FilterPanel from './FilterPanel';
+import { loadRequest as loadWarehousesRequest } from 'features/directories/warehouses/actions';
+import { loadRequest as loadBrigadesRequest } from 'features/directories/brigades/actions';
+import FilterPanel from './FilterPanel';
 import FlowItem from './Item';
 import { Loader } from 'common/components';
 
@@ -16,10 +18,12 @@ const Flows: React.FC<Props> = ({ children, ...rest }) => {
     const loading = useSelector(selectLoading);
     useEffect(() => {
         dispatch(loadRequest());
+        dispatch(loadWarehousesRequest());
+        dispatch(loadBrigadesRequest());
     }, [dispatch]);
     return (
         <div {...rest} className={styles.wrap}>
-            {/* <FilterPanel /> */}
+            <FilterPanel />
             { loading && <Loader className={styles.loader}/>}
             <div className={styles.list}>
                 {list.map((item) => (

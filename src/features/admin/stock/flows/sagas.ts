@@ -1,5 +1,6 @@
-import { call, put, takeLatest } from 'redux-saga/effects';
+import { call, put, takeLatest, select } from 'redux-saga/effects';
 import * as actions from './actions';
+import { selectFilter } from './selectors';
 import { showMessage } from 'features/message';
 import { closeModal } from 'features/modal';
 import fetch from 'common/utils/fetch';
@@ -7,12 +8,36 @@ import fetch from 'common/utils/fetch';
 const URL = '/api/materialFlows';
 
 function* getWorker(action: any): any {
+    const filter = yield select(selectFilter);
+    //@ts-ignore
+    const search = new URLSearchParams({
+        size: '100',
+        sort: 'createdAt,desc',
+        opsStatuses: ['CREATED', 'ACCEPTED'],
+    });
+
+    if (filter?.opsTypes && filter.opsTypes.length) {
+        search.append('opsTypes', filter.opsTypes);
+    }
+
+    if (filter?.dateRange?.from) {
+        search.append('from', filter.dateRange.from);
+    }
+
+    if (filter?.dateRange?.to) {
+        search.append('to', filter.dateRange.to);
+    }
+
+    if (filter?.warehouseId) {
+        search.append('warehouseId', filter.warehouseId);
+    }
+
+    if (filter?.brigadeId) {
+        search.append('brigadeId', filter.brigadeId);
+    }
+
     try {
-        const data = yield call(
-            fetch,
-            `${URL}/?size=100&sort=createdAt,desc&opsStatuses=CREATED&opsStatuses=ACCEPTED`,
-            'GET'
-        );
+        const data = yield call(fetch, `${URL}/?${search}`, 'GET');
         yield put(actions.loadSuccess({ ...data }));
     } catch ({ message }) {
         yield put(actions.loadFailed({ message }));
@@ -20,7 +45,10 @@ function* getWorker(action: any): any {
 }
 
 function* getWatcher() {
-    yield takeLatest(actions.loadRequest.toString(), getWorker);
+    yield takeLatest(
+        [actions.loadRequest.toString(), actions.updateFilter.toString()],
+        getWorker
+    );
 }
 
 function* updateWorker(action: any): any {

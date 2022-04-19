@@ -16,8 +16,13 @@ export const selectList = createSelector(selectDir, (state) =>
                   title.toUpperCase().indexOf(state.filter.toUpperCase()) >= 0
           )
         : state.content
-    ).map((i) => ({ ...i}))
+    ).map((i) => ({ ...i }))
 );
+
+export const selectAll = createSelector(selectDir, (state) =>
+    state.content.map((i) => ({ ...i }))
+);
+
 export const selectItemLoading = createSelector(
     selectDir,
     (state) => state.itemLoading

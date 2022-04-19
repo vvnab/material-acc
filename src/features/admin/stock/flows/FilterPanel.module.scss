@@ -1,19 +1,33 @@
 .wrap {
     display: flex;
-    gap: 16px;
-    padding: 32px;
+    gap: 8px;
+    padding: 16px 32px;
     // border: 1px solid var(--color-gray);
     border-radius: 8px;
     position: fixed;
-    top: 50px;
+    top: 49px;
     z-index: 1;
-    background-color: white;;
+    background-color: white;
+    align-items: center;
 
     width: calc(100% - 200px);
     left: 200px;
 
-    > * {
-        flex: 1 1 auto
+    .date {
+        flex: 1 0 200px;
+    }
+
+    .select {
+        flex: 1 1 100%;
+    }
+
+    .button {
+        flex: 0 0 80px;
+    }
+
+    .find {
+        margin-top: 21px;
+        flex: 0 0 auto;
     }
 
 }

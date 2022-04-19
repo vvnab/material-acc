@@ -10,7 +10,7 @@ interface IWarehouse {
     title: string;
 }
 
-type OpsType =
+export type OpsType =
     | 'WAREHOUSE_INCOME'
     | 'WAREHOUSE_TO_WAREHOUSE'
     | 'WAREHOUSE_TO_BRIGADE'
@@ -41,17 +41,19 @@ export interface IFlow {
 }
 
 interface IFilter {
-    opsType?: OpsType;
-    opsStatus?: OpsStatus;
-    createdBetween?: {
-        begin?: string;
-        end?: string;
+    opsTypes?: OpsType[];
+    // opsStatus?: OpsStatus;
+    dateRange?: {
+        from?: string;
+        to?: string;
     };
+    warehouseId?: number;
+    brigadeId?: number;
 }
 
 export interface IState {
     content: IFlow[];
-    filter?: IFilter;
+    filter: IFilter;
     loading: boolean;
     error: string;
     itemLoading: boolean;

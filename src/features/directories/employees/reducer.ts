@@ -14,8 +14,9 @@ export const initialState: IState = {
 
 export default handleActions<IState>(
     {
-        [actions.loadRequest.toString()]: () => ({
-            ...initialState,
+        [actions.loadRequest.toString()]: (state) => ({
+            ...state,
+            content: [],
             loading: true,
         }),
         [actions.loadSuccess.toString()]: (state, action) => ({
@@ -25,7 +26,8 @@ export default handleActions<IState>(
             error: '',
         }),
         [actions.loadFailed.toString()]: (state, action: any) => ({
-            ...initialState,
+            ...state,
+            content: [],
             loading: false,
             error: action.payload.message,
         }),

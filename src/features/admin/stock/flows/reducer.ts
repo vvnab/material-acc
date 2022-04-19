@@ -4,7 +4,7 @@ import { IState } from './types';
 import { updateOrUnion } from 'common/utils/updateOrUnion';
 
 export const initialState: IState = {
-    filter: undefined,
+    filter: {},
     content: [],
     loading: false,
     error: '',
@@ -14,8 +14,8 @@ export const initialState: IState = {
 
 export default handleActions<IState>(
     {
-        [actions.loadRequest.toString()]: () => ({
-            ...initialState,
+        [actions.loadRequest.toString()]: (state) => ({
+            ...state,
             loading: true,
         }),
         [actions.loadSuccess.toString()]: (state, action) => ({
@@ -25,9 +25,13 @@ export default handleActions<IState>(
             error: '',
         }),
         [actions.loadFailed.toString()]: (state, action: any) => ({
-            ...initialState,
+            ...state,
             loading: false,
             error: action.payload.message,
+        }),
+        [actions.updateFilter.toString()]: (state, action: any) => ({
+            ...state,
+            filter: action.payload,
         }),
         [actions.updateItemRequest.toString()]: (state) => ({
             ...state,
