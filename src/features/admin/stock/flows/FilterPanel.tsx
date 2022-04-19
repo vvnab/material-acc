@@ -137,8 +137,8 @@ const FilterPanel: React.FC<Props> = ({ children, ...rest }) => {
             <Select
                 legend='Склад/бригада'
                 className={styles.select}
-                value={`${filter.brigadeId ? 'brigadeId' : 'warehouseId'}_${
-                    filter.brigadeId || filter.warehouseId
+                value={`${filter?.brigadeId ? 'brigadeId' : 'warehouseId'}_${
+                    filter?.brigadeId || filter?.warehouseId
                 }`}
                 onChange={(e) => {
                     const [type, id] = e.currentTarget.value.split('_');
