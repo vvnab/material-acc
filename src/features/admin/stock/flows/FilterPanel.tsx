@@ -14,6 +14,7 @@ import {
     faArrowRightArrowLeft as changeIcon,
     faArrowRightFromBracket as outIcon,
     faArrowRightToBracket as inIcon,
+    faPersonDigging as workIcon,
 } from '@fortawesome/free-solid-svg-icons';
 import { Select, Button, RadioButton, Datetime } from 'common/components';
 import { OpsType } from './types';
@@ -44,6 +45,7 @@ const FilterPanel: React.FC<Props> = ({ children, ...rest }) => {
         (filter?.opsTypes || []).indexOf('WAREHOUSE_TO_BRIGADE') >= 0;
     const brigadeToBrigade =
         (filter?.opsTypes || []).indexOf('BRIGADE_TO_BRIGADE') >= 0;
+    const brigadeToConsumed = (filter?.opsTypes || []).indexOf('CONSUMED') >= 0;
 
     const switchOpsType = (type: OpsType) => {
         const opsTypes = new Set(filter?.opsTypes);
@@ -57,6 +59,16 @@ const FilterPanel: React.FC<Props> = ({ children, ...rest }) => {
                 ...filter,
                 opsTypes: Array.from(opsTypes),
             })
+        );
+    };
+
+    const filterIsEmpty = () => {
+        return (
+            filter?.opsTypes?.length ||
+            filter?.brigadeId ||
+            filter?.warehouseId ||
+            filter?.dateRange?.from ||
+            filter?.dateRange?.to
         );
     };
 
@@ -134,6 +146,13 @@ const FilterPanel: React.FC<Props> = ({ children, ...rest }) => {
                 <FontAwesomeIcon icon={brigadeIcon} />
                 <FontAwesomeIcon icon={outIcon} />
             </RadioButton>
+            <RadioButton
+                className={[styles.button, styles.ow].join(' ')}
+                selected={brigadeToConsumed}
+                onClick={() => switchOpsType('CONSUMED')}
+            >
+                <FontAwesomeIcon icon={workIcon} />
+            </RadioButton>
             <Select
                 legend='Склад/бригада'
                 className={styles.select}
@@ -162,12 +181,13 @@ const FilterPanel: React.FC<Props> = ({ children, ...rest }) => {
             </Select>
             <Button
                 className={styles.find}
-                option='dangerous'
+                option={
+                    filterIsEmpty() ? 'dangerous' : 'default'
+                }
                 onClick={() => dispatch(updateFilter({}))}
             >
                 <FontAwesomeIcon icon={eraserIcon} />
             </Button>
-            {/* <Button className={styles.find}>Применить</Button> */}
         </div>
     );
 };
