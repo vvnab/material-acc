@@ -8,13 +8,18 @@ import fetch from 'common/utils/fetch';
 const URL = '/api/materialFlows';
 
 function* getWorker(action: any): any {
+    console.log(action)
     const filter = yield select(selectFilter);
-    // @ts-ignore
+    
     const search = new URLSearchParams({
         size: '100',
         sort: 'opsDt,desc',
-        opsStatuses: ['CREATED', 'ACCEPTED'],
     });
+
+    if (!action.payload) {
+        // @ts-ignore
+        search.append('opsStatuses', ['CREATED', 'ACCEPTED'])
+    }
 
     if (filter?.opsTypes && filter.opsTypes.length) {
         search.append('opsTypes', filter.opsTypes);

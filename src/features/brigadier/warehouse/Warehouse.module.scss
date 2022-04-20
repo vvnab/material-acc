@@ -1,5 +1,28 @@
 .wrap {
     height: 100%;
     min-height: 50vh;
-    padding: 16px;
+    padding: 16px 8px;
+
+    .loader {
+        height: 100%;
+        min-height: 50vh;
+    }
+
+    .materials {
+        margin-bottom: 16px;
+        
+        tr {
+            &:nth-child(even) {
+                backdrop-filter: invert(10%);
+            }
+
+            td {
+                padding: 4px 8px;
+
+                &:last-child {
+                    text-align: right;
+                }
+            }
+        }
+    }
 }
