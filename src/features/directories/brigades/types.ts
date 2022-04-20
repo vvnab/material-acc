@@ -1,6 +1,13 @@
+import { IMaterial } from 'features/directories/materials/types';
+
+interface IMaterials {
+    quantity: number;
+    material: IMaterial;
+}
+
 export interface IBrigade {
     id?: number;
-    title: string;
+    title?: string;
     brigadier?: {
         id: number;
         fullName: string;
@@ -11,6 +18,7 @@ export interface IBrigade {
             fullName: string;
         }
     ];
+    materials?: IMaterials[];
 }
 
 export interface IState {

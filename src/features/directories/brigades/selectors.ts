@@ -13,6 +13,7 @@ export const selectList = createSelector(selectDir, (state) =>
     (state.filter
         ? state.content.filter(
               ({ title }) =>
+                  title &&
                   title.toUpperCase().indexOf(state.filter.toUpperCase()) >= 0
           )
         : state.content

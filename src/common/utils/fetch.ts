@@ -1,5 +1,4 @@
-import { call } from "redux-saga/effects";
-import { select } from "redux-saga/effects";
+import { call, select } from "redux-saga/effects";
 import { selectBearer } from "features/authentication/selectors";
 
 function* customFetch(url: string, method: string, body?: any): any {

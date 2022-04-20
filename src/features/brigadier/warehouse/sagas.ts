@@ -1,62 +1,42 @@
 import { call, put, takeLatest, select } from 'redux-saga/effects';
+import { selectProfile } from 'features/authentication/selectors';
 import * as actions from './actions';
-import { selectFilter } from './selectors';
+import moment from 'moment';
 import { showMessage } from 'features/message';
 import { closeModal } from 'features/modal';
 import fetch from 'common/utils/fetch';
 
-const URL = '/api/materialFlows';
+const URL = '/api/brigades';
+const URL2 = '/api/brigadeWarehouse';
 
 function* getWorker(action: any): any {
-    const filter = yield select(selectFilter);
-    // @ts-ignore
-    const search = new URLSearchParams({
-        size: '100',
-        sort: 'opsDt,desc',
-        opsStatuses: ['CREATED', 'ACCEPTED'],
-    });
-
-    if (filter?.opsTypes && filter.opsTypes.length) {
-        search.append('opsTypes', filter.opsTypes);
-    }
-
-    if (filter?.dateRange?.from) {
-        search.append('from', filter.dateRange.from);
-    }
-
-    if (filter?.dateRange?.to) {
-        search.append('to', filter.dateRange.to);
-    }
-
-    if (filter?.warehouseId) {
-        search.append('warehouseId', filter.warehouseId);
-    }
-
-    if (filter?.brigadeId) {
-        search.append('brigadeId', filter.brigadeId);
-    }
-
+    const { id } = yield select(selectProfile);
     try {
-        const data = yield call(fetch, `${URL}/?${search}`, 'GET');
-        yield put(actions.loadSuccess({ ...data }));
+        const { content: brigades } = yield call(fetch, `${URL}/`, 'GET');
+        const brigade = brigades.find((i: any) => i.brigadier.id === id);
+        yield put(actions.loadSuccess({ ...brigade }));
     } catch ({ message }) {
         yield put(actions.loadFailed({ message }));
     }
 }
 
 function* getWatcher() {
-    yield takeLatest(
-        [actions.loadRequest.toString(), actions.updateFilter.toString()],
-        getWorker
-    );
+    yield takeLatest(actions.loadRequest.toString(), getWorker);
 }
 
 function* updateWorker(action: any): any {
-    const { id, type } = action.payload;
+    const { id, type, toId, materials, acceptFlow, remarks } = action.payload;
 
     try {
-        const data = yield call(fetch, `${URL}/${id}/${type}`, 'PATCH');
-        yield put(actions.updateItemSuccess({ ...data }));
+        yield call(fetch, `${URL2}/${id}/${type}/${toId}`, 'POST', {
+            opsDt: moment().format('YYYY-MM-DD'),
+            materials,
+            acceptFlow,
+            remarks,
+        });
+
+        // yield put(actions.updateItemSuccess({ ...data }));
+        yield put(closeModal());
     } catch ({ message }) {
         yield put(actions.updateItemError({ message }));
         yield put(

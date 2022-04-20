@@ -10,12 +10,12 @@ interface Props extends React.HTMLProps<HTMLDivElement> {
 
 const BrigadierLayout: React.FC<Props> = ({ logout, ...rest }) => {
     return (
-        <>
+        <div className={styles.container}>
             <Header logout={logout} />
-            <div {...rest} className={styles.wrap}>!!!
+            <div {...rest} className={styles.wrap}>
                 <Outlet />
             </div>
-        </>
+        </div>
     );
 };
 

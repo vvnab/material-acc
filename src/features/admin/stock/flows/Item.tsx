@@ -24,6 +24,7 @@ moment.locale('ru');
 const FlowItem: React.FC<IFlow> = ({
     id,
     opsType,
+    opsDt,
     opsStatus,
     fromWarehouse,
     toWarehouse,
@@ -81,7 +82,7 @@ const FlowItem: React.FC<IFlow> = ({
                 {income.title}
             </div>
             <div className={styles.datetime}>
-                Создано: {moment(createdAt).format('D MMMM YYYY в HH:mm')} -{' '}
+                Дата операции: {moment(opsDt).format('D MMMM YYYY')} -{' '}
                 {employeeCreated?.fullName}
             </div>
             <div
@@ -130,11 +131,18 @@ const FlowItem: React.FC<IFlow> = ({
                         </Button>
                     </div>
                 ) : (
-                    <div className={styles.datetime}>
-                        Подтверждено:{' '}
-                        {moment(updatedAt).format('D MMMM YYYY в HH:mm')} -{' '}
-                        {employeeUpdated?.fullName}
-                    </div>
+                    <>
+                        <div className={styles.datetime}>
+                            Создано:{' '}
+                            {moment(createdAt).format('D MMMM YYYY в HH:mm')} -{' '}
+                            {employeeCreated?.fullName}
+                        </div>
+                        <div className={styles.datetime}>
+                            Подтверждено:{' '}
+                            {moment(updatedAt).format('D MMMM YYYY в HH:mm')} -{' '}
+                            {employeeUpdated?.fullName}
+                        </div>
+                    </>
                 )}
             </div>
         </div>

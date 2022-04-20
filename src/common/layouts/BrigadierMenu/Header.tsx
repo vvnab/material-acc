@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
-// import { useSelector } from 'react-redux';
-// import { selectProfile } from 'features/authentication/selectors';
+import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { selectProfile } from 'features/authentication/selectors';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
 import {
-    // faDashboard as dashboardIcon,
-    // faAddressBook as directoriesIcon,
-    // faWarehouse as warehousesIcon,
-    // faFlag as reportsIcon,
-    // faGears as settingsIcon,
+    faDashboard as dashboardIcon,
+    faWarehouse as warehousesIcon,
+    faSignOut as logoutIcon,
+    faFlag as reportsIcon,
+    faGears as settingsIcon,
     faBars as menuIcon,
 } from '@fortawesome/free-solid-svg-icons';
 
@@ -19,17 +19,16 @@ interface Props extends React.HTMLProps<HTMLDivElement> {
 }
 
 const Header: React.FC<Props> = ({ logout, ...rest }) => {
-    // const { username, fullName } = useSelector(selectProfile);
+    const { fullName } = useSelector(selectProfile);
     const [menuActive, setMenuActive] = useState(false);
     return (
         <>
             <div className={styles.menu}>
-                <h1 onClick={logout}>ДК Норд</h1>
+                <h3>{fullName}</h3>
                 <FontAwesomeIcon
                     icon={menuIcon}
                     className={styles.menuIcon}
                     onClick={() => setMenuActive(!menuActive)}
-                    
                 />
             </div>
             <div
@@ -39,7 +38,52 @@ const Header: React.FC<Props> = ({ logout, ...rest }) => {
                     menuActive ? styles.menuActive : '',
                 ].join(' ')}
                 onClick={() => setMenuActive(false)}
-            ></div>
+            >
+                <menu>
+                    <li>
+                        <Link to='/'>
+                            <FontAwesomeIcon
+                                icon={dashboardIcon}
+                                className={styles.menuIcon}
+                            />
+                            Главная
+                        </Link>
+                    </li>
+                    <li>
+                        <Link to='/reports'>
+                            <FontAwesomeIcon
+                                icon={reportsIcon}
+                                className={styles.menuIcon}
+                            />
+                            Отчёты
+                        </Link>
+                    </li>
+                    <li>
+                        <Link to='/warehouse'>
+                            <FontAwesomeIcon
+                                icon={warehousesIcon}
+                                className={styles.menuIcon}
+                            />
+                            Склад
+                        </Link>
+                    </li>
+                    <li>
+                        <FontAwesomeIcon
+                            icon={settingsIcon}
+                            className={styles.menuIcon}
+                        />
+                        Настройки
+                    </li>
+                    <li></li>
+                    <li onClick={logout}>
+                        <FontAwesomeIcon
+                            icon={logoutIcon}
+                            className={styles.menuIcon}
+                        />
+                        Выйти
+                    </li>
+                </menu>
+            </div>
         </>
     );
 };

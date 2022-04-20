@@ -22,6 +22,7 @@ type OpsStatus = 'CREATED' | 'ACCEPTED' | 'REJECTED';
 
 export interface IFlow {
     id?: number;
+    opsDt: string;
     createdAt?: string;
     updatedAt?: string;
     employeeCreated: IEmployee;
