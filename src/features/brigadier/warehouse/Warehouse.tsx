@@ -45,7 +45,7 @@ const Warehouse: React.FC<Props> = ({ children, ...rest }) => {
             </tbody>
           </table>
           <div className={styles.flows}>
-            {flows && flows.map((flow) => <FlowItem {...flow} />)}
+            {flows && flows.map((flow) => <FlowItem key={flow.id} {...flow} />)}
           </div>
         </>
       )}
