@@ -34,7 +34,6 @@ export default handleActions<IState>(
         }),
         [actions.updateItemSuccess.toString()]: (state, action: any) => ({
             ...state,
-            content: [...updateOrUnion(state.content, action.payload)],
             itemLoading: false,
             itemError: '',
         }),

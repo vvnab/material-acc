@@ -20,7 +20,7 @@
     }
 
     &.blink {
-        animation: 0.5s blink alternate infinite;
+        animation: 0.5s blink alternate infinite linear;
     }
 
     &:hover {
@@ -104,9 +104,13 @@
 
 @keyframes blink {
     from {
-        filter: hue-rotate(0deg);
+        // filter: invert(100%);
+        // background-color: var(--color-red);
+        color: var(--color-red);
     }
     to {
-        filter: hue-rotate(90deg);
+        // filter: invert(0);
+        // filter: hue-rotate(90deg);
+        background-color: var(--color-greenbg);
     }
 }

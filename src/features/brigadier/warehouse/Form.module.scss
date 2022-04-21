@@ -1,0 +1,66 @@
+.wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    min-width: 480px;
+    justify-content: space-between;
+
+    .inputs {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .inputGroup {
+        display: flex;
+        flex-direction: row;
+        gap: 12px;
+        border: none;
+        padding: 0;
+        margin: 0;
+        justify-content: space-between;
+        
+        .select {
+            flex: 1 1 100%;
+        }
+
+        .input {
+            flex: 1 0 90px;
+            text-align: right;
+        }
+    }
+
+    .info {
+        font: var(--font-normal);
+
+        table {
+            border-collapse: collapse;
+
+            tr {
+                &:nth-child(even) {
+                    background-color: var(--color-highlight);
+                }
+
+                td {
+                    padding: 2px 4px;
+                    width: 100%;
+                }
+            }
+        }
+    }
+
+    .buttonGroup {
+        display: flex;
+        justify-content: space-around;
+        gap: 12px;
+
+        .button {
+            flex: 1 1 auto;
+        }
+    }
+
+    @media (max-width: 767px) {
+        min-width: unset;
+        flex: 1 1 auto;
+    }
+}

@@ -1,15 +1,14 @@
 import { call, put, takeLatest, select } from 'redux-saga/effects';
 import { selectProfile } from 'features/authentication/selectors';
 import * as actions from './actions';
-import moment from 'moment';
-import { showMessage } from 'features/message';
-import { closeModal } from 'features/modal';
+import { loadRequest as loadFlowsRequest } from 'features/admin/stock/flows/actions';
+import { updateItemSuccess as updateFlowSuccess } from 'features/admin/stock/flows/actions';
+import { updateItemSuccess as updateBrigadeSuccess } from 'features/admin/stock/brigades/actions';
 import fetch from 'common/utils/fetch';
 
 const URL = '/api/brigades';
-const URL2 = '/api/brigadeWarehouse';
 
-function* getWorker(action: any): any {
+function* getWorker(): any {
     const { id } = yield select(selectProfile);
     try {
         const { content: brigades } = yield call(fetch, `${URL}/`, 'GET');
@@ -24,49 +23,29 @@ function* getWatcher() {
     yield takeLatest(actions.loadRequest.toString(), getWorker);
 }
 
-function* updateWorker(action: any): any {
-    const { id, type, toId, materials, acceptFlow, remarks } = action.payload;
-
-    try {
-        yield call(fetch, `${URL2}/${id}/${type}/${toId}`, 'POST', {
-            opsDt: moment().format('YYYY-MM-DD'),
-            materials,
-            acceptFlow,
-            remarks,
-        });
-
-        // yield put(actions.updateItemSuccess({ ...data }));
-        yield put(closeModal());
-    } catch ({ message }) {
-        yield put(actions.updateItemError({ message }));
-        yield put(
-            showMessage({
-                type: 'error',
-                text: message,
-            })
-        );
-    }
+function* updateBrigadeWorker(): any {
+    yield call(getWorker);
 }
 
-function* updateWatcher() {
-    yield takeLatest(actions.updateItemRequest.toString(), updateWorker);
+function* updateBrigadeWatcher() {
+    yield takeLatest(
+        updateFlowSuccess.toString(),
+        updateBrigadeWorker
+    );
 }
 
-function* deleteWorker(action: any): any {
-    const { id } = action.payload;
-    try {
-        yield call(fetch, `${URL}/${id}`, 'DELETE');
-        yield put(actions.deleteItemSuccess(id));
-        yield put(closeModal());
-    } catch ({ message }) {
-        yield put(actions.updateItemError({ message }));
-    }
+function* updateFlowWorker(): any {
+    yield put(loadFlowsRequest());
 }
 
-function* deleteWatcher() {
-    yield takeLatest(actions.deleteItemRequest.toString(), deleteWorker);
+function* updateFlowWatcher() {
+    yield takeLatest(
+        updateBrigadeSuccess.toString(),
+        updateFlowWorker
+    );
 }
 
-const watchers = [getWatcher, updateWatcher, deleteWatcher];
+
+const watchers = [getWatcher, updateBrigadeWatcher, updateFlowWatcher];
 
 export default watchers;
