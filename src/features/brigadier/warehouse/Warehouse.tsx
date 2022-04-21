@@ -1,5 +1,13 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+  faWarehouse as warehouseIcon,
+  faUserNinja as brigadeIcon,
+  faRightLeft as exchangeIcon,
+  faRightToBracket as incomeIcon,
+  faRightFromBracket as outcomeIcon,
+} from '@fortawesome/free-solid-svg-icons';
 import { loadRequest } from "./actions";
 import { loadRequest as loadMaterialsRequest } from "features/directories/materials/actions";
 import { loadRequest as loadWarehousesRequest } from "features/directories/warehouses/actions";
@@ -7,12 +15,12 @@ import { loadRequest as loadBrigadesRequest } from "features/directories/brigade
 import { loadRequest as loadFlowsRequest } from "features/admin/stock/flows/actions";
 import { selectList as selectFlows } from "features/admin/stock/flows/selectors";
 import { selectBrigade, selectLoading } from "./selectors";
-import { Loader } from "common/components";
+import { Loader, Button } from "common/components";
 import FlowItem from "./Item";
 
 import styles from "./Warehouse.module.scss";
 
-interface Props extends React.HTMLProps<HTMLDivElement> {}
+interface Props extends React.HTMLProps<HTMLDivElement> { }
 
 const Warehouse: React.FC<Props> = ({ children, ...rest }) => {
   const dispatch = useDispatch();
@@ -44,6 +52,22 @@ const Warehouse: React.FC<Props> = ({ children, ...rest }) => {
               )}
             </tbody>
           </table>
+          <div className={styles.buttonGroup}>
+            <Button className={styles.button}>
+              <FontAwesomeIcon icon={warehouseIcon} />
+              <FontAwesomeIcon icon={incomeIcon} />
+            </Button>
+            <Button className={styles.button}>
+              <FontAwesomeIcon icon={brigadeIcon} />
+              <FontAwesomeIcon icon={exchangeIcon} />
+
+            </Button>
+            <Button className={styles.button}>
+              <FontAwesomeIcon icon={warehouseIcon} />
+              <FontAwesomeIcon icon={outcomeIcon} />
+
+            </Button>
+          </div>
           <div className={styles.flows}>
             {flows && flows.map((flow) => <FlowItem key={flow.id} {...flow} />)}
           </div>

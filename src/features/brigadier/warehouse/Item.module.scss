@@ -21,6 +21,10 @@
         opacity: 0.5;
     }
 
+    &.blink {
+        animation: 0.5s blink alternate infinite;
+    }
+
     &:hover {
         border-color: var(--color-link);
     }
@@ -84,7 +88,7 @@
                     &:first-child {
                         width: 100%;
                     }
-                    
+
                     &:last-child {
                         text-align: right;
                     }
@@ -97,5 +101,14 @@
             gap: 16px;
             justify-content: flex-end;
         }
+    }
+}
+
+@keyframes blink {
+    from {
+        filter: hue-rotate(0deg);
+    }
+    to {
+        filter: hue-rotate(90deg);
     }
 }
