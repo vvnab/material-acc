@@ -1,5 +1,5 @@
 .wrap {
-    padding:16px;
+    padding: 8px;
     margin: 0 -8px;
     border-top: 1px solid var(--color-lightgray);
     cursor: pointer;
@@ -25,6 +25,9 @@
 
     .arrowIcon {
         margin: 0 8px;
+        // display: flex;
+        // align-items: center;
+        // justify-content: center;
     }
 
     .down {
@@ -32,6 +35,23 @@
         position: absolute;
         right: 8px;
         top: 8px;
+    }
+
+    .direction {
+        display: flex;
+        align-items: center;
+
+        .arrowDown {
+            font-size: 28px;
+        }
+
+        .parts {
+            display: flex;
+            flex-direction: column;
+            div {
+                padding: 4px 0;
+            }
+        }
     }
 
     .datetime {

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
-    faArrowRightLong as arrowIcon,
+    faTurnDown as arrowIcon,
     faWarehouse as warehouseIcon,
     faUserNinja as brigadeIcon,
     faGlobe as globalIcon,
@@ -55,6 +55,7 @@ const FlowItem: React.FC<IFlow> = ({
             : opsStatus === 'ACCEPTED'
             ? styles.accepted
             : styles.rejected;
+
     return (
         <div
             className={[styles.wrap, status].join(' ')}
@@ -66,12 +67,25 @@ const FlowItem: React.FC<IFlow> = ({
                 <FontAwesomeIcon icon={hidden ? iconDown : iconUp} />
             </div>
             <div className={styles.direction}>
-                {outcome.title}
-                <FontAwesomeIcon
-                    icon={outcome.icon}
-                    className={styles.arrowIcon}
-                />
-
+                <div className={styles.arrowDown}>
+                    <FontAwesomeIcon icon={arrowIcon} />
+                </div>
+                <div className={styles.parts}>
+                    <div>
+                        <FontAwesomeIcon
+                            icon={outcome.icon}
+                            className={styles.arrowIcon}
+                        />
+                        {outcome.title}
+                    </div>
+                    <div>
+                        <FontAwesomeIcon
+                            icon={income.icon}
+                            className={styles.arrowIcon}
+                        />
+                        {income.title}
+                    </div>
+                </div>
             </div>
             <div className={styles.datetime}>
                 Дата операции: {moment(opsDt).format('D MMMM YYYY')} -{' '}
