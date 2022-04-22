@@ -4,7 +4,7 @@
   "icons": [
     {
       "src": "logo512.svg",
-      "purpose": "maskable any",
+      "purpose": "any",
       "sizes": "any",
       "type": "image/svg"
     }
