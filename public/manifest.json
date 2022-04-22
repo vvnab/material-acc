@@ -9,6 +9,11 @@
       "type": "image/svg"
     },
     {
+      "src": "logo512.svg",
+      "purpose": "any",
+      "sizes": "512x512",
+      "type": "image/svg"
+    },    {
       "src": "logo192.svg",
       "purpose": "any",
       "sizes": "192x192",
