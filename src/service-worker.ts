@@ -1,6 +1,6 @@
 /// <reference lib="webworker" />
 /* eslint-disable no-restricted-globals */
-
+// @ts-nocheck
 // This service worker can be customized!
 // See https://developers.google.com/web/tools/workbox/modules
 // for the list of available Workbox modules, or add any other
@@ -80,11 +80,42 @@ self.addEventListener('message', (event) => {
 
 // Any other custom service worker logic can go here.
 
+const CACHE = 'network-or-cache-v1';
+const timeout = 400;
+// При установке воркера мы должны закешировать часть данных (статику).
+self.addEventListener('install', (event) => {
+    event.waitUntil(caches.open(CACHE).then((cache) => cache.addAll(['/css'])));
+});
+
+// при событии fetch, мы и делаем запрос, но используем кэш, только после истечения timeout.
 self.addEventListener('fetch', (event) => {
     event.respondWith(
-        //@ts-ignore
-        fetch(event.request).catch(() => {
-            return caches.match(event.request);
+        fromNetwork(event.request, timeout).catch((err) => {
+            console.log(`Error: ${err.message()}`);
+            return fromCache(event.request);
         })
     );
 });
+
+// Временно-ограниченный запрос.
+function fromNetwork(request, timeout) {
+    return new Promise((fulfill, reject) => {
+        var timeoutId = setTimeout(reject, timeout);
+        fetch(request).then((response) => {
+            clearTimeout(timeoutId);
+            fulfill(response);
+        }, reject);
+    });
+}
+
+function fromCache(request) {
+    // Открываем наше хранилище кэша (CacheStorage API), выполняем поиск запрошенного ресурса.
+    // Обратите внимание, что в случае отсутствия соответствия значения Promise выполнится успешно, но со значением `undefined`
+    return caches
+        .open(CACHE)
+        .then((cache) =>
+            cache
+                .match(request)
+                .then((matching) => matching || Promise.reject('no-match'))
+        );
+}
