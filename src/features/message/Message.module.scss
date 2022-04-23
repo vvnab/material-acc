@@ -1,11 +1,11 @@
 .container {
-    position: absolute;
+    position: fixed;
     width: 100vw;
-    pointer-events: none;
     z-index: 999;
     display: flex;
-    top: -10vh;
-    animation: 3s slideout;
+    flex-direction: column;
+    gap: 2px;
+    top: 0;
 
     .wrap {
         padding: 16px 32px;
@@ -13,22 +13,25 @@
         background-color: var(--color-redbg);
         border-radius: 8px;
         margin: auto;
+        margin-top: 16px;
         max-width: 30vw;
         box-shadow: 0 0 16px black;
+        animation: 0.5s slideout ease-out;
+
+        @media (max-width: 768px) {
+            max-width: unset;
+            box-shadow: 0 16px 16px rgba(0, 0, 0, 0.3);
+            border-radius: 0;
+            margin-top: 0;
+        }
     }
 }
 
 @keyframes slideout {
     0% {
         opacity: 0.5;
-        top: 30vh;
-    }
-    15% {
-        opacity: 1;
-        top: 30vh;
     }
     100% {
-        opacity: 0;
-        top: -10vh;
+        opacity: 1;
     }
 }
