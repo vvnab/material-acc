@@ -19,6 +19,10 @@
         opacity: 0.5;
     }
 
+    &.blink {
+        animation: 0.5s blink alternate infinite linear;
+    }
+
     &:hover {
         // border-color: var(--color-link);
     }
@@ -82,7 +86,7 @@
                     &:first-child {
                         width: 100%;
                     }
-                    
+
                     &:last-child {
                         text-align: right;
                     }
@@ -95,5 +99,18 @@
             gap: 16px;
             justify-content: flex-end;
         }
+    }
+}
+
+@keyframes blink {
+    from {
+        // filter: invert(100%);
+        // background-color: var(--color-red);
+        color: var(--color-red);
+    }
+    to {
+        // filter: invert(0);
+        // filter: hue-rotate(90deg);
+        background-color: var(--color-greenbg);
     }
 }

@@ -9,8 +9,9 @@ import {
     faCircleChevronDown as iconDown,
     faCircleChevronUp as iconUp,
 } from '@fortawesome/free-solid-svg-icons';
-import { useDispatch } from 'react-redux';
-import { updateItemRequest } from './actions';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectBrigade } from './selectors';
+import { updateItemRequest } from 'features/admin/stock/flows/actions';
 
 import moment from 'moment';
 import 'moment/locale/ru';
@@ -36,8 +37,9 @@ const FlowItem: React.FC<IFlow> = ({
     employeeCreated,
     employeeUpdated,
 }) => {
-    const [hidden, setHidden] = useState(true);
     const dispatch = useDispatch();
+    const [hidden, setHidden] = useState(true);
+    const brigade = useSelector(selectBrigade);
     const outcome = fromBrigade?.title
         ? { icon: brigadeIcon, title: fromBrigade.title }
         : fromWarehouse?.title
@@ -56,9 +58,18 @@ const FlowItem: React.FC<IFlow> = ({
             ? styles.accepted
             : styles.rejected;
 
+    const needReaction =
+        opsStatus === 'CREATED' &&
+        opsType === 'BRIGADE_TO_BRIGADE' &&
+        toBrigade.id === brigade?.id;
+
     return (
         <div
-            className={[styles.wrap, status].join(' ')}
+            className={[
+                styles.wrap,
+                status,
+                needReaction ? styles.blink : '',
+            ].join(' ')}
             onClick={() => {
                 setHidden(!hidden);
             }}
@@ -106,7 +117,7 @@ const FlowItem: React.FC<IFlow> = ({
                         ))}
                     </tbody>
                 </table>
-                {opsStatus === 'CREATED' ? (
+                {needReaction ? (
                     <div className={styles.buttonGroup}>
                         <Button
                             option='dangerous'
@@ -143,11 +154,15 @@ const FlowItem: React.FC<IFlow> = ({
                             {moment(createdAt).format('D MMMM YYYY в HH:mm')} -{' '}
                             {employeeCreated?.fullName}
                         </div>
-                        <div className={styles.datetime}>
-                            Подтверждено:{' '}
-                            {moment(updatedAt).format('D MMMM YYYY в HH:mm')} -{' '}
-                            {employeeUpdated?.fullName}
-                        </div>
+                        {updatedAt && (
+                            <div className={styles.datetime}>
+                                Подтверждено:{' '}
+                                {moment(updatedAt).format(
+                                    'D MMMM YYYY в HH:mm'
+                                )}{' '}
+                                - {employeeUpdated?.fullName}
+                            </div>
+                        )}
                     </>
                 )}
             </div>

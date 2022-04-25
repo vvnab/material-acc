@@ -1,22 +1,36 @@
 import { handleActions } from 'redux-actions';
 import * as actions from './actions';
-import { IState } from './types';
+import { IMessage, IState } from './types';
 
 export const initialState: IState = {
     messages: [],
-    show: false,
 };
 
 export default handleActions(
     {
-        [actions.showMessage.toString()]: (state, action: any) => ({
-            messages: [...state.messages, action.payload],
-            show: true,
-        }),
-        [actions.hideMessage.toString()]: (state) => ({
-            ...state,
-            show: false,
-        }),
+        [actions.addMessage.toString()]: (state, action: any) => {
+            const message: IMessage = { ...action.payload };
+            const newMessages = state.messages.filter(
+                (i) => i.text !== message.text
+            );
+
+            newMessages.push(message);
+            return {
+                messages: newMessages,
+            };
+        },
+        [actions.updateMessages.toString()]: (state, action: any) => {
+            return {
+                messages: action.payload || state.messages,
+            };
+        },
+        [actions.hideMessage.toString()]: (state, action: any) => {
+            return {
+                messages: state.messages.filter(
+                    (i) => i.id !== action.payload
+                ),
+            };
+        },
     },
     initialState
 );

@@ -7,6 +7,10 @@
     top: -10vh;
     animation: 3s slideout;
     max-width: 30vw;
+
+    @media (max-width: 768px) {
+        max-width: unset;
+    }
 }
 
 @keyframes slideout {
@@ -23,3 +27,4 @@
         top: -10vh;
     }
 }
+

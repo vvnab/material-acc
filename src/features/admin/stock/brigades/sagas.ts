@@ -25,7 +25,7 @@ function* updateWorker(action: any): any {
     const { id, type, toId, materials, acceptFlow, remarks } = action.payload;
 
     try {
-        yield call(
+        const data = yield call(
             fetch,
             `${URL2}/${id}/${type}/${toId}`,
             'POST',
@@ -37,7 +37,7 @@ function* updateWorker(action: any): any {
             }
         );
 
-        // yield put(actions.updateItemSuccess({ ...data }));
+        yield put(actions.updateItemSuccess({ ...data }));
         yield put(closeModal());
     } catch ({ message }) {
         yield put(actions.updateItemError({ message }));
