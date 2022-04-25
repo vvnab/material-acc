@@ -52,7 +52,7 @@ const FlowItem: React.FC<IReport> = ({
             </div>
 
             <div className={styles.datetime}>
-                Дата операции: {moment(opsDt).format('D MMMM YYYY')} -{' '}
+                Дата операции: {moment(createdAt).format('D MMMM YYYY')} -{' '}
                 {employeeCreated?.fullName}
             </div>
             <div
