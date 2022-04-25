@@ -12,9 +12,9 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 
 import styles from './Controls.module.scss';
-import { IWorkTypes } from './types';
+import { IWorkType } from './types';
 
-const nullItem: IWorkTypes = {
+const nullItem: IWorkType = {
     title: '',
 };
 

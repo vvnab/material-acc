@@ -1,4 +1,4 @@
-export interface IWorkObjects {
+export interface IWorkObject {
     id?: number;
     title: string;
     region?: string;
@@ -8,7 +8,7 @@ export interface IWorkObjects {
 }
 
 export interface IState {
-    content: IWorkObjects[];
+    content: IWorkObject[];
     filter: string;
     loading: boolean;
     error: string;

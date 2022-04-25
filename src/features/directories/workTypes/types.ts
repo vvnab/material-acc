@@ -1,10 +1,10 @@
-export interface IWorkTypes {
+export interface IWorkType {
     id?: number;
     title: string;
 }
 
 export interface IState {
-    content: IWorkTypes[];
+    content: IWorkType[];
     filter: string;
     loading: boolean;
     error: string;
