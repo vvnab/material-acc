@@ -4,7 +4,7 @@ import { showMessage } from 'features/message';
 import { closeModal } from 'features/modal';
 import fetch from "common/utils/fetch";
 
-const URL = '/api/vehicles';
+const URL = '/api/roadSigns'
 
 function* getWorker(action: any): any {
     try {
@@ -22,7 +22,7 @@ function* getWatcher() {
 }
 
 function* updateWorker(action: any): any {
-    const { id, title, workTypes } = action.payload;
+    const { id, title } = action.payload;
 
     try {
         let data;
@@ -31,25 +31,6 @@ function* updateWorker(action: any): any {
         } else {
             data = yield call(fetch, `${URL}/`, 'POST', {title});
         }
-
-        const exsistWorkTypes = data.workTypes.map((i: any) => i.id.toString());
-
-        const workTypesForDel = exsistWorkTypes.filter(
-            (i: string) => !workTypes.includes(i)
-        );
-        const workTypesForAdd = workTypes.filter(
-            (i: string) => !exsistWorkTypes.includes(i)
-        );
-
-        for (const workType of workTypesForDel) {
-            yield call(fetch, `${URL}/${id}/delWorkType/${workType}`, 'PUT');
-        }
-
-        for (const workType of workTypesForAdd) {
-            yield call(fetch, `${URL}/${id}/addWorkType/${workType}`, 'PUT');
-        }
-
-        data = yield call(fetch, `${URL}/${id}`, 'GET');
         yield put(actions.updateItemSuccess({ ...data }));
         yield put(closeModal());
     } catch (ex: any) {
