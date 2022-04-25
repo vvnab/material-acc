@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faArrowRightLong as arrowIcon,
-  faWarehouse as warehouseIcon,
-  faUserNinja as brigadeIcon,
-  faGlobe as globalIcon,
-  faPersonDigging as workIcon,
+  // faArrowRightLong as arrowIcon,
+  // faWarehouse as warehouseIcon,
+  // faUserNinja as brigadeIcon,
+  // faGlobe as globalIcon,
+  // faPersonDigging as workIcon,
   faCircleChevronDown as iconDown,
   faCircleChevronUp as iconUp,
 } from "@fortawesome/free-solid-svg-icons";
