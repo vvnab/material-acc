@@ -17,7 +17,7 @@ function* getWorker(action: any): any {
 
     if (!action.payload) {
         // @ts-ignore
-        search.append('statuses', ['CREATED', 'ACCEPTED'])
+        // search.append('statuses', ['PUBLISHED'])
     }
 
     if (filter?.dateRange?.from) {

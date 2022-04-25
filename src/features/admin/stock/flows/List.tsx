@@ -24,12 +24,12 @@ const Flows: React.FC<Props> = ({ children, ...rest }) => {
     return (
         <div {...rest} className={styles.wrap}>
             <FilterPanel />
-            { loading && <Loader className={styles.loader}/>}
             <div className={styles.list}>
                 {list.map((item) => (
                     <FlowItem key={item.id} {...item} />
                 ))}
             </div>
+            { loading && <Loader className={styles.loader}/>}
         </div>
     );
 };

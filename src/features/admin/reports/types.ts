@@ -9,11 +9,10 @@ interface IEmployee {
   fullName: string;
 }
 
-type OpsStatus = "CREATED" | "ACCEPTED" | "REJECTED";
+type OpsStatus = "CREATED" | "PUBLISHED" | "ACCEPTED" | "REJECTED";
 
 export interface IReport {
   id?: number;
-  opsDt: string;
   createdAt?: string;
   updatedAt?: string;
   employeeCreated: IEmployee;
