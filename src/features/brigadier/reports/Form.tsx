@@ -55,8 +55,12 @@ const Form: React.FC<Props> = ({ report }) => {
       humEnd: report?.humEnd || "",
       remarks: report?.remarks || "",
     },
+    validate: (values) => {
+        let errors: any = {};
+        return errors;
+    },
     onSubmit: (values) => {
-        console.log(values, brigade);
+        console.log({...values, materialsItems, workItems}, brigade);
     },
   });
 
