@@ -1,23 +1,22 @@
 import { call, put, takeLatest, select } from 'redux-saga/effects';
 import * as actions from './actions';
-import { selectFilter } from './selectors';
+import { selectFilter, selectPages } from './selectors';
 import { showMessage } from 'features/message';
 import { closeModal } from 'features/modal';
 import fetch from 'common/utils/fetch';
 
 const URL = '/api/materialFlows';
 
-function* getWorker(action: any): any {
-    const filter = yield select(selectFilter);
-    
+function createSearch(action: any, filter: any, addon?: any) {
     const search = new URLSearchParams({
-        size: '100',
+        size: '5',
         sort: 'opsDt,createdAt,desc',
+        ...addon,
     });
 
     if (!action.payload) {
         // @ts-ignore
-        search.append('opsStatuses', ['CREATED', 'ACCEPTED'])
+        search.append('opsStatuses', ['CREATED', 'ACCEPTED']);
     }
 
     if (filter?.opsTypes && filter.opsTypes.length) {
@@ -39,7 +38,32 @@ function* getWorker(action: any): any {
     if (filter?.brigadeId) {
         search.append('brigadeId', filter.brigadeId);
     }
+    return search;
+}
 
+function* getNextPageWorker(action: any): any {
+    const filter = yield select(selectFilter);
+    let { pageNumber, totalPages } = yield select(selectPages);
+
+    if (pageNumber >= totalPages) {
+        return;
+    }
+    const search = createSearch(action, filter, { page: ++pageNumber });
+    try {
+        const data = yield call(fetch, `${URL}/?${search}`, 'GET');
+        yield put(actions.loadNextPageSuccess({ ...data }));
+    } catch ({ message }) {
+        yield put(actions.loadFailed({ message }));
+    }
+}
+
+function* getNextPageWatcher() {
+    yield takeLatest(actions.loadNextPageRequest.toString(), getNextPageWorker);
+}
+
+function* getWorker(action: any): any {
+    const filter = yield select(selectFilter);
+    const search = createSearch(action, filter);
     try {
         const data = yield call(fetch, `${URL}/?${search}`, 'GET');
         yield put(actions.loadSuccess({ ...data }));
@@ -91,6 +115,6 @@ function* deleteWatcher() {
     yield takeLatest(actions.deleteItemRequest.toString(), deleteWorker);
 }
 
-const watchers = [getWatcher, updateWatcher, deleteWatcher];
+const watchers = [getWatcher, getNextPageWatcher, updateWatcher, deleteWatcher];
 
 export default watchers;

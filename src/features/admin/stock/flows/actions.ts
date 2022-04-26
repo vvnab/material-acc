@@ -3,10 +3,12 @@ import { createAction } from 'redux-actions';
 const PREFIX = 'STOCK/FLOWS';
 
 export const loadRequest = createAction(`${PREFIX}/REQUEST`);
+export const loadNextPageRequest = createAction(`${PREFIX}/REQUEST_NEXT_PAGE`);
+export const loadNextPageSuccess = createAction(`${PREFIX}/SUCCESS_NEXT_PAGE`);
+
 export const loadSuccess = createAction(`${PREFIX}/SUCCESS`);
 export const loadFailed = createAction(`${PREFIX}/FAILED`);
 export const updateFilter = createAction(`${PREFIX}/UPDATE_FILTER`);
-
 
 export const updateItemRequest = createAction(`${PREFIX}/UPDATE/REQUEST`);
 export const updateItemSuccess = createAction(`${PREFIX}/UPDATE/SUCCESS`);

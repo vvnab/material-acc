@@ -16,11 +16,13 @@ const Flows: React.FC<Props> = ({ children, ...rest }) => {
     const dispatch = useDispatch();
     const list = useSelector(selectList);
     const loading = useSelector(selectLoading);
+
     useEffect(() => {
         dispatch(loadRequest());
         dispatch(loadWarehousesRequest());
         dispatch(loadBrigadesRequest());
     }, [dispatch]);
+
     return (
         <div {...rest} className={styles.wrap}>
             <FilterPanel />

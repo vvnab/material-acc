@@ -10,6 +10,10 @@ export const selectLoading = createSelector(
 export const selectError = createSelector(selectDir, (state) => state.error);
 export const selectFilter = createSelector(selectDir, (state) => state.filter);
 export const selectList = createSelector(selectDir, (state) => state.content);
+export const selectPages = createSelector(selectDir, (state) => ({
+    pageNumber: state.pageNumber,
+    totalPages: state.totalPages,
+}));
 export const selectItemLoading = createSelector(
     selectDir,
     (state) => state.itemLoading
