@@ -7,7 +7,7 @@ import styles from './Select.module.scss';
 
 interface Props extends React.HTMLProps<HTMLSelectElement> {
     legend?: string;
-    error?: string;
+    error?: string | false;
 }
 
 const Select: React.FC<Props> = ({

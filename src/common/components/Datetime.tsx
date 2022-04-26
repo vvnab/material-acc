@@ -1,5 +1,5 @@
 import React from 'react';
-import moment from 'moment';
+import moment, { MomentInput } from 'moment';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCalendarDays as calendarIcon } from '@fortawesome/free-solid-svg-icons';
 
@@ -8,15 +8,15 @@ import styles from './Datetime.module.scss';
 interface Props extends React.HTMLProps<HTMLInputElement> {
     className?: string;
     legend?: string;
-    date?: string;
     format?: string;
+    error?: string | false
 }
 
 const Datetime: React.FC<Props> = ({
     className,
     legend,
-    date,
     format = 'D MMMM YYYY',
+    value,
     ...rest
 }) => {
     return (
@@ -24,10 +24,10 @@ const Datetime: React.FC<Props> = ({
             <legend>{legend || ' '}</legend>
             <div className={styles.input}>
                 <span>
-                    {date ? moment(date).format(format) : 'не установлено'}
+                    {value ? moment(value as MomentInput).format(format) : 'не установлено'}
                 </span>
                 <FontAwesomeIcon icon={calendarIcon} className={styles.icon} />
-                <input type='date' value={date} {...rest} />
+                <input type='date' value={value} {...rest} />
             </div>
         </div>
     );

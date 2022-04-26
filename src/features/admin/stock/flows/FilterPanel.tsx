@@ -77,7 +77,7 @@ const FilterPanel: React.FC<Props> = ({ children, ...rest }) => {
             <Datetime
                 legend='Начало'
                 className={styles.date}
-                date={filter?.dateRange?.from}
+                value={filter?.dateRange?.from}
                 onChange={(e) =>
                     dispatch(
                         updateFilter({
@@ -93,7 +93,7 @@ const FilterPanel: React.FC<Props> = ({ children, ...rest }) => {
             <Datetime
                 legend='Окончание'
                 className={styles.date}
-                date={filter?.dateRange?.to}
+                value={filter?.dateRange?.to}
                 onChange={(e) =>
                     dispatch(
                         updateFilter({
