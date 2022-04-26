@@ -1,21 +1,21 @@
 import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
-    faTurnDown as arrowIcon,
-    faWarehouse as warehouseIcon,
-    faUserNinja as brigadeIcon,
-    faGlobe as globalIcon,
-    faPersonDigging as workIcon,
+    // faTurnDown as arrowIcon,
+    // faWarehouse as warehouseIcon,
+    // faUserNinja as brigadeIcon,
+    // faGlobe as globalIcon,
+    // faPersonDigging as workIcon,
     faCircleChevronDown as iconDown,
     faCircleChevronUp as iconUp,
 } from '@fortawesome/free-solid-svg-icons';
-import { useDispatch, useSelector } from 'react-redux';
-import { selectBrigade } from './selectors';
-import { updateItemRequest } from 'features/admin/stock/flows/actions';
+// import { useDispatch, useSelector } from 'react-redux';
+// import { selectBrigade } from './selectors';
+// import { updateItemRequest } from 'features/admin/stock/flows/actions';
 
 import moment from 'moment';
 import 'moment/locale/ru';
-import { Button } from 'common/components';
+// import { Button } from 'common/components';
 
 import styles from './Item.module.scss';
 import { IReport } from 'features/admin/reports/types';
@@ -43,7 +43,7 @@ const FlowItem: React.FC<IReport> = ({
     tairEnd,
     remarks,
 }) => {
-    const dispatch = useDispatch();
+    // const dispatch = useDispatch();
     const [hidden, setHidden] = useState(true);
     const statusClass =
         status === 'CREATED'
