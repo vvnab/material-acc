@@ -56,4 +56,6 @@ export interface IState {
   error: string;
   itemLoading: boolean;
   itemError: string;
+  pageNumber?: number;
+  totalPages?: number;
 }

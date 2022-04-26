@@ -6,11 +6,16 @@
     --color-black: #1f1f1f;
     --color-red: #dc3500;
     --color-redbg: #fce0d8;
+    --color-redbg-darken: #ceb0a8;
     --color-greenbg: #e0fcd8;
+    --color-greenbg-darken: #b8d4b1;
 
     --color-link: #558996;
     --color-bg: #163846;
     --color-highlight: #dee8ec;
+
+    --bg-green: linear-gradient(var(--color-greenbg-darken), 5%, var(--color-greenbg));
+    --bg-red: linear-gradient(var(--color-redbg-darken), 5%, var(--color-redbg));
 
     --font-small: normal 400 12px/15px 'Roboto';
     --font-smallLabel: normal 600 14px/22px 'Roboto';

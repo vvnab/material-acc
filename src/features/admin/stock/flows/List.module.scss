@@ -5,4 +5,13 @@
     .list {
         margin-top: 70px;
     }
+
+    .loader {
+        height: auto;
+    }
+
+    .error {
+        text-align: center;
+        color: var(--color-red);
+    }
 }

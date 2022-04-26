@@ -1,15 +1,12 @@
 import { createAction } from 'redux-actions';
 
-const PREFIX = 'ADMIN/REPORTS';
+const PREFIX = 'BRIGADIER';
 
 export const loadRequest = createAction(`${PREFIX}/REQUEST`);
-export const loadNextPageRequest = createAction(`${PREFIX}/REQUEST_NEXT_PAGE`);
-
 export const loadSuccess = createAction(`${PREFIX}/SUCCESS`);
-export const loadNextPageSuccess = createAction(`${PREFIX}/SUCCESS_NEXT_PAGE`);
 export const loadFailed = createAction(`${PREFIX}/FAILED`);
-
 export const updateFilter = createAction(`${PREFIX}/UPDATE_FILTER`);
+
 
 export const updateItemRequest = createAction(`${PREFIX}/UPDATE/REQUEST`);
 export const updateItemSuccess = createAction(`${PREFIX}/UPDATE/SUCCESS`);

@@ -38,8 +38,8 @@
     }
 
     .datetime {
-        margin-top: 8px;
         font: var(--font-small);
+        padding: 2px 0 0 0;
     }
 
     .addonPart {
@@ -88,6 +88,13 @@
                     }
                 }
             }
+        }
+
+        .remarks {
+            border: 1px solid var(--color-gray);
+            padding: 12px;
+            margin-bottom: 12px;
+            font-style: italic;
         }
 
         .buttonGroup {

@@ -9,14 +9,13 @@ const URL = '/api/materialFlows';
 
 function createSearch(action: any, filter: any, addon?: any) {
     const search = new URLSearchParams({
-        size: '5',
+        size: '15',
         sort: 'opsDt,createdAt,desc',
         ...addon,
     });
 
-    if (!action.payload) {
-        // @ts-ignore
-        search.append('opsStatuses', ['CREATED', 'ACCEPTED']);
+    if (filter?.opsStatuses && filter.opsStatuses.length) {
+        search.append('opsStatuses', filter.opsStatuses);
     }
 
     if (filter?.opsTypes && filter.opsTypes.length) {
@@ -46,6 +45,7 @@ function* getNextPageWorker(action: any): any {
     let { pageNumber, totalPages } = yield select(selectPages);
 
     if (pageNumber >= totalPages) {
+        yield put(actions.loadFailed({message: 'THE END'}));
         return;
     }
     const search = createSearch(action, filter, { page: ++pageNumber });

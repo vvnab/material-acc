@@ -9,6 +9,7 @@ export const selectLoading = createSelector(
 );
 export const selectError = createSelector(selectDir, (state) => state.error);
 export const selectFilter = createSelector(selectDir, (state) => state.filter);
+export const selectAll = createSelector(selectDir, (state) => state.content);
 export const selectList = createSelector(selectDir, (state) =>
     state.filter
         ? state.content.filter(

@@ -6,7 +6,8 @@ import { Dashboard } from 'features/admin/dashboard';
 import { Directories } from 'features/directories';
 import { Reports } from 'features/admin/reports';
 import { Settings } from 'features/admin/settings';
-import { Warehouse } from 'features/brigadier';
+import { Warehouse, Reports as BrigadierReports } from 'features/brigadier';
+
 import {
     WarehousesMenu,
     Flows,
@@ -65,8 +66,8 @@ export const Router = () => {
                     }
                 >
                     <Route index element={<></>} />
-                    <Route path='/reports' element={<></>} />
                     <Route path='/warehouse' element={<Warehouse />} />
+                    <Route path='/reports' element={<BrigadierReports />} />
                 </Route>
             )}
             <Route path='*' element={<Navigate to='/' replace />} />

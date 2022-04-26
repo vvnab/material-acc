@@ -14,13 +14,24 @@ export const initialState: IState = {
 
 export default handleActions<IState>(
     {
-        [actions.loadRequest.toString()]: (state) => ({
+        [(actions.loadRequest.toString(),
+        actions.loadNextPageRequest.toString())]: (state) => ({
             ...state,
             loading: true,
         }),
         [actions.loadSuccess.toString()]: (state, action) => ({
             ...state,
             content: action.payload.content,
+            pageNumber: action.payload.pageNumber,
+            totalPages: action.payload.totalPages,
+            loading: false,
+            error: '',
+        }),
+        [actions.loadNextPageSuccess.toString()]: (state, action) => ({
+            ...state,
+            content: [...state.content, ...action.payload.content],
+            pageNumber: action.payload.pageNumber,
+            totalPages: action.payload.totalPages,
             loading: false,
             error: '',
         }),
