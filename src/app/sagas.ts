@@ -4,6 +4,7 @@ import { authWatchers } from 'features/authentication';
 import { messageWatchers } from 'features/message';
 import { dirsWatchers } from 'features/directories';
 import { stockWatchers } from 'features/admin/stock';
+import { reportsWatchers } from 'features/admin/reports';
 import { brigadierWatchers } from 'features/brigadier';
 
 const watchers = [
@@ -11,6 +12,7 @@ const watchers = [
     ...authWatchers,
     ...dirsWatchers,
     ...stockWatchers,
+    ...reportsWatchers,
     ...brigadierWatchers,
 ];
 

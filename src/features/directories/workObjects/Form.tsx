@@ -1,14 +1,14 @@
 import React from 'react';
 import { useFormik } from 'formik';
 import { Input, TextArea, Button } from 'common/components';
-import { IWorkObjects } from './types';
+import { IWorkObject } from './types';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateItemRequest, deleteItemRequest } from './actions';
 import { selectItemLoading, selectRegions, selectRoads } from './selectors';
 
 import styles from '../Form.module.scss';
 
-interface Props extends IWorkObjects {}
+interface Props extends IWorkObject {}
 
 const Form: React.FC<Props> = ({ ...item }) => {
     const { id } = item;

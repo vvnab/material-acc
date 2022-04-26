@@ -2,11 +2,11 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { showModal } from 'features/modal';
 import Form from './Form';
-import { IWorkTypes } from './types';
+import { IWorkType } from './types';
 
 import styles from './ListItem.module.scss';
 
-interface Props extends IWorkTypes {}
+interface Props extends IWorkType {}
 
 const ListItem: React.FC<Props> = (props) => {
     const dispatch = useDispatch();

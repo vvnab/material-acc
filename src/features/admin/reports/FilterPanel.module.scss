@@ -1,0 +1,42 @@
+.wrap {
+    display: flex;
+    gap: 8px;
+    padding: 16px 32px;
+    // border: 1px solid var(--color-gray);
+    border-radius: 8px;
+    position: fixed;
+    top: 0;
+    z-index: 1;
+    background-color: white;
+    align-items: center;
+
+    width: calc(100% - 200px);
+    left: 200px;
+
+    .date {
+        flex: 1 0 200px;
+    }
+
+    .select {
+        flex: 1 1 100%;
+    }
+
+    .button {
+        flex: 0 0 80px;
+        height: 56px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        &.ow {
+            font-size: 28px;
+        }
+
+    }
+
+    .find {
+        margin-top: 21px;
+        flex: 0 0 auto;
+    }
+
+}

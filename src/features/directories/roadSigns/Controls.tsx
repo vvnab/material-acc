@@ -12,9 +12,9 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 
 import styles from './Controls.module.scss';
-import { IWorkType } from './types';
+import { IRoadSign } from './types';
 
-const nullItem: IWorkType = {
+const nullItem: IRoadSign = {
     title: '',
 };
 
