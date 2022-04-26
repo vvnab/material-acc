@@ -3,7 +3,7 @@ import { useFormik } from "formik";
 import { Select, Input, Button, TextArea, Datetime } from "common/components";
 import { useDispatch, useSelector } from "react-redux";
 import moment from "moment";
-import { updateItemRequest } from "features/admin/stock/brigades/actions";
+// import { updateItemRequest } from "features/admin/stock/brigades/actions";
 import { selectItemLoading, selectBrigade } from "./selectors";
 import { selectAll as selectWorkTypes } from "features/directories/workTypes/selectors";
 import { selectAll as selectRoadSigns } from "features/directories/roadSigns/selectors";
@@ -56,7 +56,7 @@ const Form: React.FC<Props> = ({ report }) => {
       remarks: report?.remarks || "",
     },
     onSubmit: (values) => {
-        console.log(values);
+        console.log(values, brigade);
     },
   });
 
