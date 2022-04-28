@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { loadRequest } from "./actions";
-import { selectList, selectLoading } from "./selectors";
+import { loadRequest } from "features/reports/actions";
+import { selectList, selectLoading } from "features/reports/selectors";
 import { loadRequest as loadBrigadesRequest } from "features/directories/brigades/actions";
 import FilterPanel from "./FilterPanel";
 import FlowItem from "./Item";

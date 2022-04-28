@@ -82,7 +82,7 @@
                         // width: 100%;
                     }
                     
-                    &:last-child {
+                    &:last-child, &.number {
                         width: 120px;
                         text-align: right;
                     }

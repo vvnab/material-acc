@@ -84,9 +84,9 @@ function* updateWorker(action: any): any {
 
     try {
         const data = yield call(fetch, `${URL}/${id}/${type}`, 'PATCH');
-        yield put(actions.updateItemSuccess({ ...data }));
+        yield put(actions.actionItemSuccess({ ...data }));
     } catch ({ message }) {
-        yield put(actions.updateItemError({ message }));
+        yield put(actions.actionItemError({ message }));
         yield put(
             showMessage({
                 type: 'error',
@@ -97,7 +97,7 @@ function* updateWorker(action: any): any {
 }
 
 function* updateWatcher() {
-    yield takeLatest(actions.updateItemRequest.toString(), updateWorker);
+    yield takeLatest(actions.actionItemRequest.toString(), updateWorker);
 }
 
 function* deleteWorker(action: any): any {
@@ -107,7 +107,7 @@ function* deleteWorker(action: any): any {
         yield put(actions.deleteItemSuccess(id));
         yield put(closeModal());
     } catch ({ message }) {
-        yield put(actions.updateItemError({ message }));
+        yield put(actions.actionItemError({ message }));
     }
 }
 

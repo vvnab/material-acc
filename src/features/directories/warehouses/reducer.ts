@@ -48,6 +48,22 @@ export default handleActions<IState>(
             itemLoading: false,
             itemError: action.payload.message,
         }),
+        [actions.actionItemRequest.toString()]: (state) => ({
+            ...state,
+            itemLoading: true,
+        }),
+        [actions.actionItemSuccess.toString()]: (state, action: any) => ({
+            ...state,
+            content: [...updateOrUnion(state.content, action.payload)],
+            itemLoading: false,
+            itemError: '',
+        }),
+        [actions.actionItemError.toString()]: (state, action: any) => ({
+            ...state,
+            itemLoading: false,
+            itemError: action.payload.message,
+        }),
+
         [actions.deleteItemRequest.toString()]: (state) => ({
             ...state,
             itemLoading: true,

@@ -1,5 +1,9 @@
 .wrap {
     position: relative;
+
+    &.error {
+        color: var(--color-red);
+    }
     
     legend {
         font: var(--font-smallLabel);

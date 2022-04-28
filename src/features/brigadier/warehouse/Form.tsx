@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { Select, Input, Button, TextArea } from 'common/components';
 import { useDispatch, useSelector } from 'react-redux';
-import { updateItemRequest } from 'features/admin/stock/brigades/actions';
-import { selectItemLoading, selectBrigade } from './selectors';
+import { actionItemRequest } from 'features/directories/brigades/actions';
+import { selectProfile } from 'features/authentication/selectors';
+import { selectItemLoading } from 'features/flows/selectors';
 import { selectAll as selectWarehouses } from 'features/directories/warehouses/selectors';
 import { selectAll as selectBrigades } from 'features/directories/brigades/selectors';
 import { selectAll as selectMaterials } from 'features/directories/materials/selectors';
@@ -22,9 +23,9 @@ interface IItem {
 const Form: React.FC<Props> = ({ type }) => {
     const dispatch = useDispatch();
     const isLoading = useSelector(selectItemLoading);
-    const brigade = useSelector(selectBrigade);
+    const profile = useSelector(selectProfile);
     const brigades = useSelector(selectBrigades).filter(
-        ({ id }) => id !== brigade?.id
+        ({ id }) => id !== profile?.brigade?.id
     );
     const warehouses = useSelector(selectWarehouses);
     const materials = useSelector(selectMaterials);
@@ -82,14 +83,14 @@ const Form: React.FC<Props> = ({ type }) => {
         e.preventDefault();
         const data = {
             type,
-            id: brigade?.id,
+            id: profile?.brigade?.id,
             materials: items.filter(
                 ({ quantity, materialId }) => materialId !== 0 && quantity !== 0
             ),
             toId,
             remarks,
         };
-        dispatch(updateItemRequest(data));
+        dispatch(actionItemRequest(data));
     };
 
     return (

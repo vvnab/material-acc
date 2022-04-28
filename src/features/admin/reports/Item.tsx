@@ -10,11 +10,11 @@ import {
     faCircleChevronUp as iconUp,
 } from '@fortawesome/free-solid-svg-icons';
 import { useDispatch } from 'react-redux';
-import { updateItemRequest } from './actions';
+import { actionItemRequest } from 'features/reports/actions';
 
 import moment from 'moment';
 import 'moment/locale/ru';
-import { IReport } from './types';
+import { IReport } from 'features/reports/types';
 import { Button } from 'common/components';
 
 import styles from './Item.module.scss';
@@ -114,27 +114,18 @@ const FlowItem: React.FC<IReport> = ({
                     <caption>Условия</caption>
                     <tbody>
                         <tr>
-                            <td>Температура дорожного полотна. Начало</td>
-                            <td>{troadStart}</td>
-                        </tr>
-                        <tr>
-                            <td>Температура дорожного полотна. Окончание</td>
+                            <td>Температура дорожного полотна</td>
+                            <td className={styles.number}>{troadStart}</td>
                             <td>{troadEnd}</td>
                         </tr>
                         <tr>
-                            <td>Температура воздуха. Начало</td>
-                            <td>{tairStart}</td>
-                        </tr>
-                        <tr>
-                            <td>Температура воздуха. Окончание</td>
+                            <td>Температура воздуха</td>
+                            <td className={styles.number}>{tairStart}</td>
                             <td>{tairEnd}</td>
                         </tr>
                         <tr>
-                            <td>Относительная влажеость воздуха. Начало</td>
-                            <td>{humStart}</td>
-                        </tr>
-                        <tr>
-                            <td>Относительная влажеость воздуха. Окончание</td>
+                            <td>Относительная влажность воздуха</td>
+                            <td className={styles.number}>{humStart}</td>
                             <td>{humEnd}</td>
                         </tr>
                     </tbody>
@@ -148,7 +139,7 @@ const FlowItem: React.FC<IReport> = ({
                             option='dangerous'
                             onClick={(e) => {
                                 dispatch(
-                                    updateItemRequest({
+                                    actionItemRequest({
                                         id: id,
                                         type: 'reject',
                                     })
@@ -161,7 +152,7 @@ const FlowItem: React.FC<IReport> = ({
                         <Button
                             onClick={(e) => {
                                 dispatch(
-                                    updateItemRequest({
+                                    actionItemRequest({
                                         id: id,
                                         type: 'accept',
                                     })

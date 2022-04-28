@@ -20,9 +20,12 @@ export const selectList = createSelector(selectDir, (state) =>
     ).map((i) => ({ ...i }))
 );
 
-export const selectAll = createSelector(selectDir, (state) =>
-    state.content.map((i) => ({ ...i }))
-);
+export const selectAll = createSelector(selectDir, (state) => state.content);
+
+export const selectItem = (id: number) =>
+    createSelector(selectDir, (state) =>
+        state.content.find((i) => i.id === id)
+    );
 
 export const selectItemLoading = createSelector(
     selectDir,

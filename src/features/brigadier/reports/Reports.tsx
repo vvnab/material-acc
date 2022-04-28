@@ -5,22 +5,20 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFlag as reportIcon } from '@fortawesome/free-solid-svg-icons';
 import { showModal } from 'features/modal';
 
-import { loadRequest } from './actions';
 import { loadRequest as loadMaterialsRequest } from 'features/directories/materials/actions';
 import { loadRequest as loadWorkTypesRequest } from 'features/directories/workTypes/actions';
 import { loadRequest as loadRoadSignsRequest } from 'features/directories/roadSigns/actions';
 import { loadRequest as loadWorkObjectsRequest } from 'features/directories/workObjects/actions';
-
 import {
     loadRequest as loadReportsRequest,
     loadNextPageRequest as loadNextPageReportsRequest,
     updateFilter as updateReportsFilter,
-} from 'features/admin/reports/actions';
+} from 'features/reports/actions';
 
 import {
     selectList as selectReports,
     selectLoading,    
-} from 'features/admin/reports/selectors';
+} from 'features/reports/selectors';
 
 import { Loader, Button } from 'common/components';
 import { Modal } from 'features/modal';
@@ -43,7 +41,6 @@ const Reports: React.FC<Props> = ({ children, ...rest }) => {
                 statuses: ['CREATED', 'PUBLISHED', 'ACCEPTED', 'REJECTED'],
             })
         );
-        dispatch(loadRequest());
         dispatch(loadReportsRequest());
         dispatch(loadMaterialsRequest());
         dispatch(loadWorkTypesRequest());

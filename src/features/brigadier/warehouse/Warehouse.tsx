@@ -9,7 +9,6 @@ import {
     faRightToBracket as incomeIcon,
     faRightFromBracket as outcomeIcon,
 } from '@fortawesome/free-solid-svg-icons';
-import { loadRequest } from './actions';
 import { showModal } from 'features/modal';
 import { loadRequest as loadMaterialsRequest } from 'features/directories/materials/actions';
 import { loadRequest as loadWarehousesRequest } from 'features/directories/warehouses/actions';
@@ -18,9 +17,10 @@ import {
     loadRequest as loadFlowsRequest,
     loadNextPageRequest as loadNextPageFlowRequest,
     updateFilter as updateFlowFilter,
-} from 'features/admin/stock/flows/actions';
-import { selectList as selectFlows } from 'features/admin/stock/flows/selectors';
-import { selectBrigade, selectLoading } from './selectors';
+} from 'features/flows/actions';
+import { selectList as selectFlows, selectLoading } from 'features/flows/selectors';
+import { selectItem } from 'features/directories/brigades/selectors';
+import { selectProfile } from 'features/authentication/selectors';
 import { Loader, Button } from 'common/components';
 import { Modal } from 'features/modal';
 import FlowItem from './Item';
@@ -32,13 +32,13 @@ interface Props extends React.HTMLProps<HTMLDivElement> {}
 
 const Warehouse: React.FC<Props> = ({ children, ...rest }) => {
     const dispatch = useDispatch();
-    const brigade = useSelector(selectBrigade);
+    const profile = useSelector(selectProfile);
+    const brigade = useSelector(selectItem(profile?.brigade?.id));
     const loading = useSelector(selectLoading);
     const flows = useSelector(selectFlows);
     const { ref, inView } = useInView();
 
     useEffect(() => {
-        dispatch(loadRequest());
         dispatch(loadMaterialsRequest());
         dispatch(loadWarehousesRequest());
         dispatch(loadBrigadesRequest());

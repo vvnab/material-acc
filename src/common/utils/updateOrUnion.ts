@@ -3,6 +3,6 @@ export const updateOrUnion = (collection: any[], item: any) => {
     if (existingItem) {
         return [...collection.map((i) => (i.id === item.id ? item : i))];
     } else {
-        return [...collection, item];
+        return [item, ...collection];
     }
 };

@@ -1,4 +1,5 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
+import moment from 'moment';
 import * as actions from './actions';
 import * as employeesActions from 'features/directories/employees/actions';
 import { showMessage } from 'features/message';
@@ -6,6 +7,7 @@ import { closeModal } from 'features/modal';
 import fetch from "common/utils/fetch";
 
 const URL = '/api/brigades';
+const URL2 = '/api/brigadeWarehouse';
 
 function* getWorker(action: any): any {
     try {
@@ -74,6 +76,40 @@ function* updateWatcher() {
     yield takeLatest(actions.updateItemRequest.toString(), updateWorker);
 }
 
+function* actionWorker(action: any): any {
+    const { id, type, toId, materials, acceptFlow, remarks } = action.payload;
+
+    try {
+        const data = yield call(
+            fetch,
+            `${URL2}/${id}/${type}/${toId}`,
+            'POST',
+            {
+                opsDt: moment().format('YYYY-MM-DD'),
+                materials,
+                acceptFlow,
+                remarks,
+            }
+        );
+
+        yield put(actions.updateItemSuccess({ ...data }));
+        yield put(closeModal());
+    } catch ({ message }) {
+        yield put(actions.updateItemError({ message }));
+        yield put(
+            showMessage({
+                type: 'error',
+                text: message,
+            })
+        );
+    }
+}
+
+function* actionWatcher() {
+    yield takeLatest(actions.actionItemRequest.toString(), actionWorker);
+}
+
+
 function* deleteWorker(action: any): any {
     const { id } = action.payload;
     try {
@@ -94,6 +130,6 @@ function* deleteWatcher() {
     yield takeLatest(actions.deleteItemRequest.toString(), deleteWorker);
 }
 
-const watchers = [getWatcher, updateWatcher, deleteWatcher];
+const watchers = [getWatcher, updateWatcher, actionWatcher, deleteWatcher];
 
 export default watchers;

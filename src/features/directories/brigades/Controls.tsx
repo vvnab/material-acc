@@ -16,6 +16,8 @@ import { IBrigade } from './types';
 
 const nullItem: IBrigade = {
     title: '',
+    materials: [],
+    employees: [],
 };
 
 interface Props extends React.HTMLProps<HTMLDivElement> {}

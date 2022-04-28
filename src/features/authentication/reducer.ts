@@ -5,6 +5,8 @@ export const initialState: any = {
     profile: {
         username: '',
         fullName: '',
+        phone: '',
+        email: '',
         role: '',
         id: 0,
     },
@@ -25,6 +27,9 @@ export default handleActions(
             profile: {
                 fullName: action.payload.fullName,
                 username: action.payload.username,
+                phone: action.payload.phone,
+                email: action.payload.email,
+                brigade: action.payload.brigade,
                 role: action.payload.role,
                 id: action.payload.id,
             },

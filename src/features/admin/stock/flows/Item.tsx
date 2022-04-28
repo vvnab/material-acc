@@ -10,11 +10,11 @@ import {
     faCircleChevronUp as iconUp,
 } from '@fortawesome/free-solid-svg-icons';
 import { useDispatch } from 'react-redux';
-import { updateItemRequest } from './actions';
+import { actionItemRequest } from 'features/flows/actions';
 
 import moment from 'moment';
 import 'moment/locale/ru';
-import { IFlow } from './types';
+import { IFlow } from 'features/flows/types';
 import { Button } from 'common/components';
 
 import styles from './Item.module.scss';
@@ -106,7 +106,7 @@ const FlowItem: React.FC<IFlow> = ({
                             option='dangerous'
                             onClick={(e) => {
                                 dispatch(
-                                    updateItemRequest({
+                                    actionItemRequest({
                                         id: id,
                                         type: 'reject',
                                     })
@@ -119,7 +119,7 @@ const FlowItem: React.FC<IFlow> = ({
                         <Button
                             onClick={(e) => {
                                 dispatch(
-                                    updateItemRequest({
+                                    actionItemRequest({
                                         id: id,
                                         type: 'accept',
                                     })

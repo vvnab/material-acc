@@ -1,7 +1,7 @@
 export interface IWarehouse {
     id?: number;
     title: string;
-    materials?: {
+    materials: {
         material: {
             id: number;
             title: string;

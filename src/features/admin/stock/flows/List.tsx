@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useInView } from 'react-intersection-observer';
-import { loadRequest, loadNextPageRequest } from './actions';
-import { selectList, selectLoading, selectError } from './selectors';
+import { loadRequest, loadNextPageRequest } from 'features/flows/actions';
+import { selectList, selectLoading, selectError } from 'features/flows/selectors';
 import { loadRequest as loadWarehousesRequest } from 'features/directories/warehouses/actions';
 import { loadRequest as loadBrigadesRequest } from 'features/directories/brigades/actions';
 import FilterPanel from './FilterPanel';

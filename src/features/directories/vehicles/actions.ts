@@ -1,6 +1,6 @@
 import { createAction } from 'redux-actions';
 
-const PREFIX = 'DIRS/BRIGADES';
+const PREFIX = 'DIRS/VEHICLES';
 
 export const loadRequest = createAction(`${PREFIX}/REQUEST`);
 export const loadSuccess = createAction(`${PREFIX}/SUCCESS`);

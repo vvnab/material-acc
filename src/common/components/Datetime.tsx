@@ -9,7 +9,7 @@ interface Props extends React.HTMLProps<HTMLInputElement> {
     className?: string;
     legend?: string;
     format?: string;
-    error?: string | false
+    error?: string | false;
 }
 
 const Datetime: React.FC<Props> = ({
@@ -17,14 +17,21 @@ const Datetime: React.FC<Props> = ({
     legend,
     format = 'D MMMM YYYY',
     value,
+    error,
     ...rest
 }) => {
     return (
-        <div className={[styles.wrap, className].join(' ')}>
+        <div
+            className={[styles.wrap, error ? styles.error : '', className].join(
+                ' '
+            )}
+        >
             <legend>{legend || ' '}</legend>
             <div className={styles.input}>
                 <span>
-                    {value ? moment(value as MomentInput).format(format) : 'не установлено'}
+                    {value
+                        ? moment(value as MomentInput).format(format)
+                        : 'не установлено'}
                 </span>
                 <FontAwesomeIcon icon={calendarIcon} className={styles.icon} />
                 <input type='date' value={value} {...rest} />

@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { Select, Input, Button, Checkbox, TextArea } from 'common/components';
 import { IMaterial } from 'features/directories/materials/types';
 import { useDispatch, useSelector } from 'react-redux';
-import { updateItemRequest } from './actions';
-import { selectItemLoading, selectList } from './selectors';
+import { actionItemRequest } from 'features/directories/brigades/actions';
+import { selectItemLoading, selectList } from 'features/directories/brigades/selectors';
 import { closeModal } from 'features/modal';
 import { selectAll as selectWarehouses } from 'features/directories/warehouses/selectors';
 
@@ -90,7 +90,7 @@ const Form: React.FC<Props> = ({ materials, brigadeId, type }) => {
             toId,
             remarks,
         };
-        dispatch(updateItemRequest(data));
+        dispatch(actionItemRequest(data));
     };
 
     return (

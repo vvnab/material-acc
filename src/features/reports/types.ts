@@ -51,7 +51,7 @@ interface IFilter {
 
 export interface IState {
   content: IReport[];
-  filter: IFilter;
+  filter?: IFilter;
   loading: boolean;
   error: string;
   itemLoading: boolean;

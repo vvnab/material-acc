@@ -19,6 +19,7 @@
         animation: 0.5s slideout ease-out;
 
         @media (max-width: 768px) {
+            width: 100vw;
             max-width: unset;
             box-shadow: 0 16px 16px rgba(0, 0, 0, 0.3);
             border-radius: 0;

@@ -7,18 +7,16 @@ interface IMaterials {
 
 export interface IBrigade {
     id?: number;
-    title?: string;
+    title: string;
     brigadier?: {
         id: number;
         fullName: string;
     };
-    employees?: [
-        {
-            id: number;
-            fullName: string;
-        }
-    ];
-    materials?: IMaterials[];
+    employees: {
+        id: number;
+        fullName: string;
+    }[];
+    materials: IMaterials[];
 }
 
 export interface IState {

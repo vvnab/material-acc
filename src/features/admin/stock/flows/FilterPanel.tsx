@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { updateFilter } from './actions';
-import { selectFilter } from './selectors';
+import { updateFilter } from 'features/flows/actions';
+import { selectFilter } from 'features/flows/selectors';
 import { selectAll as selectWarehouses } from 'features/directories/warehouses/selectors';
 import { selectAll as selectBrigades } from 'features/directories/brigades/selectors';
 import { useSelector } from 'react-redux';
@@ -17,7 +17,7 @@ import {
     faPersonDigging as workIcon,
 } from '@fortawesome/free-solid-svg-icons';
 import { Select, Button, RadioButton, Datetime } from 'common/components';
-import { OpsType } from './types';
+import { OpsType } from 'features/flows/types';
 
 import styles from './FilterPanel.module.scss';
 

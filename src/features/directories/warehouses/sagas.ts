@@ -1,4 +1,5 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
+import moment from "moment";
 import * as actions from './actions';
 import { showMessage } from 'features/message';
 import { closeModal } from 'features/modal';
@@ -52,6 +53,43 @@ function* updateWatcher() {
     yield takeLatest(actions.updateItemRequest.toString(), updateWorker);
 }
 
+function* actionWorker(action: any): any {
+    const { id, type, toWarehouseId, materials, acceptFlow, remarks } =
+      action.payload;
+  
+    try {
+      const data = yield call(
+        fetch,
+        `${URL}/${id}/${type}${toWarehouseId ? "/" + toWarehouseId : ""}`,
+        "POST",
+        {
+          opsDt: moment().format("YYYY-MM-DD"),
+          materials,
+          acceptFlow,
+          remarks,
+        }
+      );
+  
+      yield put(actions.updateItemSuccess({ ...data }));
+      if (toWarehouseId) {
+        yield put(actions.loadRequest());
+      }
+      yield put(closeModal());
+    } catch ({ message }) {
+      yield put(actions.updateItemError({ message }));
+      yield put(
+        showMessage({
+          type: "error",
+          text: message,
+        })
+      );
+    }
+  }
+  
+  function* actionWatcher() {
+    yield takeLatest(actions.actionItemRequest.toString(), actionWorker);
+  }
+  
 function* deleteWorker(action: any): any {
     if (!window.confirm('Вы уверены?')) {
         yield put(closeModal());
@@ -80,6 +118,6 @@ function* deleteWatcher() {
     yield takeLatest(actions.deleteItemRequest.toString(), deleteWorker);
 }
 
-const watchers = [getWatcher, updateWatcher, deleteWatcher];
+const watchers = [getWatcher, updateWatcher, actionWatcher, deleteWatcher];
 
 export default watchers;

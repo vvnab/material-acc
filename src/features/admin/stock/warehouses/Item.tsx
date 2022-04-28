@@ -7,11 +7,11 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { showModal } from 'features/modal';
 import { useDispatch, useSelector } from 'react-redux';
-import { deleteItemRequest } from './actions';
+import { deleteItemRequest } from 'features/directories/warehouses/actions';
 import Form from './Form';
 import moment from 'moment';
 import 'moment/locale/ru';
-import { IWarehouse } from './types';
+import { IWarehouse } from 'features/directories/warehouses/types';
 import { Button } from 'common/components';
 import { selectAll } from 'features/directories/materials/selectors';
 

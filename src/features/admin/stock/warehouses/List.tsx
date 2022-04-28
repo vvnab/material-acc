@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { loadRequest } from './actions';
+import { loadRequest } from 'features/directories/warehouses/actions';
 import { loadRequest as loadMaterialsRequest } from 'features/directories/materials/actions';
-import { selectList, selectLoading } from './selectors';
+import { selectList, selectLoading } from 'features/directories/warehouses/selectors';
 import FlowItem from './Item';
 import { Loader } from 'common/components';
 

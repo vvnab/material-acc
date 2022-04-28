@@ -16,6 +16,7 @@ import { IWarehouse } from './types';
 
 const nullItem: IWarehouse = {
     title: '',
+    materials: [],
 };
 
 interface Props extends React.HTMLProps<HTMLDivElement> {}

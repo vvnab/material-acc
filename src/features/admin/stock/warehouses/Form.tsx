@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import { Select, Input, Button, Checkbox, TextArea } from 'common/components';
 import { IMaterial } from 'features/directories/materials/types';
 import { useDispatch, useSelector } from 'react-redux';
-import { updateItemRequest } from './actions';
-import { selectItemLoading } from './selectors';
+import { actionItemRequest } from 'features/directories/warehouses/actions';
+import { selectItemLoading } from 'features/directories/warehouses/selectors';
 import { closeModal } from 'features/modal';
-import { selectList } from './selectors';
+import { selectList } from 'features/directories/warehouses/selectors';
 
 import styles from './Form.module.scss';
 
@@ -89,7 +89,7 @@ const Form: React.FC<Props> = ({ materials, warehouseId, type }) => {
             toWarehouseId,
             remarks,
         };
-        dispatch(updateItemRequest(data));
+        dispatch(actionItemRequest(data));
     };
 
     return (

@@ -18,7 +18,7 @@ import 'moment/locale/ru';
 // import { Button } from 'common/components';
 
 import styles from './Item.module.scss';
-import { IReport } from 'features/admin/reports/types';
+import { IReport } from 'features/reports/types';
 
 moment.locale('ru');
 

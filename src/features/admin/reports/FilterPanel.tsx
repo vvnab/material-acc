@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { updateFilter } from './actions';
-import { selectFilter } from './selectors';
+import { updateFilter } from 'features/reports/actions';
+import { selectFilter } from 'features/reports/selectors';
 // import { selectAll as selectWarehouses } from 'features/directories/warehouses/selectors';
 // import { selectAll as selectBrigades } from 'features/directories/brigades/selectors';
 import { useSelector } from 'react-redux';

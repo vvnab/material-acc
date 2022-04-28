@@ -44,17 +44,17 @@ export default handleActions<IState>(
             ...state,
             filter: action.payload,
         }),
-        [actions.updateItemRequest.toString()]: (state) => ({
+        [actions.actionItemRequest.toString()]: (state) => ({
             ...state,
             itemLoading: true,
         }),
-        [actions.updateItemSuccess.toString()]: (state, action: any) => ({
+        [actions.actionItemSuccess.toString()]: (state, action: any) => ({
             ...state,
             content: [...updateOrUnion(state.content, action.payload)],
             itemLoading: false,
             itemError: '',
         }),
-        [actions.updateItemError.toString()]: (state, action: any) => ({
+        [actions.actionItemError.toString()]: (state, action: any) => ({
             ...state,
             itemLoading: false,
             itemError: action.payload.message,

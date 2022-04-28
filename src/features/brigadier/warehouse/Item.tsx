@@ -10,12 +10,12 @@ import {
     faCircleChevronUp as iconUp,
 } from '@fortawesome/free-solid-svg-icons';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectBrigade } from './selectors';
-import { updateItemRequest } from 'features/admin/stock/flows/actions';
+import { selectProfile } from 'features/authentication/selectors';
+import { actionItemRequest } from 'features/flows/actions';
 
 import moment from 'moment';
 import 'moment/locale/ru';
-import { IFlow } from 'features/admin/stock/flows/types';
+import { IFlow } from 'features/flows/types';
 import { Button } from 'common/components';
 
 import styles from './Item.module.scss';
@@ -39,7 +39,7 @@ const FlowItem: React.FC<IFlow> = ({
 }) => {
     const dispatch = useDispatch();
     const [hidden, setHidden] = useState(true);
-    const brigade = useSelector(selectBrigade);
+    const { brigade } = useSelector(selectProfile);
     const outcome = fromBrigade?.title
         ? { icon: brigadeIcon, title: fromBrigade.title }
         : fromWarehouse?.title
@@ -123,7 +123,7 @@ const FlowItem: React.FC<IFlow> = ({
                             option='dangerous'
                             onClick={(e) => {
                                 dispatch(
-                                    updateItemRequest({
+                                    actionItemRequest({
                                         id: id,
                                         type: 'reject',
                                     })
@@ -136,7 +136,7 @@ const FlowItem: React.FC<IFlow> = ({
                         <Button
                             onClick={(e) => {
                                 dispatch(
-                                    updateItemRequest({
+                                    actionItemRequest({
                                         id: id,
                                         type: 'accept',
                                     })

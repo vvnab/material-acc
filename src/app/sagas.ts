@@ -3,17 +3,16 @@ import { all, fork } from 'redux-saga/effects';
 import { authWatchers } from 'features/authentication';
 import { messageWatchers } from 'features/message';
 import { dirsWatchers } from 'features/directories';
-import { stockWatchers } from 'features/admin/stock';
-import { reportsWatchers } from 'features/admin/reports';
-import { brigadierWatchers } from 'features/brigadier';
+import { flowsWatchers } from 'features/flows';
+import { reportsWatchers } from 'features/reports';
+
 
 const watchers = [
     ...messageWatchers,
     ...authWatchers,
     ...dirsWatchers,
-    ...stockWatchers,
+    ...flowsWatchers,
     ...reportsWatchers,
-    ...brigadierWatchers,
 ];
 
 export default function* rootSaga() {

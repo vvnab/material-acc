@@ -45,7 +45,7 @@ function* getNextPageWorker(action: any): any {
     let { pageNumber, totalPages } = yield select(selectPages);
 
     if (pageNumber >= totalPages) {
-        yield put(actions.loadFailed({message: 'THE END'}));
+        yield put(actions.loadFailed({ message: 'THE END' }));
         return;
     }
     const search = createSearch(action, filter, { page: ++pageNumber });
@@ -80,6 +80,37 @@ function* getWatcher() {
 }
 
 function* updateWorker(action: any): any {
+    const { id } = action.payload;
+    try {
+        let data;
+        if (id) {
+            data = yield call(fetch, `${URL}/${id}`, 'PUT', action.payload);
+        } else {
+            data = yield call(fetch, `${URL}/`, 'POST', action.payload);
+        }
+
+        yield put(actions.updateItemSuccess({ ...data }));
+        yield put(closeModal());
+    } catch (ex: any) {
+        yield put(
+            actions.updateItemError({
+                message: ex.message || 'Неизвестная ошибка',
+            })
+        );
+        yield put(
+            showMessage({
+                type: 'error',
+                text: ex.message || 'Неизвестная ошибка',
+            })
+        );
+    }
+}
+
+function* updateWatcher() {
+    yield takeLatest(actions.updateItemRequest.toString(), updateWorker);
+}
+
+function* actionWorker(action: any): any {
     const { id, type } = action.payload;
 
     try {
@@ -96,8 +127,8 @@ function* updateWorker(action: any): any {
     }
 }
 
-function* updateWatcher() {
-    yield takeLatest(actions.updateItemRequest.toString(), updateWorker);
+function* actionWatcher() {
+    yield takeLatest(actions.actionItemRequest.toString(), actionWorker);
 }
 
 function* deleteWorker(action: any): any {
@@ -115,6 +146,12 @@ function* deleteWatcher() {
     yield takeLatest(actions.deleteItemRequest.toString(), deleteWorker);
 }
 
-const watchers = [getWatcher, getNextPageWatcher, updateWatcher, deleteWatcher];
+const watchers = [
+    getWatcher,
+    getNextPageWatcher,
+    updateWatcher,
+    actionWatcher,
+    deleteWatcher,
+];
 
 export default watchers;
