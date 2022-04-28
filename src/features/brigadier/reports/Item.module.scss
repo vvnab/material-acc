@@ -1,116 +1,144 @@
 .wrap {
-    padding: 8px;
-    margin: 0 -8px;
-    border-top: 1px solid var(--color-lightgray);
-    cursor: pointer;
-    // border-radius: 8px;
-    position: relative;
+  padding: 8px;
+  margin: 0 -8px;
+  border-top: 1px solid var(--color-lightgray);
+  cursor: pointer;
+  // border-radius: 8px;
+  position: relative;
 
-    &.accepted {
-        background: var(--bg-green);
+  &.accepted {
+    background: var(--bg-green);
+  }
+
+  &.created {
+    background: var(--bg-red);
+  }
+
+  &.rejected {
+    background: var(--bg-red);
+    opacity: 0.5;
+  }
+
+  &.blink {
+    animation: 0.5s blink alternate infinite linear;
+  }
+
+  &:hover {
+    // border-color: var(--color-link);
+  }
+
+  .arrowIcon {
+    margin: 0 8px;
+    // display: flex;
+    // align-items: center;
+    // justify-content: center;
+  }
+
+  .down {
+    font-size: 20px;
+    position: absolute;
+    right: 8px;
+    top: 8px;
+  }
+
+  .direction {
+    display: flex;
+    align-items: center;
+
+    .arrowDown {
+      font-size: 28px;
     }
 
-    &.created {
-        background: var(--bg-red);
+    .parts {
+      display: flex;
+      flex-direction: column;
+      div {
+        padding: 4px 0;
+      }
+    }
+  }
+
+  .title {
+    margin: 8px 0;
+  }
+
+  .datetime {
+    margin-top: 8px;
+    font: var(--font-small);
+  }
+
+  .addonPart {
+    &.hidden {
+      display: none;
     }
 
-    &.rejected {
-        background: var(--bg-red);
-        opacity: 0.5;
-    }
+    .table {
+      border-collapse: collapse;
+      margin: 16px 0;
+      width: 100%;
 
-    &.blink {
-        animation: 0.5s blink alternate infinite linear;
-    }
+      caption {
+        font: var(--font-smallLabel);
+        text-align: left;
+        margin-bottom: 4px;
+      }
 
-    &:hover {
-        // border-color: var(--color-link);
-    }
-
-    .arrowIcon {
-        margin: 0 8px;
-        // display: flex;
-        // align-items: center;
-        // justify-content: center;
-    }
-
-    .down {
-        font-size: 20px;
-        position: absolute;
-        right: 8px;
-        top: 8px;
-    }
-
-    .direction {
-        display: flex;
-        align-items: center;
-
-        .arrowDown {
-            font-size: 28px;
+      tr {
+        &:nth-child(odd) {
+          backdrop-filter: invert(10%);
         }
 
-        .parts {
-            display: flex;
-            flex-direction: column;
-            div {
-                padding: 4px 0;
-            }
-        }
-    }
+        td {
+          padding: 4px 12px;
+          font-size: 14px;
+          border: 1px solid var(--color-gray);
 
-    .datetime {
-        margin-top: 8px;
+          &:first-child {
+            // width: 100%;
+          }
+
+          &:last-child {
+            text-align: right;
+            width: 80px;
+          }
+        }
+      }
+
+      &.conditions {
+        td {
+          width: auto !important;
+        }
+      }
+    }
+    
+    .remarks {
         font: var(--font-small);
+        padding: 6px;
+        border: 1px solid var(--color-gray);
     }
 
-    .addonPart {
-        &.hidden {
-            display: none;
-        }
+    .buttonGroup {
+      display: flex;
+      gap: 16px;
+      justify-content: flex-end;
+      margin: 12px 0 6px;
 
-        .table {
-            border-collapse: collapse;
-            margin: 16px 0;
-            width: 100%;
-
-            tr {
-                &:nth-child(odd) {
-                    backdrop-filter: invert(10%);
-                }
-
-                td {
-                    padding: 4px 12px;
-                    font-size: 14px;
-                    border: 1px solid var(--color-gray);
-
-                    &:first-child {
-                        width: 100%;
-                    }
-
-                    &:last-child {
-                        text-align: right;
-                    }
-                }
-            }
-        }
-
-        .buttonGroup {
-            display: flex;
-            gap: 16px;
-            justify-content: flex-end;
-        }
+      button {
+          flex: 1 1 100%;
+      }
     }
+  }
 }
 
 @keyframes blink {
-    from {
-        // filter: invert(100%);
-        // background-color: var(--color-red);
-        color: var(--color-red);
-    }
-    to {
-        // filter: invert(0);
-        // filter: hue-rotate(90deg);
-        background-color: var(--color-greenbg);
-    }
+  from {
+    // filter: invert(100%);
+    // background-color: var(--color-red);
+    color: var(--color-red);
+  }
+  to {
+    // filter: invert(0);
+    // filter: hue-rotate(90deg);
+    background-color: var(--color-greenbg);
+  }
 }
