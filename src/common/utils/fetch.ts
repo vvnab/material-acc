@@ -17,14 +17,12 @@ function* customFetch(url: string, method: string, body?: any): any {
     });
 
     if (!result.ok) {
+        let response;
         try {
-            const { message, error, details } = yield call([
+            response = yield call([
                 result,
                 result.json,
             ]);
-            const msg = details || message || error || 'Неизвестная ошибка';
-            console.error(msg);
-            throw new Error(msg);
         } catch (ex) {
             console.error(result, ex);
             if (result.status === 401) {
@@ -35,6 +33,10 @@ function* customFetch(url: string, method: string, body?: any): any {
                 );
             }
         }
+        const { message, error, details } = response;
+        const msg = details || message || error || 'Неизвестная ошибка';
+        console.error(msg);
+        throw new Error(msg);
     }
     const data = yield call([result, result.json]);
     return data;
