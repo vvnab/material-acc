@@ -79,7 +79,7 @@ function* getWatcher() {
     );
 }
 
-function* updateWorker(action: any): any {
+function* actionWorker(action: any): any {
     const { id, type } = action.payload;
 
     try {
@@ -96,8 +96,8 @@ function* updateWorker(action: any): any {
     }
 }
 
-function* updateWatcher() {
-    yield takeLatest(actions.actionItemRequest.toString(), updateWorker);
+function* actionWatcher() {
+    yield takeLatest(actions.actionItemRequest.toString(), actionWorker);
 }
 
 function* deleteWorker(action: any): any {
@@ -115,6 +115,6 @@ function* deleteWatcher() {
     yield takeLatest(actions.deleteItemRequest.toString(), deleteWorker);
 }
 
-const watchers = [getWatcher, getNextPageWatcher, updateWatcher, deleteWatcher];
+const watchers = [getWatcher, getNextPageWatcher, actionWatcher, deleteWatcher];
 
 export default watchers;

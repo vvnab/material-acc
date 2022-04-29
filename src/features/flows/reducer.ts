@@ -42,6 +42,7 @@ export default handleActions<IState>(
         }),
         [actions.updateFilter.toString()]: (state, action: any) => ({
             ...state,
+            loading: true,
             filter: action.payload,
         }),
         [actions.actionItemRequest.toString()]: (state) => ({

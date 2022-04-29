@@ -67,7 +67,7 @@ const FlowItem: React.FC<IReport> = ({
                 {brigade?.title}: {workObject?.region} {workObject?.road}
             </div>
             <div className={styles.datetime}>
-                Дата операции: {moment(createdAt).format('D MMMM YYYY')} -{' '}
+                Впемя создания: {moment(createdAt).format('D MMMM YYYY')} -{' '}
                 {employeeCreated?.fullName}
             </div>
             <div className={styles.datetime}>
@@ -154,6 +154,19 @@ const FlowItem: React.FC<IReport> = ({
                                 dispatch(
                                     actionItemRequest({
                                         id: id,
+                                        type: 'unpublish',
+                                    })
+                                );
+                                e.stopPropagation();
+                            }}
+                        >
+                            Вернуть на редактирование
+                        </Button>
+                        <Button
+                            onClick={(e) => {
+                                dispatch(
+                                    actionItemRequest({
+                                        id: id,
                                         type: 'accept',
                                     })
                                 );
@@ -164,13 +177,13 @@ const FlowItem: React.FC<IReport> = ({
                         </Button>
                     </div>
                 ) : (
-                    <>
+                    (status === 'ACCEPTED' || status === 'REJECTED') && (
                         <div className={styles.datetime}>
-                            Подтверждено:{' '}
+                            Резолюция:{' '}
                             {moment(updatedAt).format('D MMMM YYYY в HH:mm')} -{' '}
                             {employeeUpdated?.fullName}
                         </div>
-                    </>
+                    )
                 )}
             </div>
         </div>

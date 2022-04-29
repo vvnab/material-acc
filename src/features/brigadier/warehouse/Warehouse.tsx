@@ -18,8 +18,14 @@ import {
     loadNextPageRequest as loadNextPageFlowRequest,
     updateFilter as updateFlowFilter,
 } from 'features/flows/actions';
-import { selectList as selectFlows, selectLoading } from 'features/flows/selectors';
-import { selectItem } from 'features/directories/brigades/selectors';
+import {
+    selectList as selectFlows,
+    selectLoading,
+} from 'features/flows/selectors';
+import {
+    selectItem,
+    selectLoading as selectBrigadeWarehouseLoading,
+} from 'features/directories/brigades/selectors';
 import { selectProfile } from 'features/authentication/selectors';
 import { Loader, Button } from 'common/components';
 import { Modal } from 'features/modal';
@@ -35,6 +41,7 @@ const Warehouse: React.FC<Props> = ({ children, ...rest }) => {
     const profile = useSelector(selectProfile);
     const brigade = useSelector(selectItem(profile?.brigade?.id));
     const loading = useSelector(selectLoading);
+    const brigadeWarehouseLoading = useSelector(selectBrigadeWarehouseLoading);
     const flows = useSelector(selectFlows);
     const { ref, inView } = useInView();
 
@@ -52,18 +59,23 @@ const Warehouse: React.FC<Props> = ({ children, ...rest }) => {
 
     return (
         <div {...rest} className={styles.wrap}>
-            <table className={styles.materials}>
-                <tbody>
-                    {brigade?.materials && brigade.materials.map(
-                        ({ quantity, material: { id, title } }) => (
-                            <tr key={id}>
-                                <td>{title}</td>
-                                <td>{quantity}</td>
-                            </tr>
-                        )
-                    )}
-                </tbody>
-            </table>
+            {brigadeWarehouseLoading ? (
+                <Loader className={styles.brigadeWarehouseLoader} />
+            ) : (
+                <table className={styles.materials}>
+                    <tbody>
+                        {brigade?.materials &&
+                            brigade.materials.map(
+                                ({ quantity, material: { id, title } }) => (
+                                    <tr key={id}>
+                                        <td>{title}</td>
+                                        <td>{quantity}</td>
+                                    </tr>
+                                )
+                            )}
+                    </tbody>
+                </table>
+            )}
             <div className={styles.buttonGroup}>
                 <Button
                     className={styles.button}

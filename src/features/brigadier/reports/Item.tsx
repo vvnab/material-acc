@@ -129,7 +129,7 @@ const FlowItem: React.FC<IReport> = (report) => {
             Создано: {moment(createdAt).format("D MMMM YYYY в HH:mm")} -{" "}
             {employeeCreated?.fullName}
           </div>
-          {updatedAt && (
+          {updatedAt && status === 'ACCEPTED' && (
             <div className={styles.datetime}>
               Подтверждено: {moment(updatedAt).format("D MMMM YYYY в HH:mm")} -{" "}
               {employeeUpdated?.fullName}

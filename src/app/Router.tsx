@@ -6,7 +6,11 @@ import { Dashboard } from 'features/admin/dashboard';
 import { Directories } from 'features/directories';
 import { Reports } from 'features/admin/reports';
 import { Settings } from 'features/admin/settings';
-import { Warehouse, Reports as BrigadierReports } from 'features/brigadier';
+import {
+    Warehouse,
+    Reports as BrigadierReports,
+    Dashboard as BrigadierDashboard,
+} from 'features/brigadier';
 
 import {
     WarehousesMenu,
@@ -65,7 +69,7 @@ export const Router = () => {
                         </RequireAuth>
                     }
                 >
-                    <Route index element={<></>} />
+                    <Route index element={<BrigadierDashboard />} />
                     <Route path='/warehouse' element={<Warehouse />} />
                     <Route path='/reports' element={<BrigadierReports />} />
                 </Route>

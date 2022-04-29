@@ -64,7 +64,7 @@ const Header: React.FC<Props> = ({ logout, ...rest }) => {
                                 icon={warehousesIcon}
                                 className={styles.menuIcon}
                             />
-                            Склад
+                            Материалы
                         </Link>
                     </li>
                     <li>

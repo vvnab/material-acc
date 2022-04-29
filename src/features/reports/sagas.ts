@@ -4,6 +4,7 @@ import { selectFilter, selectPages } from './selectors';
 import { showMessage } from 'features/message';
 import { closeModal } from 'features/modal';
 import fetch from 'common/utils/fetch';
+import moment from 'moment';
 
 const URL = '/api/workReports';
 
@@ -18,20 +19,12 @@ function createSearch(action: any, filter: any, addon?: any) {
         search.append('statuses', filter.statuses);
     }
 
-    if (filter?.opsTypes && filter.opsTypes.length) {
-        search.append('opsTypes', filter.opsTypes);
-    }
-
     if (filter?.dateRange?.from) {
-        search.append('from', filter.dateRange.from);
+        search.append('workStartFrom', moment(filter.dateRange.from).toJSON());
     }
 
     if (filter?.dateRange?.to) {
-        search.append('to', filter.dateRange.to);
-    }
-
-    if (filter?.warehouseId) {
-        search.append('warehouseId', filter.warehouseId);
+        search.append('workEndTo', moment(filter.dateRange.to).toJSON());
     }
 
     if (filter?.brigadeId) {
