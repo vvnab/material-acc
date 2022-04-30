@@ -34,9 +34,8 @@ interface Props extends React.HTMLProps<HTMLDivElement> {}
 const Dashboard: React.FC<Props> = ({ children, ...rest }) => {
     const dispatch = useDispatch();
 
-    const {
-        brigade: { id: brigadeId },
-    } = useSelector(selectProfile);
+    const profile = useSelector(selectProfile);
+    const brigadeId = profile?.brigade?.id;
     const reportsLoading = useSelector(selectReportsLoading);
     const flowsLoading = useSelector(selectFlowsLoading);
     const reports = useSelector(selectReports);
