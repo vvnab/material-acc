@@ -5,7 +5,10 @@ import { actionItemRequest } from 'features/directories/brigades/actions';
 import { selectProfile } from 'features/authentication/selectors';
 import { selectItemLoading } from 'features/flows/selectors';
 import { selectAll as selectWarehouses } from 'features/directories/warehouses/selectors';
-import { selectAll as selectBrigades } from 'features/directories/brigades/selectors';
+import {
+    selectAll as selectBrigades,
+    selectItem,
+} from 'features/directories/brigades/selectors';
 import { selectAll as selectMaterials } from 'features/directories/materials/selectors';
 import { closeModal } from 'features/modal';
 
@@ -28,7 +31,13 @@ const Form: React.FC<Props> = ({ type }) => {
         ({ id }) => id !== profile?.brigade?.id
     );
     const warehouses = useSelector(selectWarehouses);
-    const materials = useSelector(selectMaterials);
+    const brigade = useSelector(selectItem(profile?.brigade?.id));
+    const materials =
+        brigade?.materials.map((i) => ({
+            id: i.material.id,
+            title: i.material.title,
+        })) || [];
+    const allMaterials = useSelector(selectMaterials);
 
     let [items, setItems] = useState<IItem[]>([
         {
@@ -42,7 +51,7 @@ const Form: React.FC<Props> = ({ type }) => {
 
     const getAvailableMaterials = (items: IItem[], materialId: number) => {
         const selectedItems = items.map(({ materialId }) => materialId);
-        return materials.filter(
+        return (type === 'requestMaterials' ? allMaterials : materials).filter(
             ({ id }) => !selectedItems.includes(id || 0) || id === materialId
         );
     };

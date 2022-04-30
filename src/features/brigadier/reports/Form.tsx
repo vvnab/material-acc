@@ -18,6 +18,7 @@ import { selectAll as selectWorkTypes } from 'features/directories/workTypes/sel
 import { selectAll as selectRoadSigns } from 'features/directories/roadSigns/selectors';
 import { selectAll as selectMaterials } from 'features/directories/materials/selectors';
 import { selectAll as selectWorkObjects } from 'features/directories/workObjects/selectors';
+import { selectItem } from 'features/directories/brigades/selectors';
 import { closeModal } from 'features/modal';
 
 import styles from './Form.module.scss';
@@ -46,7 +47,12 @@ const Form: React.FC<Props> = ({ report }) => {
     const workObjects = useSelector(selectWorkObjects);
     const workTypes = useSelector(selectWorkTypes);
     const roadSigns = useSelector(selectRoadSigns);
-    const materials = useSelector(selectMaterials);
+    const brigade = useSelector(selectItem(profile?.brigade?.id));
+    const materials =
+        brigade?.materials.map((i) => ({
+            id: i.material.id,
+            title: i.material.title,
+        })) || [];
 
     const formik = useFormik({
         initialValues: {
@@ -138,7 +144,7 @@ const Form: React.FC<Props> = ({ report }) => {
         quantity: i.quantity,
     }));
     let [materialsItems, setMaterialsItems] = useState<IMaterialsItem[]>([
-        ...materialsInit || [],
+        ...(materialsInit || []),
         materialsNullItem,
     ]);
 
@@ -153,7 +159,7 @@ const Form: React.FC<Props> = ({ report }) => {
         volume: i.volume,
     }));
     let [workItems, setWorkItems] = useState<IWorkItem[]>([
-        ...workItemsInit || [],
+        ...(workItemsInit || []),
         workNullItem,
     ]);
 
@@ -292,7 +298,8 @@ const Form: React.FC<Props> = ({ report }) => {
                     <Input
                         name='tairStart'
                         legend='t° возд. нач.'
-                        type='number' autoComplete='off'
+                        type='number'
+                        autoComplete='off'
                         className={styles.input}
                         inputClassName={styles.input}
                         onChange={formik.handleChange}
@@ -304,7 +311,8 @@ const Form: React.FC<Props> = ({ report }) => {
                     <Input
                         name='tairEnd'
                         legend='t° возд. конечн.'
-                        type='number' autoComplete='off'
+                        type='number'
+                        autoComplete='off'
                         className={styles.input}
                         inputClassName={styles.input}
                         onChange={formik.handleChange}
@@ -317,7 +325,8 @@ const Form: React.FC<Props> = ({ report }) => {
                     <Input
                         name='troadStart'
                         legend='t° полотна нач.'
-                        type='number' autoComplete='off'
+                        type='number'
+                        autoComplete='off'
                         className={styles.input}
                         inputClassName={styles.input}
                         onChange={formik.handleChange}
@@ -330,7 +339,8 @@ const Form: React.FC<Props> = ({ report }) => {
                     <Input
                         name='troadEnd'
                         legend='t° полотна конечн.'
-                        type='number' autoComplete='off'
+                        type='number'
+                        autoComplete='off'
                         className={styles.input}
                         inputClassName={styles.input}
                         onChange={formik.handleChange}
@@ -345,7 +355,8 @@ const Form: React.FC<Props> = ({ report }) => {
                     <Input
                         name='humStart'
                         legend='Влажность нач.'
-                        type='number' autoComplete='off'
+                        type='number'
+                        autoComplete='off'
                         className={styles.input}
                         inputClassName={styles.input}
                         onChange={formik.handleChange}
@@ -357,7 +368,8 @@ const Form: React.FC<Props> = ({ report }) => {
                     <Input
                         name='humEnd'
                         legend='Влажность конечн.'
-                        type='number' autoComplete='off'
+                        type='number'
+                        autoComplete='off'
                         className={styles.input}
                         inputClassName={styles.input}
                         onChange={formik.handleChange}
@@ -416,7 +428,8 @@ const Form: React.FC<Props> = ({ report }) => {
                                 </Select>
                                 <Input
                                     name={`volume-${key}`}
-                                    type='number' autoComplete='off'
+                                    type='number'
+                                    autoComplete='off'
                                     className={styles.input}
                                     inputClassName={styles.input}
                                     onChange={(e) =>
@@ -464,7 +477,8 @@ const Form: React.FC<Props> = ({ report }) => {
                                 </Select>
                                 <Input
                                     name={`quantity-${key}`}
-                                    type='number' autoComplete='off'
+                                    type='number'
+                                    autoComplete='off'
                                     className={styles.input}
                                     inputClassName={styles.input}
                                     onChange={(e) =>
