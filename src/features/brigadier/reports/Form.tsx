@@ -16,7 +16,6 @@ import { showMessage } from 'features/message/actions';
 import { selectProfile } from 'features/authentication/selectors';
 import { selectAll as selectWorkTypes } from 'features/directories/workTypes/selectors';
 import { selectAll as selectRoadSigns } from 'features/directories/roadSigns/selectors';
-import { selectAll as selectMaterials } from 'features/directories/materials/selectors';
 import { selectAll as selectWorkObjects } from 'features/directories/workObjects/selectors';
 import { selectItem } from 'features/directories/brigades/selectors';
 import { closeModal } from 'features/modal';
