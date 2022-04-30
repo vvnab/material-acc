@@ -1,4 +1,4 @@
-import { call, put, takeLatest, select } from 'redux-saga/effects';
+import { call, put, takeLatest, select, delay } from 'redux-saga/effects';
 import * as actions from './actions';
 import { selectFilter, selectPages } from './selectors';
 import { showMessage } from 'features/message';
@@ -7,7 +7,7 @@ import fetch from 'common/utils/fetch';
 
 const URL = '/api/materialFlows';
 
-function createSearch(action: any, filter: any, addon?: any) {
+function createSearch(filter: any, addon?: any) {
     const search = new URLSearchParams({
         size: '15',
         sort: 'opsDt,createdAt,desc',
@@ -40,7 +40,7 @@ function createSearch(action: any, filter: any, addon?: any) {
     return search;
 }
 
-function* getNextPageWorker(action: any): any {
+function* getNextPageWorker(): any {
     const filter = yield select(selectFilter);
     let { pageNumber, totalPages } = yield select(selectPages);
 
@@ -48,7 +48,7 @@ function* getNextPageWorker(action: any): any {
         yield put(actions.loadFailed({message: 'THE END'}));
         return;
     }
-    const search = createSearch(action, filter, { page: ++pageNumber });
+    const search = createSearch(filter, { page: ++pageNumber });
     try {
         const data = yield call(fetch, `${URL}/?${search}`, 'GET');
         yield put(actions.loadNextPageSuccess({ ...data }));
@@ -61,9 +61,9 @@ function* getNextPageWatcher() {
     yield takeLatest(actions.loadNextPageRequest.toString(), getNextPageWorker);
 }
 
-function* getWorker(action: any): any {
+function* getWorker(): any {
     const filter = yield select(selectFilter);
-    const search = createSearch(action, filter);
+    const search = createSearch(filter);
     try {
         const data = yield call(fetch, `${URL}/?${search}`, 'GET');
         yield put(actions.loadSuccess({ ...data }));
@@ -115,6 +115,14 @@ function* deleteWatcher() {
     yield takeLatest(actions.deleteItemRequest.toString(), deleteWorker);
 }
 
-const watchers = [getWatcher, getNextPageWatcher, actionWatcher, deleteWatcher];
+function* updatePeriodically() {
+    while(true) {
+        yield delay(10000);
+        yield call(getWorker)
+    }
+}
+
+
+const watchers = [getWatcher, getNextPageWatcher, actionWatcher, deleteWatcher, updatePeriodically];
 
 export default watchers;
