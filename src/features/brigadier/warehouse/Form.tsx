@@ -85,7 +85,7 @@ const Form: React.FC<Props> = ({ type }) => {
             type,
             id: profile?.brigade?.id,
             materials: items.filter(
-                ({ quantity, materialId }) => materialId !== 0 && quantity !== 0
+                ({ quantity, materialId }) => materialId !== 0 && quantity
             ),
             toId,
             remarks,
@@ -95,6 +95,13 @@ const Form: React.FC<Props> = ({ type }) => {
 
     return (
         <>
+            <h3 className={styles.formHeader}>
+                {type === 'sendToBrigade'
+                    ? 'Передача бригаде'
+                    : type === 'sendToWarehouse'
+                    ? 'Возврат на склад'
+                    : 'Запрос со склада'}
+            </h3>
             <form className={styles.wrap} onSubmit={onSubmit}>
                 <div className={styles.inputs}>
                     {items.map(({ materialId, quantity }, key) => (
@@ -118,10 +125,12 @@ const Form: React.FC<Props> = ({ type }) => {
                             </Select>
                             <Input
                                 name='quantity'
+                                type='number'
                                 className={styles.input}
                                 inputClassName={styles.input}
                                 onChange={(e) => onChangeQuantity(e, key)}
-                                value={quantity}
+                                value={quantity || ''}
+                                autoComplete='off'
                             />
                         </fieldset>
                     ))}

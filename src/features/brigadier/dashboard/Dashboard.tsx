@@ -23,6 +23,8 @@ import {
     selectLoading as selectFlowsLoading,
 } from 'features/flows/selectors';
 
+import { selectProfile } from 'features/authentication/selectors';
+
 import { Loader, Button } from 'common/components';
 
 import styles from './Dashboard.module.scss';
@@ -31,10 +33,16 @@ interface Props extends React.HTMLProps<HTMLDivElement> {}
 
 const Dashboard: React.FC<Props> = ({ children, ...rest }) => {
     const dispatch = useDispatch();
+
+    const {
+        brigade: { id: brigadeId },
+    } = useSelector(selectProfile);
     const reportsLoading = useSelector(selectReportsLoading);
     const flowsLoading = useSelector(selectFlowsLoading);
     const reports = useSelector(selectReports);
-    const flows = useSelector(selectFlows);
+    const flows = useSelector(selectFlows).filter(
+        (i) => i?.toBrigade?.id === brigadeId
+    );
 
     useEffect(() => {
         dispatch(

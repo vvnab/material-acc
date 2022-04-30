@@ -1,17 +1,31 @@
 import { put, takeLatest } from 'redux-saga/effects';
-import { actionItemSuccess } from 'features/flows/actions';
-import { loadRequest as loadRequestBrigades} from 'features/directories/brigades/actions';
-import { loadRequest as loadRequestWarehouses} from 'features/directories/warehouses/actions';
+import {
+    actionItemSuccess as actionFlowsItemSuccess,
+    loadRequest as loadFlowsRequest,
+} from 'features/flows/actions';
+import {
+    loadRequest as loadRequestBrigades,
+    actionItemSuccess as actionBrigadesItemSuccess,
+} from 'features/directories/brigades/actions';
+import { loadRequest as loadRequestWarehouses } from 'features/directories/warehouses/actions';
 
-function* worker(): any {
+function* warehousesWorker(): any {
     yield put(loadRequestBrigades());
     yield put(loadRequestWarehouses());
 }
 
-function* watcher() {
-    yield takeLatest(actionItemSuccess.toString(), worker);
+function* warehousesWatcher() {
+    yield takeLatest(actionFlowsItemSuccess.toString(), warehousesWorker);
 }
 
-const watchers = [watcher];
+function* flowsWorker(): any {
+    yield put(loadFlowsRequest());
+}
+
+function* flowsWatcher() {
+    yield takeLatest(actionBrigadesItemSuccess.toString(), flowsWorker);
+}
+
+const watchers = [warehousesWatcher, flowsWatcher];
 
 export default watchers;

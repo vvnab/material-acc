@@ -92,10 +92,10 @@ function* actionWorker(action: any): any {
             }
         );
 
-        yield put(actions.updateItemSuccess({ ...data }));
+        yield put(actions.actionItemSuccess({ ...data }));
         yield put(closeModal());
     } catch ({ message }) {
-        yield put(actions.updateItemError({ message }));
+        yield put(actions.actionItemError({ message }));
         yield put(
             showMessage({
                 type: 'error',
