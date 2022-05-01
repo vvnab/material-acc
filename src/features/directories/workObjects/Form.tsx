@@ -34,7 +34,7 @@ const Form: React.FC<Props> = ({ ...item }) => {
             return errors;
         },
         onSubmit: (values: any) => {
-            dispatch(updateItemRequest(values));
+            dispatch(updateItemRequest({...values, title: `${values.region} - ${values.road} - ${values.contract}`}));
         },
     });
 
