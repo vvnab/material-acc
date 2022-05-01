@@ -1,6 +1,7 @@
 export interface IRoadSign {
   id?: number;
   title: string;
+  pmToSqm: number
 }
 
 export interface IState {

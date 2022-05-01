@@ -8,7 +8,7 @@ const URL = '/api/roadSigns'
 
 function* getWorker(action: any): any {
     try {
-        const data = yield call(fetch, `${URL}/`, 'GET');
+        const data = yield call(fetch, `${URL}/?size=999`, 'GET');
         yield put(actions.loadSuccess({ ...data }));
     } catch (ex: any) {
         yield put(
