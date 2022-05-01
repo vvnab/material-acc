@@ -7,8 +7,9 @@ import fetch from "common/utils/fetch";
 const URL = '/api/roadSigns'
 
 function* getWorker(action: any): any {
+    const search = new URLSearchParams({ size: "999" });
     try {
-        const data = yield call(fetch, `${URL}/?size=999`, 'GET');
+        const data = yield call(fetch, `${URL}/?${search}`, 'GET');
         yield put(actions.loadSuccess({ ...data }));
     } catch (ex: any) {
         yield put(

@@ -1,6 +1,4 @@
-import React, { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-// import { loadRequest } from 'features/directories/actions';
+import React from 'react';
 import { Outlet } from 'react-router-dom';
 import AsidePanel from './AdminAsidePanel/AsidePanel';
 
@@ -11,12 +9,6 @@ interface Props extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 const AdminLayout: React.FC<Props> = ({ logout, ...rest }) => {
-    const dispatch = useDispatch();
-
-    useEffect(() => {
-        // dispatch(loadRequest());
-    }, [dispatch]);
-
     return (
         <>
             <AsidePanel logout={logout} />

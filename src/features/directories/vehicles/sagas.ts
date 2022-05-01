@@ -7,8 +7,9 @@ import fetch from "common/utils/fetch";
 const URL = '/api/vehicles';
 
 function* getWorker(action: any): any {
+    const search = new URLSearchParams({ size: "99" });
     try {
-        const data = yield call(fetch, `${URL}/`, 'GET');
+        const data = yield call(fetch, `${URL}/?${search}`, 'GET');
         yield put(actions.loadSuccess({ ...data }));
     } catch (ex: any) {
         yield put(

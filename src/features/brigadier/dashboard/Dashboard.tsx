@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import moment from 'moment';
 import { Link } from 'react-router-dom';
-
 import {
     loadRequest as loadReportsRequest,
     updateFilter as updateReportsFilter,
@@ -22,9 +21,7 @@ import {
     selectList as selectFlows,
     selectLoading as selectFlowsLoading,
 } from 'features/flows/selectors';
-
 import { selectProfile } from 'features/authentication/selectors';
-
 import { Loader, Button } from 'common/components';
 
 import styles from './Dashboard.module.scss';

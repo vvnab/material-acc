@@ -5,8 +5,9 @@ import { closeModal } from "features/modal";
 import fetch from "common/utils/fetch";
 
 function* getWorker(action: any): any {
+  const search = new URLSearchParams({ size: "99", enabled: "true" });
   try {
-    const data = yield call(fetch, "/api/employees/?enabled=true", "GET");
+    const data = yield call(fetch, `/api/employees/?${search}`, "GET");
     yield put(actions.loadSuccess({ ...data }));
   } catch ({ message }) {
     yield put(actions.loadFailed({ message }));
