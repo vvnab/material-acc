@@ -22,14 +22,14 @@ function* getWatcher() {
 }
 
 function* updateWorker(action: any): any {
-    const { id, title } = action.payload;
+    const { id} = action.payload;
 
     try {
         let data;
         if (id) {
-            data = yield call(fetch, `${URL}/${id}`, 'PUT', {title});
+            data = yield call(fetch, `${URL}/${id}`, 'PUT', action.payload);
         } else {
-            data = yield call(fetch, `${URL}/`, 'POST', {title});
+            data = yield call(fetch, `${URL}/`, 'POST', action.payload);
         }
         yield put(actions.updateItemSuccess({ ...data }));
         yield put(closeModal());
