@@ -1,126 +1,124 @@
 .wrap {
-  padding: 8px;
-  margin: 0 -8px;
-  border-top: 1px solid var(--color-lightgray);
-  cursor: pointer;
-  position: relative;
+    padding: 8px;
+    margin: 0 -8px;
+    border-top: 1px solid var(--color-lightgray);
+    cursor: pointer;
+    position: relative;
 
-  
-  &.created {
-    background: var(--bg-red);
-  }
-
-  &.published {
-    background: var(--bg-gray);
-  }
-
-  &.accepted {
-    background: var(--bg-green);
-  }
-
-  &.rejected {
-    background: var(--bg-red);
-    opacity: 0.5;
-  }
-
-  .arrowIcon {
-    margin: 0 8px;
-
-  }
-
-  .down {
-    font-size: 20px;
-    position: absolute;
-    right: 8px;
-    top: 8px;
-  }
-
-  .direction {
-    display: flex;
-    align-items: center;
-
-    .arrowDown {
-      font-size: 28px;
+    &.created {
+        background: var(--bg-red);
     }
 
-    .parts {
-      display: flex;
-      flex-direction: column;
-      div {
-        padding: 4px 0;
-      }
-    }
-  }
-
-  .title {
-    margin: 8px 0;
-  }
-
-  .datetime {
-    margin-top: 8px;
-    font: var(--font-small);
-  }
-
-  .addonPart {
-    &.hidden {
-      display: none;
+    &.published {
+        background: var(--bg-gray);
     }
 
-    .table {
-      border-collapse: collapse;
-      margin: 16px 0;
-      width: 100%;
+    &.accepted {
+        background: var(--bg-green);
+    }
 
-      caption {
-        font: var(--font-smallLabel);
-        text-align: left;
-        margin-bottom: 4px;
-      }
+    &.rejected {
+        background: var(--bg-red);
+        opacity: 0.5;
+    }
 
-      tr {
-        &:nth-child(odd) {
-          backdrop-filter: invert(10%);
+    .arrowIcon {
+        margin: 0 8px;
+    }
+
+    .down {
+        font-size: 20px;
+        position: absolute;
+        right: 8px;
+        top: 8px;
+    }
+
+    .direction {
+        display: flex;
+        align-items: center;
+
+        .arrowDown {
+            font-size: 28px;
         }
 
-        td {
-          padding: 4px 12px;
-          font-size: 14px;
-          border: 1px solid var(--color-gray);
-
-          &:first-child {
-            // width: 100%;
-          }
-
-          &:last-child {
-            text-align: right;
-            width: 80px;
-          }
+        .parts {
+            display: flex;
+            flex-direction: column;
+            div {
+                padding: 4px 0;
+            }
         }
-      }
-
-      &.conditions {
-        td {
-          width: auto !important;
-        }
-      }
     }
-    
-    .remarks {
+
+    .title {
+        margin: 8px 0;
+    }
+
+    .datetime {
+        margin-top: 8px;
         font: var(--font-small);
-        padding: 6px;
-        border: 1px solid var(--color-gray);
     }
 
-    .buttonGroup {
-      display: flex;
-      gap: 16px;
-      justify-content: flex-end;
-      margin: 12px 0 6px;
+    .addonPart {
+        &.hidden {
+            display: none;
+        }
 
-      button {
-          flex: 1 1 100%;
-      }
+        .table {
+            border-collapse: collapse;
+            margin: 16px 0;
+            width: 100%;
+
+            caption {
+                font: var(--font-smallLabel);
+                text-align: left;
+                margin-bottom: 4px;
+            }
+
+            th {
+                font-size: 90%;
+                color: var(--color-darkgray);
+            }
+
+            tr {
+                &:nth-child(odd) {
+                    backdrop-filter: invert(10%);
+                }
+
+                td {
+                    padding: 4px 12px;
+                    font-size: 14px;
+                    border: 1px solid var(--color-gray);
+
+                    &.number {
+                        text-align: right;
+                        width: auto;
+                    }
+                }
+            }
+
+            &.conditions {
+                td {
+                    width: auto !important;
+                }
+            }
+        }
+
+        .remarks {
+            font: var(--font-small);
+            padding: 6px;
+            border: 1px solid var(--color-gray);
+        }
+
+        .buttonGroup {
+            display: flex;
+            gap: 16px;
+            justify-content: flex-end;
+            margin: 12px 0 6px;
+
+            button {
+                flex: 1 1 100%;
+            }
+        }
     }
-  }
 }
-

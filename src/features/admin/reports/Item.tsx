@@ -81,6 +81,12 @@ const FlowItem: React.FC<IReport> = ({
             >
                 <table className={styles.table}>
                     <caption>Проведённые работы</caption>
+                    <thead>
+                        <th>тип</th>
+                        <th>разметка</th>
+                        <th>м</th>
+                        <th>м²</th>
+                    </thead>
                     <tbody>
                         {works &&
                             works.map(({ workType, roadSign, volume }) => (
@@ -89,7 +95,10 @@ const FlowItem: React.FC<IReport> = ({
                                 >
                                     <td>{workType.title}</td>
                                     <td>{roadSign.title}</td>
-                                    <td>{volume}</td>
+                                    <td className={styles.number}>{volume}</td>
+                                    <td className={styles.number}>
+                                        {(volume * roadSign.pmToSqm).toFixed(1)}
+                                    </td>
                                 </tr>
                             ))}
                     </tbody>
@@ -103,7 +112,9 @@ const FlowItem: React.FC<IReport> = ({
                                 ({ quantity, material: { title } }) => (
                                     <tr key={`${title}x${quantity}`}>
                                         <td>{title}</td>
-                                        <td>{quantity}</td>
+                                        <td className={styles.number}>
+                                            {quantity}
+                                        </td>
                                     </tr>
                                 )
                             )}
@@ -116,17 +127,17 @@ const FlowItem: React.FC<IReport> = ({
                         <tr>
                             <td>Температура дорожного полотна</td>
                             <td className={styles.number}>{troadStart}</td>
-                            <td>{troadEnd}</td>
+                            <td className={styles.number}>{troadEnd}</td>
                         </tr>
                         <tr>
                             <td>Температура воздуха</td>
                             <td className={styles.number}>{tairStart}</td>
-                            <td>{tairEnd}</td>
+                            <td className={styles.number}>{tairEnd}</td>
                         </tr>
                         <tr>
                             <td>Относительная влажность воздуха</td>
                             <td className={styles.number}>{humStart}</td>
-                            <td>{humEnd}</td>
+                            <td className={styles.number}>{humEnd}</td>
                         </tr>
                     </tbody>
                 </table>

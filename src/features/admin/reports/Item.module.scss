@@ -59,6 +59,11 @@
                 text-align: left;
             }
 
+            th {
+                font-size: 90%;
+                color: var(--color-darkgray);
+            }
+
             thead {
                 tr {
                     backdrop-filter: none !important;
@@ -82,7 +87,7 @@
                         // width: 100%;
                     }
                     
-                    &:last-child, &.number {
+                    &.number {
                         width: 120px;
                         text-align: right;
                     }
