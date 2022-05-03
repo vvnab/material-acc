@@ -389,6 +389,7 @@ const Form: React.FC<Props> = ({ report }) => {
                             0 && (
                             <fieldset className={styles.inputGroup} key={key}>
                                 <Select
+                                    legend='тип'
                                     name={`workTypeId-${key}`}
                                     className={styles.select}
                                     onChange={(e) =>
@@ -408,6 +409,7 @@ const Form: React.FC<Props> = ({ report }) => {
                                         ))}
                                 </Select>
                                 <Select
+                                    legend='разметка'
                                     name={`roadSignId-${key}`}
                                     className={styles.select}
                                     onChange={(e) =>
@@ -426,6 +428,11 @@ const Form: React.FC<Props> = ({ report }) => {
                                     ))}
                                 </Select>
                                 <Input
+                                    legend={`${(
+                                        (roadSigns.find(
+                                            (i) => i.id === roadSignId
+                                        )?.pmToSqm || 0) * (volume || 0)
+                                    ).toFixed(1)} m²`}
                                     name={`volume-${key}`}
                                     type='number'
                                     autoComplete='off'
