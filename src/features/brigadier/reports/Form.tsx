@@ -215,21 +215,15 @@ const Form: React.FC<Props> = ({ report }) => {
         onChangeWorkType: ({ currentTarget: { value } }: any, key: number) => {
             value = parseInt(value) || '';
             workItems[key].workTypeId = value;
-            const availableWorkTypes = worksFuncs.getAvailable(workItems, 0);
 
             workItems = workItems.filter(({ workTypeId }) => workTypeId);
-            if (
-                (availableWorkTypes.length <= workItems.length &&
-                    workItems.slice(-1)[0].workTypeId) ||
-                workItems.length === 0
-            ) {
-                workItems = workItems.filter((i) => i.workTypeId);
-                workItems.push({
-                    workTypeId: 0,
-                    roadSignId: 0,
-                    volume: '',
-                });
-            }
+
+            workItems = workItems.filter((i) => i.workTypeId);
+            workItems.push({
+                workTypeId: 0,
+                roadSignId: 0,
+                volume: '',
+            });
 
             setWorkItems([...workItems]);
         },
