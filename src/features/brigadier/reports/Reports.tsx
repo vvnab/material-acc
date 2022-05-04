@@ -18,7 +18,8 @@ import {
 
 import {
     selectList as selectReports,
-    selectLoading,    
+    selectLoading,
+    selectError,
 } from 'features/reports/selectors';
 
 import { Loader, Button } from 'common/components';
@@ -33,6 +34,7 @@ interface Props extends React.HTMLProps<HTMLDivElement> {}
 const Reports: React.FC<Props> = ({ children, ...rest }) => {
     const dispatch = useDispatch();
     const loading = useSelector(selectLoading);
+    const error = useSelector(selectError);
     const flows = useSelector(selectReports);
     const { ref, inView } = useInView();
 
@@ -51,8 +53,8 @@ const Reports: React.FC<Props> = ({ children, ...rest }) => {
     }, [dispatch]);
 
     useEffect(() => {
-        !loading && inView && dispatch(loadNextPageReportsRequest());
-    }, [inView, loading, dispatch]);
+        !loading && !error && inView && dispatch(loadNextPageReportsRequest());
+    }, [inView, loading, error, dispatch]);
 
     return (
         <div {...rest} className={styles.wrap}>
