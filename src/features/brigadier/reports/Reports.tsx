@@ -9,6 +9,7 @@ import { loadRequest as loadMaterialsRequest } from 'features/directories/materi
 import { loadRequest as loadWorkTypesRequest } from 'features/directories/workTypes/actions';
 import { loadRequest as loadRoadSignsRequest } from 'features/directories/roadSigns/actions';
 import { loadRequest as loadWorkObjectsRequest } from 'features/directories/workObjects/actions';
+import { loadRequest as loadBrigadesRequest } from 'features/directories/brigades/actions';
 import {
     loadRequest as loadReportsRequest,
     loadNextPageRequest as loadNextPageReportsRequest,
@@ -46,6 +47,7 @@ const Reports: React.FC<Props> = ({ children, ...rest }) => {
         dispatch(loadWorkTypesRequest());
         dispatch(loadRoadSignsRequest());
         dispatch(loadWorkObjectsRequest());
+        dispatch(loadBrigadesRequest());
     }, [dispatch]);
 
     useEffect(() => {
