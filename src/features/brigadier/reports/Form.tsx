@@ -47,6 +47,7 @@ const Form: React.FC<Props> = ({ report }) => {
   const workTypes = useSelector(selectWorkTypes);
   const roadSigns = useSelector(selectRoadSigns);
   const brigade = useSelector(selectItem(profile?.brigade?.id));
+  const [roadSignTitles, setRoadSignTitles] = useState<any>({});
   const materials =
     brigade?.materials.map((i) => ({
       id: i.material.id,
@@ -219,6 +220,17 @@ const Form: React.FC<Props> = ({ report }) => {
         setWorkItems([...workItems]);
       }
     },
+    onChangeRoadSignTitle: ({ currentTarget: { value } }: any, key: number) => {
+      if (workItems[key].workTypeId) {
+        const roadSign = roadSigns.find((i) => i.title === value);
+        roadSignTitles[key] = value;
+        setRoadSignTitles({...roadSignTitles});
+        if (roadSign) {
+          workItems[key].roadSignId = roadSign.id || 0;
+          setWorkItems([...workItems]);
+        }
+      }
+    },
     onChangeVolume: ({ currentTarget: { value } }: any, key: number) => {
       value = parseInt(value) || "";
       workItems[key].volume = value;
@@ -377,15 +389,13 @@ const Form: React.FC<Props> = ({ report }) => {
                   list="roadSign"
                   name={`roadSignId-${key}`}
                   className={styles.select}
-                //   onChange={(e) => worksFuncs.onChangeRoadSign(e, key)}
+                  onChange={(e) => worksFuncs.onChangeRoadSignTitle(e, key)}
                   disabled={!workTypeId}
-                //   value={roadSignId}
+                  value={roadSignTitles[key]}
                 />
                 <datalist id="roadSign">
                   {roadSigns.map(({ title, id }) => (
-                    <option key={id} value={title}>
-                      {title}
-                    </option>
+                    <option key={id} value={title} />
                   ))}
                 </datalist>
                 <Input
