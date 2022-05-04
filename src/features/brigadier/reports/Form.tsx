@@ -173,26 +173,15 @@ const Form: React.FC<Props> = ({ report }) => {
         onChange: ({ currentTarget: { value } }: any, key: number) => {
             value = parseInt(value) || '';
             materialsItems[key].materialId = value;
-            const availableMaterials = materialsFuncs.getAvailable(
-                materialsItems,
-                0
-            );
-
             materialsItems = materialsItems.filter(
                 ({ materialId }) => materialId
             );
 
-            if (
-                (availableMaterials.length <= materials.length &&
-                    materialsItems.slice(-1)[0].materialId) ||
-                materialsItems.length === 0
-            ) {
-                materialsItems = materialsItems.filter((i) => i.materialId);
-                materialsItems.push({
-                    materialId: 0,
-                    quantity: '',
-                });
-            }
+            materialsItems = materialsItems.filter((i) => i.materialId);
+            materialsItems.push({
+                materialId: 0,
+                quantity: '',
+            });
 
             setMaterialsItems([...materialsItems]);
         },
