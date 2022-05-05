@@ -47,7 +47,6 @@ const Form: React.FC<Props> = ({ report }) => {
     const workTypes = useSelector(selectWorkTypes);
     const roadSigns = useSelector(selectRoadSigns);
     const brigade = useSelector(selectItem(profile?.brigade?.id));
-    const [roadSignTitles, setRoadSignTitles] = useState<any>({});
     const materials =
         brigade?.materials.map((i) => ({
             id: i.material.id,
@@ -224,20 +223,6 @@ const Form: React.FC<Props> = ({ report }) => {
                 setWorkItems([...workItems]);
             }
         },
-        onChangeRoadSignTitle: (
-            { currentTarget: { value } }: any,
-            key: number
-        ) => {
-            if (workItems[key].workTypeId) {
-                const roadSign = roadSigns.find((i) => i.title === value);
-                roadSignTitles[key] = value;
-                setRoadSignTitles({ ...roadSignTitles });
-                if (roadSign) {
-                    workItems[key].roadSignId = roadSign.id || 0;
-                    setWorkItems([...workItems]);
-                }
-            }
-        },
         onChangeVolume: ({ currentTarget: { value } }: any, key: number) => {
             value = parseInt(value) || '';
             workItems[key].volume = value;
@@ -406,22 +391,25 @@ const Form: React.FC<Props> = ({ report }) => {
                                             </option>
                                         ))}
                                 </Select>
-                                <Input
+                                <Select
                                     legend='разметка'
-                                    list='roadsign'
                                     name={`roadSignId-${key}`}
                                     className={styles.select}
                                     onChange={(e) =>
-                                        worksFuncs.onChangeRoadSignTitle(e, key)
+                                        worksFuncs.onChangeRoadSign(e, key)
                                     }
                                     disabled={!workTypeId}
-                                    value={roadSignTitles[key]}
-                                />
-                                <datalist id='roadsign'>
+                                    value={roadSignId}
+                                >
+                                    <option key={0} value={0}>
+                                        ------
+                                    </option>
                                     {roadSigns.map(({ title, id }) => (
-                                        <option key={id}>{title}</option>
+                                        <option key={id} value={id}>
+                                            {title}
+                                        </option>
                                     ))}
-                                </datalist>
+                                </Select>
                                 <Input
                                     legend={`${(
                                         (roadSigns.find(
