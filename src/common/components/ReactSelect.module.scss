@@ -1,0 +1,42 @@
+.container {
+    legend {
+        font: var(--font-smallLabel);
+    }
+    width: 100%;
+
+    .wrap {
+        font: var(--font-normal);
+        cursor: pointer;
+        appearance: none;
+        position: unset;
+        // left: 0;
+
+        [class$="-control"] {
+            min-height: unset;
+            border-color: var(--color-gray);
+        }
+
+        [class$="-indicatorContainer"] {
+            padding: 0;
+            color: var(--color-black);
+        }
+
+        [class$="-menu"] {
+            position: absolute;
+            width: calc(100vw - 32px);
+            left: 0;
+        }
+    }
+
+    &.error {
+        legend {
+            color: var(--color-red);
+        }
+
+        .selectContainer {
+            .wrap {
+                border-color: var(--color-red);
+            }
+        }
+    }
+}

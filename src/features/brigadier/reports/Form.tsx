@@ -7,6 +7,7 @@ import {
     TextArea,
     Datetime,
     Loader,
+    ReactSelect,
 } from 'common/components';
 import { useDispatch, useSelector } from 'react-redux';
 import moment from 'moment';
@@ -216,7 +217,7 @@ const Form: React.FC<Props> = ({ report }) => {
 
             setWorkItems([...workItems]);
         },
-        onChangeRoadSign: ({ currentTarget: { value } }: any, key: number) => {
+        onChangeRoadSign: ({ value }: any, key: number) => {
             value = parseInt(value) || '';
             if (workItems[key].workTypeId) {
                 workItems[key].roadSignId = value;
@@ -391,7 +392,19 @@ const Form: React.FC<Props> = ({ report }) => {
                                             </option>
                                         ))}
                                 </Select>
-                                <Select
+                                <ReactSelect
+                                    legend='разметка'
+                                    name={`roadSignId-${key}`}
+                                    isDisabled={!workTypeId}
+                                    options={roadSigns.map(({ title, id }) => ({
+                                        value: id,
+                                        label: title,
+                                    }))}
+                                    onChange={(e: any) =>
+                                        worksFuncs.onChangeRoadSign(e, key)
+                                    }
+                                />
+                                {/* <Select
                                     legend='разметка'
                                     name={`roadSignId-${key}`}
                                     className={styles.select}
@@ -409,7 +422,7 @@ const Form: React.FC<Props> = ({ report }) => {
                                             {title}
                                         </option>
                                     ))}
-                                </Select>
+                                </Select> */}
                                 <Input
                                     legend={`${(
                                         (roadSigns.find(

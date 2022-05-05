@@ -82,10 +82,12 @@ const FlowItem: React.FC<IReport> = ({
                 <table className={styles.table}>
                     <caption>Проведённые работы</caption>
                     <thead>
-                        <th>тип</th>
-                        <th>разметка</th>
-                        <th>м</th>
-                        <th>м²</th>
+                        <tr>
+                            <th>тип</th>
+                            <th>разметка</th>
+                            <th>м</th>
+                            <th>м²</th>
+                        </tr>
                     </thead>
                     <tbody>
                         {works &&

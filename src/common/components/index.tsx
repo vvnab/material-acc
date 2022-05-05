@@ -7,3 +7,4 @@ export { default as Error } from './Error';
 export { default as Loader } from './Loader';
 export { default as Datetime } from './Datetime';
 export { default as RadioButton } from './RadioButton';
+export { default as ReactSelect } from './ReactSelect';
