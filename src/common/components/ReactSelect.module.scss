@@ -2,7 +2,10 @@
     legend {
         font: var(--font-smallLabel);
     }
-    width: 100%;
+    // width: 100%;
+    // max-width: 40vw;
+    // width: auto;
+    flex: 1 1 100%;
 
     .wrap {
         font: var(--font-normal);

@@ -196,11 +196,12 @@ const Form: React.FC<Props> = ({ report }) => {
 
     const worksFuncs = {
         getAvailable: (items: IWorkItem[], workTypeId: number) => {
-            const selectedItems = items.map(({ workTypeId }) => workTypeId);
-            return workTypes.filter(
-                ({ id }) =>
-                    !selectedItems.includes(id || 0) || id === workTypeId
-            );
+            return workTypes;
+            // const selectedItems = items.map(({ workTypeId }) => workTypeId);
+            // return workTypes.filter(
+            //     ({ id }) =>
+            //         !selectedItems.includes(id || 0) || id === workTypeId
+            // );
         },
         onChangeWorkType: ({ currentTarget: { value } }: any, key: number) => {
             value = parseInt(value) || '';
