@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
     faUserNinja as brigadierIcon,
     faUserTie as adminIcon,
+    faHeadSideCough as dispatherIcon,
     // faXmark as disabledIcon,
     // faCheck as enabledIcon,
 } from '@fortawesome/free-solid-svg-icons';
@@ -18,6 +19,7 @@ const roleIcons: any = {
     ROLE_ADMIN: adminIcon,
     ROLE_BRIGADIER: brigadierIcon,
     ROLE_EMPLOYEE: employeeIcon,
+    ROLE_DISPATCHER: dispatherIcon,
 };
 
 interface Props extends IEmployee {}

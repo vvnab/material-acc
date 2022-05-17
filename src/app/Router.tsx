@@ -43,7 +43,7 @@ export const Router = () => {
                     </RequireUnAuth>
                 }
             />
-            {role === 'ROLE_ADMIN' ? (
+            {role === 'ROLE_ADMIN' || role === 'ROLE_DISPATCHER' ? (
                 <Route
                     element={
                         <RequireAuth>
