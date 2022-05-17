@@ -20,7 +20,8 @@ interface Props extends React.HTMLProps<HTMLDivElement> {
 }
 
 const AsidePanel: React.FC<Props> = ({ logout, ...rest }) => {
-    const { username, fullName } = useSelector(selectProfile);
+    const { username, fullName, role } = useSelector(selectProfile);
+    console.log(role);
     const [menuActive, setMenuActive] = useState(false);
     return (
         <>
@@ -43,21 +44,25 @@ const AsidePanel: React.FC<Props> = ({ logout, ...rest }) => {
                 <div className={styles.buttonGroup}>
                     <Button icon={dashboardIcon} text='Мониторинг' url='/' />
                     <Button icon={reportsIcon} text='Отчёты' url='/reports' />
-                    <Button
-                        icon={warehousesIcon}
-                        text='Материалы'
-                        url='/stock'
-                    />
-                    <Button
-                        icon={directoriesIcon}
-                        text='Справочники'
-                        url='/directories'
-                    />
-                    <Button
-                        icon={settingsIcon}
-                        text='Настройки'
-                        url='/settings'
-                    />
+                    {role === 'ROLE_ADMIN' && (
+                        <>
+                            <Button
+                                icon={warehousesIcon}
+                                text='Материалы'
+                                url='/stock'
+                            />
+                            <Button
+                                icon={directoriesIcon}
+                                text='Справочники'
+                                url='/directories'
+                            />
+                            <Button
+                                icon={settingsIcon}
+                                text='Настройки'
+                                url='/settings'
+                            />
+                        </>
+                    )}
                 </div>
                 <UserFrame
                     username={username}
