@@ -139,12 +139,12 @@ function* deleteWatcher() {
     yield takeLatest(actions.deleteItemRequest.toString(), deleteWorker);
 }
 
-function* updatePeriodically() {
-    while (true) {
-        yield delay(10000);
-        yield call(getWorker);
-    }
-}
+// function* updatePeriodically() {
+//     while (true) {
+//         yield delay(10000);
+//         yield call(getWorker);
+//     }
+// }
 
 const watchers = [
     getWatcher,
@@ -152,7 +152,7 @@ const watchers = [
     updateWatcher,
     actionWatcher,
     deleteWatcher,
-    updatePeriodically,
+    // updatePeriodically,
 ];
 
 export default watchers;

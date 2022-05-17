@@ -45,7 +45,7 @@ function* getNextPageWorker(): any {
     let { pageNumber, totalPages } = yield select(selectPages);
 
     if (pageNumber >= totalPages) {
-        yield put(actions.loadFailed({message: 'THE END'}));
+        yield put(actions.loadFailed({ message: 'THE END' }));
         return;
     }
     const search = createSearch(filter, { page: ++pageNumber });
@@ -115,14 +115,19 @@ function* deleteWatcher() {
     yield takeLatest(actions.deleteItemRequest.toString(), deleteWorker);
 }
 
-function* updatePeriodically() {
-    while(true) {
-        yield delay(10000);
-        yield call(getWorker)
-    }
-}
+// function* updatePeriodically() {
+//     while (true) {
+//         yield delay(10000);
+//         yield call(getWorker);
+//     }
+// }
 
-
-const watchers = [getWatcher, getNextPageWatcher, actionWatcher, deleteWatcher, updatePeriodically];
+const watchers = [
+    getWatcher,
+    getNextPageWatcher,
+    actionWatcher,
+    deleteWatcher,
+    // updatePeriodically,
+];
 
 export default watchers;
