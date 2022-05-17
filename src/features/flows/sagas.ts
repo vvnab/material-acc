@@ -1,4 +1,4 @@
-import { call, put, takeLatest, select, delay } from 'redux-saga/effects';
+import { call, put, takeLatest, select } from 'redux-saga/effects';
 import * as actions from './actions';
 import { selectFilter, selectPages } from './selectors';
 import { showMessage } from 'features/message';
