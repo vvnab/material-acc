@@ -158,7 +158,7 @@ const FlowItem: React.FC<IReport> = ({
                                                         },
                                                         0
                                                     )
-                                                ).toFixed(1)}
+                                                ).toFixed(2)}
                                             </td>
                                         </tr>
                                     )
