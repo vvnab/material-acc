@@ -44,7 +44,7 @@ function* getNextPageWorker(): any {
     const filter = yield select(selectFilter);
     let { pageNumber, totalPages } = yield select(selectPages);
 
-    if (!pageNumber || pageNumber >= totalPages) {
+    if (pageNumber === undefined || pageNumber >= totalPages) {
         yield put(actions.loadFailed({ message: 'THE END' }));
         return;
     }
