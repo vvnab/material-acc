@@ -74,6 +74,10 @@
                 }
             }
 
+            tfoot {
+                font-weight: bold;
+            }
+
             tr {
                 &:nth-child(odd) {
                     backdrop-filter: invert(10%);

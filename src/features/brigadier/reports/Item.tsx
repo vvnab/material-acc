@@ -104,17 +104,23 @@ const FlowItem: React.FC<IReport> = (report) => {
                     </tbody>
                 </table>
 
-                <table className={styles.table}>
-                    <caption>Затраченные материалы</caption>
-                    <tbody>
-                        {materials.map(({ quantity, material: { title } }) => (
-                            <tr key={`${title}x${quantity}`}>
-                                <td>{title}</td>
-                                <td className={styles.number}>{quantity}</td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
+                {materials && materials.length > 0 && (
+                    <table className={styles.table}>
+                        <caption>Затраченные материалы</caption>
+                        <tbody>
+                            {materials.map(
+                                ({ quantity, material: { title } }) => (
+                                    <tr key={`${title}x${quantity}`}>
+                                        <td>{title}</td>
+                                        <td className={styles.number}>
+                                            {quantity}
+                                        </td>
+                                    </tr>
+                                )
+                            )}
+                        </tbody>
+                    </table>
+                )}
 
                 <table className={styles.table}>
                     <caption>Условия</caption>

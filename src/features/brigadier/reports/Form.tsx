@@ -117,7 +117,7 @@ const Form: React.FC<Props> = ({ report }) => {
                 errors.workItems = 'должно быть заполнено';
             }
             if (materialsFuncs.getCurrect().length === 0) {
-                errors.materialsItems = 'должно быть заполнено';
+                // errors.materialsItems = 'должно быть заполнено';
             }
             return errors;
         },

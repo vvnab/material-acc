@@ -104,24 +104,68 @@ const FlowItem: React.FC<IReport> = ({
                                 </tr>
                             ))}
                     </tbody>
+                    <tfoot>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td className={styles.number}>
+                                {works.reduce((s: number, i) => {
+                                    s += i.volume;
+                                    return s;
+                                }, 0)}
+                            </td>
+                            <td className={styles.number}>
+                                {works
+                                    .reduce((s: number, i) => {
+                                        s += i.volume * i.roadSign.pmToSqm;
+                                        return s;
+                                    }, 0)
+                                    .toFixed(1)}
+                            </td>
+                        </tr>
+                    </tfoot>
                 </table>
 
-                <table className={styles.table}>
-                    <caption>Затраченные материалы</caption>
-                    <tbody>
-                        {materials &&
-                            materials.map(
-                                ({ quantity, material: { title } }) => (
-                                    <tr key={`${title}x${quantity}`}>
-                                        <td>{title}</td>
-                                        <td className={styles.number}>
-                                            {quantity}
-                                        </td>
-                                    </tr>
-                                )
-                            )}
-                    </tbody>
-                </table>
+                {materials && materials.length > 0 && (
+                    <table className={styles.table}>
+                        <caption>Затраченные материалы</caption>
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>кг</th>
+                                <th>кг/м²</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {materials &&
+                                materials.map(
+                                    ({ quantity, material: { title } }) => (
+                                        <tr key={`${title}x${quantity}`}>
+                                            <td>{title}</td>
+                                            <td className={styles.number}>
+                                                {quantity}
+                                            </td>
+                                            <td className={styles.number}>
+                                                {(
+                                                    quantity /
+                                                    works.reduce(
+                                                        (s: number, i) => {
+                                                            s +=
+                                                                i.volume *
+                                                                i.roadSign
+                                                                    .pmToSqm;
+                                                            return s;
+                                                        },
+                                                        0
+                                                    )
+                                                ).toFixed(1)}
+                                            </td>
+                                        </tr>
+                                    )
+                                )}
+                        </tbody>
+                    </table>
+                )}
 
                 <table className={styles.table}>
                     <caption>Условия</caption>
