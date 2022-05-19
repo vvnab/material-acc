@@ -5,11 +5,13 @@ import { Auth } from 'features/authentication';
 import { Dashboard } from 'features/admin/dashboard';
 import { Directories } from 'features/directories';
 import { Reports } from 'features/admin/reports';
+import { Tasks } from 'features/admin/tasks';
 import { Settings } from 'features/admin/settings';
 import {
     Warehouse,
     Reports as BrigadierReports,
     Dashboard as BrigadierDashboard,
+    Tasks as BrigadierTasks
 } from 'features/brigadier';
 
 import {
@@ -59,6 +61,7 @@ export const Router = () => {
                         <Route path='brigades' element={<Brigades />} />
                     </Route>
                     <Route path='/reports' element={<Reports />} />
+                    <Route path='/tasks' element={<Tasks />} />
                     <Route path='/settings' element={<Settings />} />
                 </Route>
             ) : (
@@ -70,6 +73,7 @@ export const Router = () => {
                     }
                 >
                     <Route index element={<BrigadierDashboard />} />
+                    <Route path='/tasks' element={<BrigadierTasks />} />
                     <Route path='/warehouse' element={<Warehouse />} />
                     <Route path='/reports' element={<BrigadierReports />} />
                 </Route>

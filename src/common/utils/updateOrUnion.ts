@@ -1,3 +1,5 @@
+import { unionBy } from "lodash";
+
 export const updateOrUnion = (collection: any[], item: any) => {
     const existingItem = collection.find((i) => i.id === item.id);
     if (existingItem) {
@@ -6,3 +8,12 @@ export const updateOrUnion = (collection: any[], item: any) => {
         return [item, ...collection];
     }
 };
+
+export const update = (collection: any[], items: any[]) => {
+    const union = unionBy(collection, items, 'id');
+    console.log(collection, items, union)
+    return union;
+};
+
+
+

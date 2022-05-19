@@ -5,6 +5,7 @@ import styles from './ReactSelect.module.scss';
 
 interface Props {
     className?: string;
+    selectClassName?: string;
     legend?: string;
     error?: string | false;
     ref?: any;
@@ -13,12 +14,13 @@ interface Props {
 
 const ReactSelect: React.FC<Props> = ({
     className,
+    selectClassName,
     legend,
     error,
     ...rest
 }) => {
     return (
-        <div className={styles.container}>
+        <div className={[styles.container, className].join(' ')}>
             {legend && (
                 <legend>
                     {legend}
@@ -27,7 +29,7 @@ const ReactSelect: React.FC<Props> = ({
             )}
 
             <Select
-                className={[styles.wrap, className].join(' ')}
+                className={[styles.wrap, selectClassName].join(' ')}
                 // menuIsOpen={true}
                 placeholder='-----'
                 {...rest}

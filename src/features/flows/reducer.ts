@@ -1,7 +1,7 @@
 import { handleActions } from 'redux-actions';
 import * as actions from './actions';
 import { IState } from './types';
-import { updateOrUnion } from 'common/utils/updateOrUnion';
+import { updateOrUnion, update } from 'common/utils/updateOrUnion';
 
 export const initialState: IState = {
     filter: {},
@@ -29,7 +29,7 @@ export default handleActions<IState>(
         }),
         [actions.loadNextPageSuccess.toString()]: (state, action) => ({
             ...state,
-            content: [...state.content, ...action.payload.content],
+            content: [...update(state.content, action.payload.content)],
             pageNumber: action.payload.pageNumber,
             totalPages: action.payload.totalPages,
             loading: false,

@@ -2,12 +2,15 @@ import { call, put, takeLatest } from 'redux-saga/effects';
 import * as actions from './actions';
 import { showMessage } from 'features/message';
 import { closeModal } from 'features/modal';
-import fetch from "common/utils/fetch";
+import fetch from 'common/utils/fetch';
 
-const URL = '/api/workObjects'
+const URL = '/api/workObjects';
 
 function* getWorker(action: any): any {
-    const search = new URLSearchParams({ size: "99" });
+    const search = new URLSearchParams({
+        size: '99',
+        showEnabledOnly: action.payload.showEnabledOnly || false,
+    });
     try {
         const data = yield call(fetch, `${URL}/?${search}`, 'GET');
         yield put(actions.loadSuccess({ ...data }));
@@ -23,7 +26,7 @@ function* getWatcher() {
 }
 
 function* updateWorker(action: any): any {
-    const { id} = action.payload;
+    const { id } = action.payload;
 
     try {
         let data;

@@ -10,6 +10,7 @@ import {
     faFlag as reportsIcon,
     faGears as settingsIcon,
     faBars as menuIcon,
+    faListCheck as tasksIcon,
 } from '@fortawesome/free-solid-svg-icons';
 
 import styles from './Header.module.scss';
@@ -47,6 +48,15 @@ const Header: React.FC<Props> = ({ logout, ...rest }) => {
                                 className={styles.menuIcon}
                             />
                             Главная
+                        </Link>
+                    </li>
+                    <li>
+                        <Link to='/tasks'>
+                            <FontAwesomeIcon
+                                icon={tasksIcon}
+                                className={styles.menuIcon}
+                            />
+                            Задачи
                         </Link>
                     </li>
                     <li>

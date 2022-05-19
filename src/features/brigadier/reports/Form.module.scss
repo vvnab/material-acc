@@ -38,8 +38,16 @@
         position: relative;
         max-width: 100vw;
 
+        &.workTypes {
+            // flex-direction: column;
+        }
+
         .select {
             flex: 1 1 100%;
+
+            &.react {
+                max-width: 40vw;
+            }
         }
 
         .input {
