@@ -9,7 +9,7 @@ const URL = '/api/workObjects';
 function* getWorker(action: any): any {
     const search = new URLSearchParams({
         size: '99',
-        showEnabledOnly: action.payload.showEnabledOnly || false,
+        showEnabledOnly: action?.payload?.showEnabledOnly || false,
     });
     try {
         const data = yield call(fetch, `${URL}/?${search}`, 'GET');
