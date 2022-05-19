@@ -21,6 +21,17 @@ import {
     selectList as selectFlows,
     selectLoading as selectFlowsLoading,
 } from 'features/flows/selectors';
+
+import {
+    loadRequest as loadTasksRequest,
+    updateFilter as updateTasksFilter,
+} from 'features/tasks/actions';
+
+import {
+    selectList as selectTasks,
+    selectLoading as selectTasksLoading,
+} from 'features/tasks/selectors';
+
 import { selectProfile } from 'features/authentication/selectors';
 import { Loader, Button } from 'common/components';
 
@@ -35,10 +46,12 @@ const Dashboard: React.FC<Props> = ({ children, ...rest }) => {
     const brigadeId = profile?.brigade?.id;
     const reportsLoading = useSelector(selectReportsLoading);
     const flowsLoading = useSelector(selectFlowsLoading);
+    const tasksLoading = useSelector(selectTasksLoading);
     const reports = useSelector(selectReports);
     const flows = useSelector(selectFlows).filter(
         (i) => i?.toBrigade?.id === brigadeId
     );
+    const tasks = useSelector(selectTasks);
 
     useEffect(() => {
         dispatch(
@@ -54,10 +67,45 @@ const Dashboard: React.FC<Props> = ({ children, ...rest }) => {
             })
         );
         dispatch(loadFlowsRequest());
-    }, [dispatch]);
+        dispatch(
+            updateTasksFilter({
+                statuses: ['CREATED', 'STARTED'],
+                brigadeId: brigadeId,
+            })
+        );
+        dispatch(loadTasksRequest());
+    }, [dispatch, brigadeId]);
 
     return (
         <div {...rest} className={styles.wrap}>
+            <fieldset>
+                <legend>Задачи</legend>
+                {tasksLoading ? (
+                    <Loader />
+                ) : (
+                    <>
+                        <ul>
+                            {tasks.length
+                                ? tasks.map((i) => (
+                                      <li key={i.id}>
+                                          {moment(i.createdAt).format(
+                                              'D MMMM YYYY'
+                                          )}
+                                          {' - '}
+                                          {i.title}
+                                      </li>
+                                  ))
+                                : 'OK'}
+                        </ul>
+                        <Link to='/tasks'>
+                            <Button className={styles.button}>
+                                Перейти к задачам
+                            </Button>
+                        </Link>
+                    </>
+                )}
+            </fieldset>
+
             <fieldset>
                 <legend>Отчёты</legend>
                 {reportsLoading ? (

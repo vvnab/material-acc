@@ -372,7 +372,7 @@ const Form: React.FC<Props> = ({ report }) => {
                     ({ workTypeId, roadSignId, volume }, key) =>
                         worksFuncs.getAvailable(workItems, workTypeId).length >
                             0 && (
-                            <fieldset className={styles.inputGroup} key={key}>
+                            <fieldset className={[styles.inputGroup, styles.workTypes].join(' ')} key={key}>
                                 <Select
                                     legend='тип'
                                     name={`workTypeId-${key}`}
@@ -395,6 +395,7 @@ const Form: React.FC<Props> = ({ report }) => {
                                 </Select>
                                 <ReactSelect
                                     legend='разметка'
+                                    className={[styles.select, styles.react].join(' ')}
                                     name={`roadSignId-${key}`}
                                     isDisabled={!workTypeId}
                                     options={roadSigns.map(({ title, id }) => ({

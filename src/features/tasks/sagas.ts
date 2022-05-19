@@ -1,4 +1,4 @@
-import { call, put, takeLatest, select, delay } from 'redux-saga/effects';
+import { call, put, takeLatest, select } from 'redux-saga/effects';
 import * as actions from './actions';
 import { selectFilter, selectPages } from './selectors';
 import { showMessage } from 'features/message';
@@ -6,7 +6,7 @@ import { closeModal } from 'features/modal';
 import fetch from 'common/utils/fetch';
 import moment from 'moment';
 
-const URL = '/api/workReports';
+const URL = '/api/tasks';
 
 function createSearch(filter: any, addon?: any) {
     const search = new URLSearchParams({
@@ -20,14 +20,10 @@ function createSearch(filter: any, addon?: any) {
     }
 
     if (filter?.dateRange?.from) {
-        search.append('workStartFrom', moment(filter.dateRange.from).toJSON());
+        search.append('updatedAfter', moment(filter.dateRange.from).toJSON());
     }
 
-    if (filter?.dateRange?.to) {
-        search.append('workEndTo', moment(filter.dateRange.to).toJSON());
-    }
-
-    if (filter?.brigadeId) {
+    if (filter?.brigadeId && filter?.brigadeId !== '0') {
         search.append('brigadeId', filter.brigadeId);
     }
     return search;
@@ -37,7 +33,7 @@ function* getNextPageWorker(): any {
     const filter = yield select(selectFilter);
     let { pageNumber, totalPages } = yield select(selectPages);
 
-    if (pageNumber >= totalPages) {
+    if (pageNumber === undefined || pageNumber >= totalPages) {
         yield put(actions.loadFailed({ message: 'THE END' }));
         return;
     }
@@ -104,10 +100,12 @@ function* updateWatcher() {
 }
 
 function* actionWorker(action: any): any {
-    const { id, type } = action.payload;
+    const { id, type, comment = 'DONE' } = action.payload;
 
     try {
-        const data = yield call(fetch, `${URL}/${id}/${type}`, 'PATCH');
+        const data = yield call(fetch, `${URL}/${id}/${type}`, 'PATCH', {
+            comment,
+        });
         yield put(actions.updateItemSuccess({ ...data }));
     } catch ({ message }) {
         yield put(actions.updateItemError({ message }));
@@ -121,7 +119,7 @@ function* actionWorker(action: any): any {
 }
 
 function* actionWatcher() {
-    // yield takeLatest(actions.actionItemRequest.toString(), actionWorker);
+    yield takeLatest(actions.actionItemRequest.toString(), actionWorker);
 }
 
 function* deleteWorker(action: any): any {
@@ -139,12 +137,50 @@ function* deleteWatcher() {
     yield takeLatest(actions.deleteItemRequest.toString(), deleteWorker);
 }
 
-function* updatePeriodically() {
-    while (true) {
-        yield delay(10000);
-        yield call(getWorker);
+function* commenLoadWorker(action: any): any {
+    const { id } = action.payload;
+    try {
+        const data = yield call(fetch, `${URL}/${id}/comments`, 'GET');
+        yield put(
+            actions.loadCommentsSuccess({ taskId: id, comments: data.content })
+        );
+    } catch ({ message }) {
+        yield put(actions.loadCommentsError({ message }));
     }
 }
+
+function* commentLoadWatcher() {
+    yield takeLatest(actions.loadCommentsRequest.toString(), commenLoadWorker);
+}
+
+function* commentAddWorker(action: any): any {
+    const { taskId } = action.payload;
+    try {
+        const comment = yield call(
+            fetch,
+            `${URL}/${taskId}/addComment`,
+            'POST',
+            {
+                comment: action.payload.comment,
+            }
+        );
+        yield put(actions.addCommentSuccess({ taskId, comment }));
+        yield put(closeModal());
+    } catch ({ message }) {
+        yield put(actions.addCommentError({ message }));
+    }
+}
+
+function* commentAddWatcher() {
+    yield takeLatest(actions.addCommentRequest.toString(), commentAddWorker);
+}
+
+// function* updatePeriodically() {
+//     while (true) {
+//         yield delay(10000);
+//         yield call(getWorker);
+//     }
+// }
 
 const watchers = [
     getWatcher,
@@ -152,7 +188,9 @@ const watchers = [
     updateWatcher,
     actionWatcher,
     deleteWatcher,
-    updatePeriodically,
+    // updatePeriodically,
+    commentLoadWatcher,
+    commentAddWatcher,
 ];
 
 export default watchers;

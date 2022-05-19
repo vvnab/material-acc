@@ -1,7 +1,7 @@
 import { createSelector } from 'reselect';
 import { IState } from './types';
 
-const selectDir = (state: any): IState => state.reports;
+const selectDir = (state: any): IState => state.tasks;
 
 export const selectLoading = createSelector(
     selectDir,

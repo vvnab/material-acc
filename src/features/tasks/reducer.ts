@@ -14,6 +14,12 @@ export const initialState: IState = {
 
 export default handleActions<IState>(
     {
+        [actions.updateFilter.toString()]: (state, action: any) => ({
+            ...state,
+            loading: true,
+            filter: action.payload,
+        }),
+
         [(actions.loadRequest.toString(),
         actions.loadNextPageRequest.toString())]: (state) => ({
             ...state,
@@ -40,11 +46,26 @@ export default handleActions<IState>(
             loading: false,
             error: action.payload.message,
         }),
-        [actions.updateFilter.toString()]: (state, action: any) => ({
+
+        [actions.loadCommentsSuccess.toString()]: (state, action: any) => ({
             ...state,
-            loading: true,
-            filter: action.payload,
+            content: state.content.map((i) => {
+                if (action.payload.taskId === i.id) {
+                    return { ...i, comments: action.payload.comments };
+                }
+                return i;
+            }),
         }),
+        [actions.addCommentSuccess.toString()]: (state, action: any) => ({
+            ...state,
+            content: state.content.map((i) => {
+                if (action.payload.taskId === i.id) {
+                    return { ...i, comments: [...i.comments || [], action.payload.comment] };
+                }
+                return i;
+            }),
+        }),
+
         [actions.updateItemRequest.toString()]: (state) => ({
             ...state,
             itemLoading: true,

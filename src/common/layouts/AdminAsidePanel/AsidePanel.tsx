@@ -11,6 +11,7 @@ import {
     faFlag as reportsIcon,
     faGears as settingsIcon,
     faBars as menuIcon,
+    faListCheck as tasksIcon,
 } from '@fortawesome/free-solid-svg-icons';
 
 import styles from './AsidePanel.module.scss';
@@ -43,6 +44,7 @@ const AsidePanel: React.FC<Props> = ({ logout, ...rest }) => {
             >
                 <div className={styles.buttonGroup}>
                     <Button icon={dashboardIcon} text='Мониторинг' url='/' />
+                    <Button icon={tasksIcon} text='Задачи' url='/tasks' />
                     <Button icon={reportsIcon} text='Отчёты' url='/reports' />
                     {role === 'ROLE_ADMIN' && (
                         <>

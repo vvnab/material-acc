@@ -48,7 +48,7 @@ const Reports: React.FC<Props> = ({ children, ...rest }) => {
         dispatch(loadMaterialsRequest());
         dispatch(loadWorkTypesRequest());
         dispatch(loadRoadSignsRequest());
-        dispatch(loadWorkObjectsRequest());
+        dispatch(loadWorkObjectsRequest({showEnabledOnly: true}));
         dispatch(loadBrigadesRequest());
     }, [dispatch]);
 
