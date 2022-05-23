@@ -138,8 +138,7 @@ const Form: React.FC<Props> = ({ report }) => {
                 materials: materialsFuncs.getCurrect(),
                 works: worksFuncs.getCurrect(),
             };
-            // dispatch(updateItemRequest(data));
-            console.log(data);
+            dispatch(updateItemRequest(data));
         },
     });
 
