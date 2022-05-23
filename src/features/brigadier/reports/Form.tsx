@@ -116,8 +116,15 @@ const Form: React.FC<Props> = ({ report }) => {
             if (worksFuncs.getCurrect().length === 0) {
                 errors.workItems = 'должно быть заполнено';
             }
-            if (materialsFuncs.getCurrect().length === 0) {
-                // errors.materialsItems = 'должно быть заполнено';
+            if (
+                materialsFuncs.getCurrect().length === 0 &&
+                !worksFuncs.getCurrect().reduce((s, i) => {
+                    console.log(i)
+                    s = s && i.workTypeId === 1;
+                    return s;
+                }, true)
+            ) {
+                errors.materialsItems = 'должно быть заполнено';
             }
             return errors;
         },
@@ -131,7 +138,8 @@ const Form: React.FC<Props> = ({ report }) => {
                 materials: materialsFuncs.getCurrect(),
                 works: worksFuncs.getCurrect(),
             };
-            dispatch(updateItemRequest(data));
+            // dispatch(updateItemRequest(data));
+            console.log(data);
         },
     });
 
@@ -372,7 +380,13 @@ const Form: React.FC<Props> = ({ report }) => {
                     ({ workTypeId, roadSignId, volume }, key) =>
                         worksFuncs.getAvailable(workItems, workTypeId).length >
                             0 && (
-                            <fieldset className={[styles.inputGroup, styles.workTypes].join(' ')} key={key}>
+                            <fieldset
+                                className={[
+                                    styles.inputGroup,
+                                    styles.workTypes,
+                                ].join(' ')}
+                                key={key}
+                            >
                                 <Select
                                     legend='тип'
                                     name={`workTypeId-${key}`}
@@ -395,7 +409,10 @@ const Form: React.FC<Props> = ({ report }) => {
                                 </Select>
                                 <ReactSelect
                                     legend='разметка'
-                                    className={[styles.select, styles.react].join(' ')}
+                                    className={[
+                                        styles.select,
+                                        styles.react,
+                                    ].join(' ')}
                                     name={`roadSignId-${key}`}
                                     isDisabled={!workTypeId}
                                     options={roadSigns.map(({ title, id }) => ({
