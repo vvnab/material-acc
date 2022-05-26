@@ -9,6 +9,8 @@ import { reducer as flowsReducer } from 'features/flows';
 import { reducer as reportsReducer } from 'features/reports';
 import { reducer as tasksReducer } from 'features/tasks';
 
+import { reducer as workObjectsSummaryReducer } from 'features/workObjectsSummary';
+
 export default combineReducers({
     message: messageReducer,
     modal: modalReducer,
@@ -17,4 +19,5 @@ export default combineReducers({
     flows: flowsReducer,
     reports: reportsReducer,
     tasks: tasksReducer,
+    workObjectsSummary: workObjectsSummaryReducer,
 });
