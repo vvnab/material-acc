@@ -11,7 +11,14 @@ const sagaMiddleware = createSagaMiddleware();
 const persistConfig = {
     key: 'root',
     storage,
-    blacklist: ['modal', 'message', 'flows', 'reports', 'tasks'],
+    blacklist: [
+        'modal',
+        'message',
+        'flows',
+        'reports',
+        'tasks',
+        'workObjectsSummary',
+    ],
 };
 
 const persistedReducer = persistReducer<any, any>(persistConfig, rootReducer);
