@@ -1,6 +1,8 @@
 import React from 'react';
-import Panel from './Panel';
 import WorkObjectsPanel from './WorkObjectsPanel';
+import BrigadesPanel from './BrigadesPanel';
+import WarehousesPanel from './WarehousesPanel';
+import FuelPanel from './FuelPanel';
 
 import styles from './Dashboard.module.scss';
 
@@ -12,14 +14,9 @@ const Dashboard: React.FC<Props> = ({ ...rest }) => {
             <WorkObjectsPanel
                 legend={'Выполнение по объектам'}
             ></WorkObjectsPanel>
-            {[
-                'Выполнение по бригадам',
-                'Перемещение материалов',
-                'Расход ГСМ',
-            ].map((name) => (
-                <Panel key={name} legend={name}>
-                </Panel>
-            ))}
+            <BrigadesPanel legend='Выполнение по бригадам'></BrigadesPanel>
+            <WarehousesPanel legend='Остатки материалов'></WarehousesPanel>
+            <FuelPanel legend='Расход ГСМ'></FuelPanel>
         </div>
     );
 };
