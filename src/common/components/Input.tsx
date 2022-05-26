@@ -40,8 +40,8 @@ const Input: React.FC<Props> = ({
             />
             {dataList && (
                 <datalist id={name}>
-                    {dataList.map((i: string) => (
-                        <option>{i}</option>
+                    {dataList.map((i: string, key: number) => (
+                        <option key={`${i}_${key}`}>{i}</option>
                     ))}
                 </datalist>
             )}

@@ -37,6 +37,37 @@
         }
     }
 
+    .selectGroup {
+        // max-height: 350px;
+        // overflow-y: auto;
+
+        .selectInput {
+            &:not(:first-child) {
+                margin-top: 16px;
+            }
+
+            legend {
+                font: var(--font-smallLabel);
+                margin-bottom: -4px;
+            }
+
+            .inputGroupWrap {
+                display: flex;
+                gap: 8px;
+                width: 100%;
+                margin: 4px 0;
+
+                > div {
+                    width: 100%;
+
+                    &:nth-child(2) {
+                        width: 100px;
+                    }
+                }
+            }
+        }
+    }
+
     .buttonGroup {
         display: flex;
         justify-content: space-around;
