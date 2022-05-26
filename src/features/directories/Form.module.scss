@@ -38,8 +38,8 @@
     }
 
     .selectGroup {
-        // max-height: 350px;
-        // overflow-y: auto;
+        max-height: 350px;
+        overflow-y: auto;
 
         .selectInput {
             &:not(:first-child) {

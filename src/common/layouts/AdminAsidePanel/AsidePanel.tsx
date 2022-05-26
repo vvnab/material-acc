@@ -43,7 +43,9 @@ const AsidePanel: React.FC<Props> = ({ logout, ...rest }) => {
             >
                 <div className={styles.buttonGroup}>
                     <Button icon={dashboardIcon} text='Мониторинг' url='/' />
-                    <Button icon={tasksIcon} text='Задачи' url='/tasks' />
+                    {role === 'ROLE_ADMIN' && (
+                        <Button icon={tasksIcon} text='Задачи' url='/tasks' />
+                    )}
                     <Button icon={reportsIcon} text='Отчёты' url='/reports' />
                     {role === 'ROLE_ADMIN' && (
                         <>

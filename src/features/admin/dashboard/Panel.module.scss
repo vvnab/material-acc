@@ -6,7 +6,7 @@
     min-width: 400px;
     flex: 1 1 33%;
     overflow-y: auto;
-    display: flex;
+    // display: flex;
 
     legend {
         font: var(--font-label);
@@ -31,17 +31,21 @@
                 text-align: left;
             }
 
-            tr {
-                &:nth-child(odd) {
-                    background-color: var(--color-graybg);
-                }
+            tbody {
+                width: 100%;
 
-                td {
-                    padding: 4px;
-                    
-                    &.number {
-                        text-align: right;
-                        width: 100px;
+                tr {
+                    &:nth-child(odd) {
+                        background-color: var(--color-graybg);
+                    }
+
+                    td {
+                        padding: 4px;
+
+                        &.number {
+                            text-align: right;
+                            width: 100px;
+                        }
                     }
                 }
             }
