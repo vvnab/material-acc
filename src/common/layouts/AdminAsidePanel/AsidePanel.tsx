@@ -22,7 +22,6 @@ interface Props extends React.HTMLProps<HTMLDivElement> {
 
 const AsidePanel: React.FC<Props> = ({ logout, ...rest }) => {
     const { username, fullName, role } = useSelector(selectProfile);
-    console.log(role);
     const [menuActive, setMenuActive] = useState(false);
     return (
         <>

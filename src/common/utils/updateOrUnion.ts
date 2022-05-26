@@ -11,7 +11,6 @@ export const updateOrUnion = (collection: any[], item: any) => {
 
 export const update = (collection: any[], items: any[]) => {
     const union = unionBy(collection, items, 'id');
-    console.log(collection, items, union)
     return union;
 };
 

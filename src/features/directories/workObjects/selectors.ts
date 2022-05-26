@@ -30,6 +30,11 @@ export const selectList = createSelector(selectDir, (state) =>
           )
         : state.content
 );
+
+export const selectItem = (id: any) => createSelector(
+    selectDir,
+    (state) => state.content.find(i => i.id === id)
+);
 export const selectItemLoading = createSelector(
     selectDir,
     (state) => state.itemLoading
@@ -40,9 +45,9 @@ export const selectItemError = createSelector(
 );
 
 export const selectRegions = createSelector(selectDir, (state) =>
-    state.content.map(({ region }) => region)
+    Array.from(new Set(state.content.map(({ region }) => region)))
 );
 
 export const selectRoads = createSelector(selectDir, (state) =>
-    state.content.map(({ road }) => road)
+    Array.from(new Set(state.content.map(({ road }) => road)))
 );

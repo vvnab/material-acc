@@ -25,6 +25,24 @@ function* getWatcher() {
     yield takeLatest(actions.loadRequest.toString(), getWorker);
 }
 
+function* getItemWorker(action: any): any {
+    const { id } = action.payload;
+    try {
+        const data = yield call(fetch, `${URL}/${id}`, 'GET');
+        yield put(actions.loadItemSuccess({ ...data }));
+    } catch (ex: any) {
+        yield put(
+            actions.loadItemFailed({
+                message: ex.message || 'Неизвестная ошибка',
+            })
+        );
+    }
+}
+
+function* getItemWatcher() {
+    yield takeLatest(actions.loadItemRequest.toString(), getItemWorker);
+}
+
 function* updateWorker(action: any): any {
     const { id } = action.payload;
 
@@ -75,6 +93,6 @@ function* deleteWatcher() {
     yield takeLatest(actions.deleteItemRequest.toString(), deleteWorker);
 }
 
-const watchers = [getWatcher, updateWatcher, deleteWatcher];
+const watchers = [getWatcher, getItemWatcher, updateWatcher, deleteWatcher];
 
 export default watchers;

@@ -14,6 +14,10 @@ export const initialState: IState = {
 
 export default handleActions<IState>(
     {
+        [actions.updateFilter.toString()]: (state, action: any) => ({
+            ...state,
+            filter: action.payload,
+        }),
         [actions.loadRequest.toString()]: () => ({
             ...initialState,
             loading: true,
@@ -29,9 +33,20 @@ export default handleActions<IState>(
             loading: false,
             error: action.payload.message,
         }),
-        [actions.updateFilter.toString()]: (state, action: any) => ({
+        [actions.loadItemRequest.toString()]: (state) => ({
             ...state,
-            filter: action.payload,
+            itemLoading: true,
+        }),
+        [actions.loadItemSuccess.toString()]: (state, action) => ({
+            ...state,
+            content: updateOrUnion(state.content, action.payload),
+            itemLoading: false,
+            itemError: '',
+        }),
+        [actions.loadItemFailed.toString()]: (state, action: any) => ({
+            ...initialState,
+            itemLoading: false,
+            itemError: action.payload.message,
         }),
         [actions.updateItemRequest.toString()]: (state) => ({
             ...state,
@@ -39,7 +54,7 @@ export default handleActions<IState>(
         }),
         [actions.updateItemSuccess.toString()]: (state, action: any) => ({
             ...state,
-            content: [...updateOrUnion(state.content, action.payload)],
+            content: updateOrUnion(state.content, action.payload),
             itemLoading: false,
             itemError: '',
         }),
