@@ -3,6 +3,7 @@
 .wrap {
     @include frame;
     min-height: 40vh;
+    max-height: 45vh;
     min-width: 400px;
     flex: 1 1 33%;
     overflow-y: auto;
