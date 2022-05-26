@@ -3,8 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { loadRequest } from 'features/workObjectsSummary/actions';
 import {
     selectList,
-    selectLoading,
-    selectError,
+    // selectLoading,
+    // selectError,
 } from 'features/workObjectsSummary/selectors';
 
 import styles from './Panel.module.scss';
