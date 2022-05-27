@@ -18,6 +18,7 @@ const persistConfig = {
         'reports',
         'tasks',
         'workObjectsSummary',
+        'brigadesSummary',
     ],
 };
 

@@ -1,11 +1,8 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { loadRequest } from 'features/workObjectsSummary/actions';
-import {
-    selectList,
-    // selectLoading,
-    // selectError,
-} from 'features/workObjectsSummary/selectors';
+import { selectList } from 'features/workObjectsSummary/selectors';
+import { Select } from 'common/components';
 
 import styles from './Panel.module.scss';
 
@@ -17,15 +14,39 @@ interface Props extends React.HTMLProps<HTMLFieldSetElement> {
 
 const WorkObjectsPanel: React.FC<Props> = ({ children, legend, ...rest }) => {
     const dispatch = useDispatch();
-    const summary = useSelector(selectList);
+    const _summary = useSelector(selectList);
+
+    const [summary, setSummary] = useState(_summary);
 
     useEffect(() => {
         dispatch(loadRequest());
     }, [dispatch]);
 
+    useEffect(() => {
+        setSummary(_summary);
+    }, [_summary]);
+
     return (
         <fieldset {...rest} className={styles.wrap}>
             {legend && <legend>{legend}</legend>}
+            <Select
+                className={styles.filter}
+                onChange={({ currentTarget: { value } }) => {
+                    const val = parseInt(value);
+                    setSummary(
+                        _summary.filter(({ workObject: { id } }) =>
+                            val ? id === val : true
+                        )
+                    );
+                }}
+            >
+                <option value={0}>-----</option>
+                {_summary.map(({ workObject: { title, id } }) => (
+                    <option value={id} key={title}>
+                        {title}
+                    </option>
+                ))}
+            </Select>
             <div>
                 {summary.map(({ workObject: { title }, works, materials }) => (
                     <div className={styles.item} key={title}>
