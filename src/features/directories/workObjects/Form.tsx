@@ -35,9 +35,9 @@ const Form: React.FC<Props> = ({ ...item }) => {
     const dispatch = useDispatch();
 
     const [plannedMaterials, setPlannedMaterials] = useState(
-        item.plannedMaterials
+        item?.plannedMaterials
     );
-    const [plannedWorks, setPlannedWorks] = useState(item.plannedWorks);
+    const [plannedWorks, setPlannedWorks] = useState(item?.plannedWorks);
 
     const getAvailableMaterials = useCallback(
         (key: number) => {
@@ -67,8 +67,8 @@ const Form: React.FC<Props> = ({ ...item }) => {
     }, [dispatch, id]);
 
     useEffect(() => {
-        setPlannedMaterials(item.plannedMaterials);
-        setPlannedWorks(item.plannedWorks);
+        setPlannedMaterials(item?.plannedMaterials);
+        setPlannedWorks(item?.plannedWorks);
     }, [item]);
 
     useEffect(() => {
