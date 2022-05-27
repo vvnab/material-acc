@@ -46,7 +46,7 @@ const Form: React.FC<Props> = ({ ...item }) => {
             error={formik.errors.title}
           />
           <Input
-            name="pmtoSqm"
+            name="pmToSqm"
             placeholder="Коэффициент"
             legend="Коэффициент"
             onChange={formik.handleChange}
