@@ -67,7 +67,7 @@ const FlowItem: React.FC<IReport> = ({
                 {brigade?.title}: {workObject?.region} {workObject?.road}
             </div>
             <div className={styles.datetime}>
-                Впемя создания: {moment(createdAt).format('D MMMM YYYY')} -{' '}
+                Время создания: {moment(createdAt).format('D MMMM YYYY')} -{' '}
                 {employeeCreated?.fullName}
             </div>
             <div className={styles.datetime}>
