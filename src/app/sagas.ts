@@ -8,6 +8,7 @@ import { reportsWatchers } from 'features/reports';
 import { tasksWatchers } from 'features/tasks';
 import { brigadierWatchers } from 'features/brigadier';
 import { workObjectsSummaryWatchers } from 'features/workObjectsSummary';
+import { brigadesSummaryWatchers } from 'features/brigadesSummary';
 
 const watchers = [
     ...messageWatchers,
@@ -18,6 +19,7 @@ const watchers = [
     ...tasksWatchers,
     ...brigadierWatchers,
     ...workObjectsSummaryWatchers,
+    ...brigadesSummaryWatchers,
 ];
 
 export default function* rootSaga() {

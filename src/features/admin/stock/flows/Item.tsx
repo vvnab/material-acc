@@ -138,9 +138,13 @@ const FlowItem: React.FC<IFlow> = ({
                             {employeeCreated?.fullName}
                         </div>
                         <div className={styles.datetime}>
-                            Подтверждено:{' '}
-                            {moment(updatedAt).format('D MMMM YYYY в HH:mm')} -{' '}
-                            {employeeUpdated?.fullName}
+                            {opsStatus === 'REJECTED'
+                                ? 'Отклонено'
+                                : 'Подтверждено'}
+                            {': '}
+                            {moment(updatedAt).format(
+                                'D MMMM YYYY в HH:mm'
+                            )} - {employeeUpdated?.fullName}
                         </div>
                     </>
                 )}

@@ -25,49 +25,67 @@ const WarehousesPanel: React.FC<Props> = ({ children, legend, ...rest }) => {
         <fieldset {...rest} className={styles.wrap}>
             {legend && <legend>{legend}</legend>}
             <div>
-                {warehouses.map(({ title, materials }) => (
-                    <div className={styles.item} key={title}>
-                        <div className={styles.title}>{title}</div>
-                        <table className={styles.elements}>
-                            <tbody>
-                                {materials
-                                    .filter(({ quantity }) => quantity > 0)
-                                    .map(
-                                        ({ material: { title }, quantity }) => (
-                                            <tr key={title}>
-                                                <td>{title}</td>
-                                                <td className={styles.number}>
-                                                    {quantity}
-                                                </td>
-                                            </tr>
-                                        )
-                                    )}
-                            </tbody>
-                        </table>
-                    </div>
-                ))}
+                {warehouses
+                    .filter(({ materials }) => materials.length)
+                    .map(({ title, materials }) => (
+                        <div className={styles.item} key={title}>
+                            <div className={styles.title}>{title}</div>
+                            <table className={styles.elements}>
+                                <tbody>
+                                    {materials
+                                        .filter(({ quantity }) => quantity > 0)
+                                        .map(
+                                            ({
+                                                material: { title },
+                                                quantity,
+                                            }) => (
+                                                <tr key={title}>
+                                                    <td>{title}</td>
+                                                    <td
+                                                        className={
+                                                            styles.number
+                                                        }
+                                                    >
+                                                        {quantity}
+                                                    </td>
+                                                </tr>
+                                            )
+                                        )}
+                                </tbody>
+                            </table>
+                        </div>
+                    ))}
 
-                {brigades.map(({ id, title, materials }) => (
-                    <div className={styles.item} key={id}>
-                        <div className={styles.title}>{title}</div>
-                        <table className={styles.elements}>
-                            <tbody>
-                                {materials
-                                    .filter(({ quantity }) => quantity > 0)
-                                    .map(
-                                        ({ material: { title }, quantity }) => (
-                                            <tr key={title}>
-                                                <td>{title}</td>
-                                                <td className={styles.number}>
-                                                    {quantity}
-                                                </td>
-                                            </tr>
-                                        )
-                                    )}
-                            </tbody>
-                        </table>
-                    </div>
-                ))}
+                {brigades
+                    .filter(({ materials }) => materials.length)
+                    .map(({ id, title, materials }) => (
+                        <div className={styles.item} key={id}>
+                            <div className={styles.title}>{title}</div>
+                            <table className={styles.elements}>
+                                <tbody>
+                                    {materials
+                                        .filter(({ quantity }) => quantity > 0)
+                                        .map(
+                                            ({
+                                                material: { title },
+                                                quantity,
+                                            }) => (
+                                                <tr key={title}>
+                                                    <td>{title}</td>
+                                                    <td
+                                                        className={
+                                                            styles.number
+                                                        }
+                                                    >
+                                                        {quantity}
+                                                    </td>
+                                                </tr>
+                                            )
+                                        )}
+                                </tbody>
+                            </table>
+                        </div>
+                    ))}
             </div>
         </fieldset>
     );

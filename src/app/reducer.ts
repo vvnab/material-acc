@@ -10,6 +10,7 @@ import { reducer as reportsReducer } from 'features/reports';
 import { reducer as tasksReducer } from 'features/tasks';
 
 import { reducer as workObjectsSummaryReducer } from 'features/workObjectsSummary';
+import { reducer as brigadesSummaryReducer } from 'features/brigadesSummary';
 
 export default combineReducers({
     message: messageReducer,
@@ -20,4 +21,5 @@ export default combineReducers({
     reports: reportsReducer,
     tasks: tasksReducer,
     workObjectsSummary: workObjectsSummaryReducer,
+    brigadesSummary: brigadesSummaryReducer,
 });
