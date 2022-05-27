@@ -63,7 +63,7 @@ const Form: React.FC<Props> = ({ ...item }) => {
         [workTypes, plannedWorks]
     );
     useEffect(() => {
-        dispatch(loadItemRequest({ id }));
+        id && dispatch(loadItemRequest({ id }));
     }, [dispatch, id]);
 
     useEffect(() => {
