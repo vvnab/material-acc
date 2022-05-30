@@ -30,7 +30,10 @@ function* getWorker(): any {
 }
 
 function* getWatcher() {
-    yield takeLatest([actions.loadRequest.toString()], getWorker);
+    yield takeLatest(
+        [actions.loadRequest.toString(), actions.updateRange.toString()],
+        getWorker
+    );
 }
 
 const watchers = [getWatcher];
