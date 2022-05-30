@@ -15,6 +15,10 @@ export const initialState: IState = {
 
 export default handleActions<IState>(
     {
+        [actions.updateRange.toString()]: (state, action: any) => ({
+            ...state,
+            range: action.payload,
+        }),
         [actions.loadRequest.toString()]: (state) => ({
             ...state,
             loading: true,

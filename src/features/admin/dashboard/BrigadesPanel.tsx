@@ -1,7 +1,9 @@
 import React, { useEffect } from 'react';
+import moment from 'moment';
 import { useDispatch, useSelector } from 'react-redux';
-import { loadRequest } from 'features/brigadesSummary/actions';
-import { selectList } from 'features/brigadesSummary/selectors';
+import { loadRequest, updateRange } from 'features/brigadesSummary/actions';
+import { selectList, selectRange } from 'features/brigadesSummary/selectors';
+import { Datetime } from 'common/components';
 
 import styles from './Panel.module.scss';
 
@@ -14,6 +16,7 @@ interface Props extends React.HTMLProps<HTMLFieldSetElement> {
 const Panel: React.FC<Props> = ({ children, legend, ...rest }) => {
     const dispatch = useDispatch();
     const summary = useSelector(selectList);
+    const { from, to } = useSelector(selectRange);
 
     useEffect(() => {
         dispatch(loadRequest());
@@ -22,6 +25,36 @@ const Panel: React.FC<Props> = ({ children, legend, ...rest }) => {
     return (
         <fieldset {...rest} className={styles.wrap}>
             {legend && <legend>{legend}</legend>}
+            <div className={styles.range}>
+                <Datetime
+                    legend='Начало'
+                    value={moment(from).format('YYYY-MM-DD')}
+                    onChange={(e) =>
+                        dispatch(
+                            updateRange({
+                                from: moment(e.currentTarget.value)
+                                    .startOf('day')
+                                    .toJSON(),
+                                to,
+                            })
+                        )
+                    }
+                />
+                <Datetime
+                    legend='Окончание'
+                    value={moment(to).format('YYYY-MM-DD')}
+                    onChange={(e) =>
+                        dispatch(
+                            updateRange({
+                                from,
+                                to: moment(e.currentTarget.value)
+                                    .endOf('day')
+                                    .toJSON(),
+                            })
+                        )
+                    }
+                />
+            </div>
             <div>
                 {summary
                     .filter(
