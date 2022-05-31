@@ -15,7 +15,7 @@ import { actionItemRequest } from 'features/reports/actions';
 import moment from 'moment';
 import 'moment/locale/ru';
 import { IReport } from 'features/reports/types';
-import { Button } from 'common/components';
+import { Button, Images } from 'common/components';
 
 import styles from './Item.module.scss';
 
@@ -41,6 +41,8 @@ const FlowItem: React.FC<IReport> = ({
     tairStart,
     tairEnd,
     remarks,
+    photosBefore,
+    photosAfter,
 }) => {
     const [hidden, setHidden] = useState(true);
     const dispatch = useDispatch();
@@ -188,7 +190,18 @@ const FlowItem: React.FC<IReport> = ({
                     </tbody>
                 </table>
 
+                <Images
+                    images={photosBefore}
+                    title='Фотографии до проведения работ'
+                />
+                <Images
+                    images={photosAfter}
+                    title='Фотографии после проведения работ'
+                />
+
                 {remarks && <div className={styles.remarks}>{remarks}</div>}
+
+                <div className={styles.datetime}>#{id}</div>
 
                 {status === 'PUBLISHED' ? (
                     <div className={styles.buttonGroup}>

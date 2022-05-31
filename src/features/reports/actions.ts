@@ -14,6 +14,9 @@ export const updateItemRequest = createAction(`${PREFIX}/UPDATE/REQUEST`);
 export const updateItemSuccess = createAction(`${PREFIX}/UPDATE/SUCCESS`);
 export const updateItemError = createAction(`${PREFIX}/UPDATE/FAILED`);
 
+export const addPhotoRequest = createAction(`${PREFIX}/ADD_PHOTO/RERQUEST`);
+export const delPhotoRequest = createAction(`${PREFIX}/DEL_PHOTO/RERQUEST`);
+
 export const actionItemRequest = createAction(`${PREFIX}/ACTION/REQUEST`);
 export const actionItemSuccess = createAction(`${PREFIX}/ACTION/SUCCESS`);
 export const actionItemError = createAction(`${PREFIX}/ACTION/FAILED`);

@@ -5,13 +5,13 @@ import {
     faCircleChevronUp as iconUp,
 } from '@fortawesome/free-solid-svg-icons';
 import { useDispatch } from 'react-redux';
-import { actionItemRequest } from 'features/reports/actions';
+import { actionItemRequest, delPhotoRequest } from 'features/reports/actions';
 import { showModal } from 'features/modal';
 import Form from './Form';
 
 import moment from 'moment';
 import 'moment/locale/ru';
-import { Button } from 'common/components';
+import { Button, Images } from 'common/components';
 
 import styles from './Item.module.scss';
 import { IReport } from 'features/reports/types';
@@ -39,6 +39,8 @@ const FlowItem: React.FC<IReport> = (report) => {
         tairStart,
         tairEnd,
         remarks,
+        photosBefore,
+        photosAfter,
     } = report;
 
     const [hidden, setHidden] = useState(true);
@@ -142,6 +144,21 @@ const FlowItem: React.FC<IReport> = (report) => {
                         </tr>
                     </tbody>
                 </table>
+
+                <Images
+                    images={photosBefore}
+                    title='Фотографии до проведения работ'
+                    del={(photoId: number) => dispatch(delPhotoRequest({ id, photoId }))}
+                />
+                <input type='file' multiple />
+
+                <Images
+                    images={photosAfter}
+                    title='Фотографии после проведения работ'
+                    del={(photoId: number) => dispatch(delPhotoRequest({ id, photoId }))}
+                />
+                <input type='file' multiple />
+                
                 {remarks && <div className={styles.remarks}>{remarks}</div>}
                 <>
                     <div className={styles.datetime}>
