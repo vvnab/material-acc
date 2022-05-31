@@ -139,6 +139,20 @@ function* deleteWatcher() {
     yield takeLatest(actions.deleteItemRequest.toString(), deleteWorker);
 }
 
+function* delPhotoWorker(action: any): any {
+    const { id, photoId } = action.payload;
+    try {
+        yield call(fetch, `${URL}/${id}/delPhoto/${photoId}`, 'PUT');
+        yield put(actions.loadRequest());
+    } catch ({ message }) {
+        yield put(actions.updateItemError({ message }));
+    }
+}
+
+function* delPhotoWatcher() {
+    yield takeLatest(actions.delPhotoRequest.toString(), delPhotoWorker);
+}
+
 // function* updatePeriodically() {
 //     while (true) {
 //         yield delay(10000);
@@ -152,6 +166,7 @@ const watchers = [
     updateWatcher,
     actionWatcher,
     deleteWatcher,
+    delPhotoWatcher,
     // updatePeriodically,
 ];
 

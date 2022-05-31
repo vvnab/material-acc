@@ -511,6 +511,8 @@ const Form: React.FC<Props> = ({ report }) => {
                         )
                 )}
 
+                <input type='file' multiple/>
+
                 <TextArea
                     rows={5}
                     name='remarks'

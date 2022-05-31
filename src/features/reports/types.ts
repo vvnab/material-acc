@@ -9,6 +9,12 @@ interface IEmployee {
     fullName: string;
 }
 
+export interface IPhoto {
+    id: number;
+    fileName: string;
+    previewName: string;
+}
+
 export type IStatus = 'CREATED' | 'PUBLISHED' | 'ACCEPTED' | 'REJECTED';
 
 export interface IReport {
@@ -38,6 +44,8 @@ export interface IReport {
     troadEnd: number;
     humStart: number;
     humEnd: number;
+    photosBefore: IPhoto[];
+    photosAfter: IPhoto[];
 }
 
 interface IFilter {
