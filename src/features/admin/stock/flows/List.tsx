@@ -45,11 +45,8 @@ const Flows: React.FC<Props> = ({ children, ...rest }) => {
             </div>
             <div ref={ref}></div>
             {loading && <Loader className={styles.loader} />}
-            {error && error === 'THE END' ? (
-                <Summary data={[...list]} />
-            ) : (
-                <div className={styles.error}>{error}</div>
-            )}
+            {error && <div className={styles.error}>{error}</div>}
+            <Summary data={[...list]} />
         </div>
     );
 };
