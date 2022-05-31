@@ -10,6 +10,11 @@ interface IWarehouse {
     title: string;
 }
 
+export interface IMaterialQuantity {
+    quantity: number;
+    material: IMaterial;
+}
+
 export type OpsType =
     | 'WAREHOUSE_INCOME'
     | 'WAREHOUSE_TO_WAREHOUSE'
@@ -35,10 +40,7 @@ export interface IFlow {
     toBrigade: IWarehouse;
     workReportId?: number;
     remarks?: string;
-    materials: {
-        quantity: number;
-        material: IMaterial;
-    }[];
+    materials: IMaterialQuantity[];
 }
 
 interface IFilter {

@@ -2,11 +2,16 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useInView } from 'react-intersection-observer';
 import { loadRequest, loadNextPageRequest } from 'features/flows/actions';
-import { selectList, selectLoading, selectError } from 'features/flows/selectors';
+import {
+    selectList,
+    selectLoading,
+    selectError,
+} from 'features/flows/selectors';
 import { loadRequest as loadWarehousesRequest } from 'features/directories/warehouses/actions';
 import { loadRequest as loadBrigadesRequest } from 'features/directories/brigades/actions';
 import FilterPanel from './FilterPanel';
 import FlowItem from './Item';
+import Summary from './Summary';
 import { Loader } from 'common/components';
 
 import styles from './List.module.scss';
@@ -40,7 +45,11 @@ const Flows: React.FC<Props> = ({ children, ...rest }) => {
             </div>
             <div ref={ref}></div>
             {loading && <Loader className={styles.loader} />}
-            {error && <div className={styles.error}>{error}</div>}
+            {error && error === 'THE END' ? (
+                <Summary data={[...list]} />
+            ) : (
+                <div className={styles.error}>{error}</div>
+            )}
         </div>
     );
 };

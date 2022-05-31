@@ -190,14 +190,18 @@ const FlowItem: React.FC<IReport> = ({
                     </tbody>
                 </table>
 
-                <Images
-                    images={photosBefore}
-                    title='Фотографии до проведения работ'
-                />
-                <Images
-                    images={photosAfter}
-                    title='Фотографии после проведения работ'
-                />
+                {photosBefore && photosBefore.length > 0 && (
+                    <Images
+                        images={photosBefore}
+                        title='Фотографии до проведения работ'
+                    />
+                )}
+                {photosAfter && photosAfter.length > 0 && (
+                    <Images
+                        images={photosAfter}
+                        title='Фотографии после проведения работ'
+                    />
+                )}
 
                 {remarks && <div className={styles.remarks}>{remarks}</div>}
 
