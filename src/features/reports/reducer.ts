@@ -17,6 +17,7 @@ export default handleActions<IState>(
         [(actions.loadRequest.toString(),
         actions.loadNextPageRequest.toString())]: (state) => ({
             ...state,
+            itemLoading: false,
             loading: true,
         }),
         [actions.loadSuccess.toString()]: (state, action) => ({
@@ -24,6 +25,7 @@ export default handleActions<IState>(
             content: action.payload.content,
             pageNumber: action.payload.pageNumber,
             totalPages: action.payload.totalPages,
+            itemLoading: false,
             loading: false,
             error: '',
         }),
@@ -69,6 +71,14 @@ export default handleActions<IState>(
             content: [...state.content.filter((i) => i.id !== action.payload)],
             itemLoading: false,
             itemError: '',
+        }),
+        [actions.addPhotoRequest.toString()]: (state) => ({
+            ...state,
+            itemLoading: true,
+        }),
+        [actions.delPhotoRequest.toString()]: (state) => ({
+            ...state,
+            itemLoading: true,
         }),
     },
     initialState
