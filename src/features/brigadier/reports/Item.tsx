@@ -50,7 +50,7 @@ const FlowItem: React.FC<IReport> = (report) => {
 
     const loading = useSelector(selectItemLoading);
     const [hidden, setHidden] = useState(true);
-    const [files, setFiles] = useState<any>();
+    const [, setFiles] = useState<any>();
 
     const statusClass =
         status === 'CREATED'
