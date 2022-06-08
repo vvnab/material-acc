@@ -3,7 +3,7 @@ import * as actions from './actions';
 import { selectFilter, selectPages } from './selectors';
 import { showMessage } from 'features/message';
 import { closeModal } from 'features/modal';
-import fetch from 'common/utils/fetch';
+import fetch, {formFetch} from 'common/utils/fetch';
 import moment from 'moment';
 
 const URL = '/api/workReports';
@@ -153,6 +153,24 @@ function* delPhotoWatcher() {
     yield takeLatest(actions.delPhotoRequest.toString(), delPhotoWorker);
 }
 
+function* addPhotoWorker(action: any): any {
+    const { id, type, files } = action.payload;
+    try {
+        yield call(
+            formFetch,
+            `${URL}/${id}/addPhoto?type=${type}`,
+            'PUT',
+            files
+        );
+        yield put(actions.loadRequest());
+    } catch ({ message }) {
+        yield put(actions.updateItemError({ message }));
+    }
+}
+
+function* addPhotoWatcher() {
+    yield takeLatest(actions.addPhotoRequest.toString(), addPhotoWorker);
+}
 // function* updatePeriodically() {
 //     while (true) {
 //         yield delay(10000);
@@ -166,6 +184,7 @@ const watchers = [
     updateWatcher,
     actionWatcher,
     deleteWatcher,
+    addPhotoWatcher,
     delPhotoWatcher,
     // updatePeriodically,
 ];
