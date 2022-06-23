@@ -13,6 +13,8 @@ variables:
 
 build:
     stage: build
+    variables:
+        BOOKING_URL: "build"
     script:
         - yarn
         - yarn build
@@ -24,6 +26,8 @@ build:
 
 deploy:
     stage: deploy
+    variables:
+        BOOKING_URL: "deploy"
     script:
         - ls -al
         - mkdir -p ~/.ssh
