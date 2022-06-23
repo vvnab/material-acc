@@ -9,12 +9,12 @@ stages:
     - deploy
 
 variables:
-    BOOKING_URL: $BOOKING_URL
+    REACT_APP_BOOKING_URL: $BOOKING_URL
 
 build:
     stage: build
     variables:
-        BOOKING_URL: "build"
+        REACT_APP_BOOKING_URL: "build"
     script:
         - yarn
         - yarn build
@@ -27,7 +27,7 @@ build:
 deploy:
     stage: deploy
     variables:
-        BOOKING_URL: "deploy"
+        REACT_APP_BOOKING_URL: "deploy"
     script:
         - ls -al
         - mkdir -p ~/.ssh
