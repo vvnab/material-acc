@@ -8,6 +8,9 @@ stages:
     - build
     - deploy
 
+variables:
+    BOOKING_URL: $BOOKING_URL
+
 build:
     stage: build
     script:
