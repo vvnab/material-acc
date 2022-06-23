@@ -22,3 +22,5 @@ function App() {
 }
 
 export default App;
+
+console.log('BOOKING_URL', process.env.BOOKING_URL);
