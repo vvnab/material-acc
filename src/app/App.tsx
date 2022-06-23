@@ -23,4 +23,4 @@ function App() {
 
 export default App;
 
-console.log('BOOKING_URL', process.env.BOOKING_URL);
+console.log('REACT_APP_BOOKING_URL', process.env.REACT_APP_BOOKING_URL);
