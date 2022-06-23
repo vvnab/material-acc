@@ -4,6 +4,8 @@ import { showMessage } from 'features/message/actions';
 import { logOut } from 'features/authentication/actions';
 
 export function* formFetch(url: string, method: string, files?: any): any {
+    console.log('BOOKING_URL', process.env.BOOKING_URL);
+    
     const bearer = yield select(selectBearer);
     const formData = new FormData();
     for (const file of files) {
